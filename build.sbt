@@ -11,6 +11,7 @@ ThisBuild / developers ++= List(
     Developer("csgn", "Sergen Çepoğlu", "dev.csgn@gmail.com", url("https://github.com/csgn")),
 )
 ThisBuild / testFrameworks += new TestFramework("munit.Framework")
+ThisBuild / autoAPIMappings := true
 
 val scala3Version = "3.4.2"
 
@@ -18,6 +19,8 @@ lazy val core = crossProject(JSPlatform, JVMPlatform, NativePlatform)
     .crossType(CrossType.Full)
     // Common settings
     .settings(
+
+        // Dependencies
         libraryDependencies ++= {
             Seq(
                 munit.value % Test,
@@ -40,4 +43,5 @@ lazy val coreNative = core.native
 
 lazy val root = project
     .in(file("."))
+    .enablePlugins(ScalaUnidocPlugin)
     .aggregate(coreJVM, coreJS, coreNative)
