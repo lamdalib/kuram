@@ -1,7 +1,7 @@
 import Dependencies._
 
 ThisBuild / scalaVersion := "3.4.2"
-ThisBuild / version := "dev@1.0"
+ThisBuild / version := "1.0"
 ThisBuild / name := "Kuram"
 ThisBuild / organization := "org.kattu"
 ThisBuild / description := "Implementation of Category Theory"
