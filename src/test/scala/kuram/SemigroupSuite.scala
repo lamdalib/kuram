@@ -1,6 +1,6 @@
 package kuram
 
-import SemigroupSyntax._
+import SemigroupSyntax.*
 import SemigroupInstances.given
 
 class SemigroupSuite extends munit.FunSuite:

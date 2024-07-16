@@ -1,6 +1,6 @@
 package kuram
 
-import SemigroupSyntax._
+import SemigroupSyntax.*
 import MonoidInstances.given
 
 class MonoidSuite extends munit.FunSuite:
