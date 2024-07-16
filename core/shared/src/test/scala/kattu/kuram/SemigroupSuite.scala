@@ -54,4 +54,32 @@ class SemigroupSuite extends munit.FunSuite:
 
     assertEquals(obtained1, expected)
     assertEquals(obtained2, expected)
+
+  test("associativity"):
+    val (a, b, c) = (1, 2, 3)
+    
+    val expected1 = a + (b + c)
+    val expected2 = (a + b) + c
+
+    val obtained1 = a |+| (b |+| c)
+    val obtained2 = (a |+| b) |+| c
+
+
+    assertEquals(obtained1, expected1)
+    assertEquals(obtained2, expected2)
+    assertEquals(obtained1, obtained2)
+
+  test("homomorphism"):
+    val (s1, s2) = ("hello", "world")
+
+    val expected1 = s1.length + s2.length
+    val expected2 = (s1 + s2).length
+
+    val obtained1 = s1.length |+| s2.length
+    val obtained2 = (s1 |+| s2).length
+
+    assertEquals(obtained1, expected1)
+    assertEquals(obtained2, expected2)
+    assertEquals(obtained1, obtained2)
+
 end SemigroupSuite
