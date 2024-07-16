@@ -4,4 +4,4 @@
     <img src="/docs/icon.jpeg" width="256" height="256" />
 </p>
 
-Implementation of Category Theory.
+Minimal Scala library for functional programming.
