@@ -13,11 +13,14 @@ ThisBuild / developers ++= List(
 ThisBuild / testFrameworks += new TestFramework("munit.Framework")
 ThisBuild / autoAPIMappings := true
 
+ThisBuild / githubWorkflowJavaVersions += JavaSpec.temurin("17")
+
 Compile / doc / scalacOptions ++= Seq(
     "-doc-title", (ThisBuild / name).value,
     "-project-version", (ThisBuild / version).value,
     "-project-logo", "docs/icon.jpeg",
 )
+
 
 val scala3Version = "3.4.2"
 
