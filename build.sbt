@@ -1,8 +1,8 @@
 import Dependencies._
 
 ThisBuild / scalaVersion := "3.4.2"
-ThisBuild / version := "1.0"
-ThisBuild / name := "kuram"
+ThisBuild / version := "dev@1.0"
+ThisBuild / name := "Kuram"
 ThisBuild / organization := "org.kattu"
 ThisBuild / description := "Implementation of Category Theory"
 ThisBuild / licenses := List(("MIT", url("https://opensource.org/license/mit")))
@@ -18,7 +18,11 @@ val scala3Version = "3.4.2"
 lazy val root = project
     .in(file("."))
     .settings(
-
+        Compile / doc / scalacOptions ++= Seq(
+            "-doc-title", (ThisBuild / name).value,
+            "-project-version", (ThisBuild / version).value,
+            "-project-logo", "docs/icon.jpeg",
+        ),
         // Dependencies
         libraryDependencies ++= {
             Seq(
