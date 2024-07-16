@@ -13,8 +13,8 @@ object SemigroupInstances:
   given Semigroup[String] with
     def combine(a: String, b: String): String = a + b
 
-  given [A]: Semigroup[Seq[A]] with
-    def combine(a: Seq[A], b: Seq[A]): Seq[A] = a ++ b
+  given [A]: Semigroup[List[A]] with
+    def combine(a: List[A], b: List[A]): List[A] = a ++ b
 
 object SemigroupSyntax:
   extension [T](a: T)
