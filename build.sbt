@@ -15,9 +15,8 @@ ThisBuild / autoAPIMappings := true
 
 val scala3Version = "3.4.2"
 
-lazy val core = crossProject(JSPlatform, JVMPlatform, NativePlatform)
-    .crossType(CrossType.Full)
-    // Common settings
+lazy val root = project
+    .in(file("."))
     .settings(
 
         // Dependencies
@@ -27,21 +26,4 @@ lazy val core = crossProject(JSPlatform, JVMPlatform, NativePlatform)
             )
         },
     )
-    // JS-specific settings
-    .jsSettings(
-    )
-    // JVM-specific settings
-    .jvmSettings(
-    )
-    // Native-specific settings
-    .nativeSettings(
-    )
-
-lazy val coreJVM = core.jvm
-lazy val coreJS = core.js
-lazy val coreNative = core.native
-
-lazy val root = project
-    .in(file("."))
     .enablePlugins(ScalaUnidocPlugin)
-    .aggregate(coreJVM, coreJS, coreNative)

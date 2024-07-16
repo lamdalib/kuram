@@ -1,28 +1,27 @@
 package kuram
 
-/*
- * Semigroup
- *
- * Must obey the laws following
- * 1. a + (b + c) = (a + b) + c
- *
- */
+/**
+  * Semigroup
+  *
+  * Must obey the laws following
+  * 1. a + (b + c) = (a + b) + c
+  *
+  */
 trait Semigroup[T]:
   def combine(a: T, b: T): T
 
 object Semigroup:
-  /* 
-   * Creating instance of semigroup from given T
-   *
-   * Example:
-   * {{{
-   * scala> import kuram.semigroup._
-   *
-   * scala> val intSG = Semigroup[Int]
-   * scala> intSG.combine(1, 2)
-   * res0: 
-   * }}}
-   * */
+  /** Creating instance of semigroup with given T
+    *
+    * Example:
+    * {{{
+    * scala> import kuram.semigroup._
+    *
+    * scala> val intSG = Semigroup[Int]
+    * scala> intSG.combine(1, 2)
+    * res0: 3
+    * }}}
+    */
   def apply[T](using instance: Semigroup[T]): Semigroup[T] = instance
 
 object SemigroupInstances:
