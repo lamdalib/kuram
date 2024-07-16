@@ -26,4 +26,3 @@ lazy val root = project
             )
         },
     )
-    .enablePlugins(ScalaUnidocPlugin)
