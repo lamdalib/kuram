@@ -35,3 +35,9 @@ TAGS
 project/metals.sbt
 project/project/metals.sbt
 project/project/project/metals.sbt
+
+
+# secrets
+ci/secring.asc
+ci/travis-key
+ci/secrets.tar
