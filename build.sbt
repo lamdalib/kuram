@@ -1,5 +1,7 @@
 import Dependencies._
 
+Global / onChangedBuildSource := ReloadOnSourceChanges
+
 ThisBuild / scalaVersion := "3.4.2"
 
 ThisBuild / name := "Kuram"
@@ -28,6 +30,13 @@ ThisBuild / developers ++= List(
 ThisBuild / testFrameworks += new TestFramework("munit.Framework")
 
 ThisBuild / autoAPIMappings := true
+
+ThisBuild / semanticdbEnabled := true
+ThisBuild / semanticdbVersion := scalafixSemanticdb.revision
+ThisBuild / scalacOptions ++= Seq(
+    "-Wunused:all",
+)
+
 Compile / doc / scalacOptions ++= Seq(
     "-doc-title", (ThisBuild / name).value,
     "-project-version", (ThisBuild / version).value,
@@ -50,3 +59,4 @@ lazy val root = project
             )
         },
     )
+    .enablePlugins(ScalafixPlugin)
