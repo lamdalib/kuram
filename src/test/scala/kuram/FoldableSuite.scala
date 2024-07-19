@@ -1,7 +1,5 @@
 package kuram
 
-import scala.util.Random
-
 import SemigroupSyntax.*
 import FoldableSyntax.*
 
