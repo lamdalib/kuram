@@ -7,6 +7,9 @@ package kuram
   * - [[kuram.Semigroup]]
   * - [[kuram.Monoid]] extends [[kuram.Semigroup]]
   *
-  * - [[kuram.Category]]
+  * - [[kuram.Compose]]
+  * - [[kuram.Category]] extends [[kuram.Compose]]
+  *
+  * - [[kuram.Foldable]]
   */
 package object kuram {}

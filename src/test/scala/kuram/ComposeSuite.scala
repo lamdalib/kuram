@@ -3,7 +3,7 @@ package kuram
 import ComposeSyntax.*
 import CategoryInstances.given
 
-class CategorySuite extends munit.FunSuite:
+class ComposeSuite extends munit.FunSuite:
   test("apply last function"):
     val addOne: Int => Int = _ + 1
     val multiplyByTwo: Int => Int = _ * 2
@@ -47,19 +47,4 @@ class CategorySuite extends munit.FunSuite:
     assertEquals(obtainedFirst1, expectedFirst1)
     assertEquals(obtainedFirst2, expectedFirst2)
 
-  test("identity"):
-    val f: Int => Int = _ + 1
-
-    val randomValue = System.currentTimeMillis().toInt
-    val expected = f(randomValue)
-    val obtained1 = (f <<< given_Category_Function1.id)(randomValue)
-    val obtained2 = (given_Category_Function1.id <<< f)(randomValue)
-    val obtained3 = (f >>> given_Category_Function1.id)(randomValue)
-    val obtained4 = (given_Category_Function1.id >>> f)(randomValue)
-
-    assertEquals(obtained1, expected)
-    assertEquals(obtained2, expected)
-    assertEquals(obtained3, expected)
-    assertEquals(obtained4, expected)
-
-end CategorySuite
+end ComposeSuite
