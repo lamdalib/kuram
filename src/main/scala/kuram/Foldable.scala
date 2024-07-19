@@ -81,28 +81,24 @@ object FoldableInstances:
   given Foldable[List] with
     extension [A](as: List[A]) 
       override def foldRight[B](acc: B)(f: (A, B) => B): B =
-        foldRight(acc)(f)
+        as.foldRight(acc)(f)
 
       override def foldLeft[B](acc: B)(f: (B, A) => B): B =
-        foldLeft(acc)(f)
-
+        as.foldLeft(acc)(f)
 
 object FoldableSyntax:
-  extension [F[_]: Foldable, A](foldable: F[A])
-    /**
-      * @see Alias for [[kuram.Foldable.foldRight]]
+  extension [F[_]: Foldable, A, B](foldable: F[A])
+    /** @see Alias for [[kuram.Foldable.foldRight]]
       */
-    def @>>[B](acc: B, f: (A, B) => B): B =
+    def @>>(acc: B, f: (A, B) => B): B =
       Foldable[F].foldRight(foldable)(acc)(f)
 
-    /** 
-      * @see Alias for [[kuram.Foldable.foldLeft]]
+    /** @see Alias for [[kuram.Foldable.foldLeft]]
       */
-    def @<<[B](acc: B, f: (B, A) => B): B =
+    def @<<(acc: B, f: (B, A) => B): B =
       Foldable[F].foldLeft(foldable)(acc)(f)
 
-    /** 
-      * @see Alias for [[kuram.Foldable.foldMap]]
+    /** @see Alias for [[kuram.Foldable.foldMap]]
       */
-    def @@[B](f: A => B)(using m: Monoid[B]): B =
+    def @@(f: A => B)(using m: Monoid[B]): B =
       Foldable[F].foldMap(foldable)(f)

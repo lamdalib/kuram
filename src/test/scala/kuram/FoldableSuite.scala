@@ -1,5 +1,7 @@
 package kuram
 
+import scala.util.Random
+
 import SemigroupSyntax.*
 import FoldableSyntax.*
 
@@ -16,6 +18,8 @@ class FoldableSuite extends munit.FunSuite:
     val intList = List(1, 2, 3)
     val expected2 = 6
     val obtained2 = intList @>> (0, _ |+| _)
+
+    assertEquals(obtained2, expected2)
 
   test("left foldable on list"):
     val strList = List("a", "b", "c")
