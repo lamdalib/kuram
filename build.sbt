@@ -4,7 +4,7 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 
 ThisBuild / scalaVersion := "3.4.2"
 
-ThisBuild / name := "Kuram"
+ThisBuild / name := "kuram"
 ThisBuild / version := "0.1.0-SNAPSHOT"
 ThisBuild / organization := "io.github.kattulib"
 ThisBuild / description := "Minimal Scala library for functional programming"
@@ -26,7 +26,6 @@ ThisBuild / developers ++= List(
     ),
 )
 
-
 ThisBuild / testFrameworks += new TestFramework("munit.Framework")
 
 ThisBuild / autoAPIMappings := true
@@ -43,16 +42,19 @@ Compile / doc / scalacOptions ++= Seq(
     "-project-logo", "docs/icon.jpeg",
 )
 
+ThisBuild / publishMavenStyle := true
+
 lazy val example = project
     .in(file("example"))
-    .dependsOn(root)
+    .dependsOn(kuram)
     .settings(
         name := "example"
     )
 
-lazy val root = project
+lazy val kuram = project
     .in(file("."))
     .settings(
+        name := (ThisBuild / name).value,
         libraryDependencies ++= {
             Seq(
                 munit.value % Test,
