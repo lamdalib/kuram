@@ -51,14 +51,21 @@ lazy val example = project
         name := "example"
     )
 
-lazy val kuram = project
-    .in(file("."))
+lazy val tests = project
+    .in(file("tests"))
+    .dependsOn(kuram)
     .settings(
-        name := (ThisBuild / name).value,
+        name := "tests",
         libraryDependencies ++= {
             Seq(
                 munit.value % Test,
             )
         },
+    )
+
+lazy val kuram = project
+    .in(file("."))
+    .settings(
+        name := (ThisBuild / name).value,
     )
     .enablePlugins(ScalafixPlugin)
