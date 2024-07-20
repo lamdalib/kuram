@@ -48,7 +48,8 @@ lazy val example = project
     .in(file("example"))
     .dependsOn(kuram)
     .settings(
-        name := "example"
+        name := "example",
+        publish / skip := true,
     )
 
 lazy val tests = project
@@ -56,6 +57,7 @@ lazy val tests = project
     .dependsOn(kuram)
     .settings(
         name := "tests",
+        publish / skip := true,
         libraryDependencies ++= {
             Seq(
                 munit.value % Test,
