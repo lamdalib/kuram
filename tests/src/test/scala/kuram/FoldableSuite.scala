@@ -34,7 +34,7 @@ class FoldableSuite extends munit.FunSuite:
   test("foldMap on list"):
     val intList = List(1, 2, 3)
     val expected = 12
-    val obtained = intList @@ (_ * 2)
+    val obtained = intList @\\ (_ * 2)
 
     assertEquals(obtained, expected)
 

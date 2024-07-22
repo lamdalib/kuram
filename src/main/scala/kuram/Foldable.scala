@@ -56,7 +56,7 @@ trait Foldable[F[_]]:
       * scala> val list = List(1, 2, 3)
       * val list: List[Int] = List(1, 2, 3)
       *
-      * scala> list @@ (_ * 2)
+      * scala> list @\\ (_ * 2)
       * val res0: Int = 12
       * }}}
       */
@@ -86,6 +86,14 @@ object FoldableInstances:
       override def foldLeft[B](acc: B)(f: (B, A) => B): B =
         as.foldLeft(acc)(f)
 
+  given Foldable[IndexedSeq] with
+    extension [A](as: IndexedSeq[A])
+      override def foldRight[B](acc: B)(f: (A, B) => B): B =
+        as.foldRight(acc)(f)
+
+      override def foldLeft[B](acc: B)(f: (B, A) => B): B =
+        as.foldLeft(acc)(f)     
+
 object FoldableSyntax:
   extension [F[_]: Foldable, A, B](foldable: F[A])
     /** @see Alias for [[kuram.Foldable.foldRight]]
@@ -100,5 +108,5 @@ object FoldableSyntax:
 
     /** @see Alias for [[kuram.Foldable.foldMap]]
       */
-    def @@(f: A => B)(using m: Monoid[B]): B =
+    def @\\(f: A => B)(using m: Monoid[B]): B =
       Foldable[F].foldMap(foldable)(f)
