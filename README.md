@@ -6,7 +6,7 @@
 
 Minimal Scala library for functional programming.
 
-# Getting Kuram
+## Getting Kuram
 Right now, Kuram is not a published project. If you want to use the library,
 you should clone the project and publish it locally as on the following command:
 ```bash
@@ -26,7 +26,7 @@ Then you can add the library in the library dependencies as others.
 libraryDependencies += "io.github.kattulib" %% "kuram" % "0.1.0-SNAPSHOT"
 ```
 
-# Run Tests
+## Run Tests
 You can run all tests as on the following command:
 ```bash
 # on interactive sbt shell
@@ -45,7 +45,7 @@ sbt:kuram> tests/testOnly *MonoidSuite
 $ sbt "tests/testOnly *MonoidSuite"
 ```
 
-# Run Examples
+## Run Examples
 You can run all examples as on the following command:
 ```bash
 # on interactive sbt shell
@@ -53,7 +53,6 @@ sbt:kuram> example/run
 Multiple main classes detected. Select one to run:
  [1] kuram.example.combineMaps
  [2] kuram.example.combineOptions
- ...
 
 # on bash
 $ sbt "example/run"
@@ -70,5 +69,4 @@ Obtained: None, Expected: None
 
 # on bash
 $ sbt "example/runMain kuram.example.combineOptions"
-...
 ```
