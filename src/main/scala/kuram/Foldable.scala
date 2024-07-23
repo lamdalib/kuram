@@ -56,7 +56,7 @@ trait Foldable[F[_]]:
       * scala> val list = List(1, 2, 3)
       * val list: List[Int] = List(1, 2, 3)
       *
-      * scala> list @\\ (_ * 2)
+      * scala> list.foldMap(_ * 2)
       * val res0: Int = 12
       * }}}
       */
@@ -105,8 +105,3 @@ object FoldableSyntax:
       */
     def @<<(acc: B, f: (B, A) => B): B =
       Foldable[F].foldLeft(foldable)(acc)(f)
-
-    /** @see Alias for [[kuram.Foldable.foldMap]]
-      */
-    def @\\(f: A => B)(using m: Monoid[B]): B =
-      Foldable[F].foldMap(foldable)(f)
