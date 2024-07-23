@@ -1,6 +1,6 @@
 package kuram.example
 
-def assertAndPrint[T](inputs: List[(List[T], T)], solve: List[T] => T): Unit =
+def assertAndPrint[A, B](inputs: List[(A, B)], solve: A => B): Unit =
   inputs.foreach: (input, expected) =>
     val obtained = solve(input)
     println(s"Obtained: $obtained, Expected: $expected")

@@ -5,12 +5,11 @@ import SemigroupSyntax.*
 import MonoidInstances.given
 
 import FoldableInstances.given
-import FoldableSyntax.*
 
 object MonoidExample:
   @main def sumOfIntegers: Unit =
     def solve(ints: List[Int]): Int =
-      ints @>> (Monoid[Int].empty, (_ |+| _))
+      ints.foldRight(Monoid[Int].empty)(_ |+| _)
 
     val inputs = List(
       (List(1, 2, 3, 4), 10),
@@ -21,7 +20,7 @@ object MonoidExample:
 
   @main def concatStrings: Unit =
     def solve(strings: List[String]): String =
-      strings @>> (Monoid[String].empty, (_ |+| _))
+      strings.foldRight(Monoid[String].empty)(_ |+| _)
 
     val inputs = List(
       (List("hello", " ", "", "world"), "hello world"),
@@ -32,7 +31,7 @@ object MonoidExample:
 
   @main def unionSets: Unit = 
     def solve(sets: List[Set[Int]]): Set[Int] =
-      sets @>> (unionSetMonoid.empty, ((a, b) => unionSetMonoid.combine(a, b)))
+      sets.foldRight(unionSetMonoid.empty)((a, b) => unionSetMonoid.combine(a, b))
 
     val inputs = List(
       (List(Set(1, 2), Set(2, 3), Set(4)), Set(1, 2, 3, 4)),
@@ -43,8 +42,7 @@ object MonoidExample:
 
   @main def intersectSets: Unit = 
     def solve(sets: List[Set[Int]]): Set[Int] =
-      // @>> alias for foldRight
-      sets @>> (sets.head, ((a, b) => intersectSetMonoid.combine(a, b)))
+      sets.foldRight(sets.head)((a, b) => intersectSetMonoid.combine(a, b))
 
     val inputs = List(
       (List(Set(1, 2, 3), Set(2, 3, 4), Set(2, 5)), Set(2)),
@@ -56,7 +54,7 @@ object MonoidExample:
 
   @main def combineMaps: Unit = 
     def solve(maps: List[Map[String, Int]]): Map[String, Int] =
-      maps @>> (Monoid[Map[String, Int]].empty, (_ |+| _))
+      maps.foldRight(Monoid[Map[String, Int]].empty)(_ |+| _)
 
     val inputs = List(
       (List(Map("a" -> 1, "b" -> 2), Map("b" -> 3, "c" -> 4)), Map("a" -> 1, "b" -> 5, "c" -> 4)),
@@ -67,7 +65,7 @@ object MonoidExample:
 
   @main def combineOptions: Unit = 
     def solve(options: List[Option[Int]]): Option[Int] =
-      options @>> (Monoid[Option[Int]].empty, (_ |+| _))
+      options.foldRight(Monoid[Option[Int]].empty)(_ |+| _)
 
     val inputs = List(
       (List(Some(1), None, Some(2), Some(3)), Some(6)),
@@ -79,11 +77,34 @@ object MonoidExample:
 
   @main def flattenLists: Unit = 
     def solve(lists: List[List[Int]]): List[Int] =
-      lists @>> (Monoid[List[Int]].empty, (_ |+| _))
+      lists.foldRight(Monoid[List[Int]].empty)(_ |+| _)
 
     val inputs = List(
       (List(List(1, 2), List(3, 4), List(5)), List(1, 2, 3, 4, 5)),
       (List(List(10), List(), List(20, 30)), List(10, 20, 30)),
+    )
+
+    assertAndPrint(inputs, solve)
+
+  @main def isForbidden: Unit =
+    def isUpper(ch: Char): Boolean = ch.isUpper
+    def isDigit(ch: Char): Boolean = ch.isDigit
+
+    val rules = List(isUpper, isDigit)
+
+    def solve(text: String): Boolean = 
+      text.foldRight(false)((ch, acc) => {
+        acc || rules.foldMap(f => f(ch))(using conjuctionBooleanMonoid)
+      })
+
+
+    val inputs = List(
+      ("1", true),
+      ("hello worlD", true),
+      ("hello 1 world", true),
+      ("hello world", false),
+      ("HELLO", true),
+      ("HELLO111000", true),
     )
 
     assertAndPrint(inputs, solve)
