@@ -20,6 +20,8 @@ trait Foldable[F[_]]:
       * val f: (String, String) => String = Lambda$XXXX
       *
       * scala> list @>> ("", (_ + _))
+      * // or
+      * scala> list.foldRight("")(_ + _)
       * val res0: String = abc
       * }}}
       */
@@ -39,6 +41,8 @@ trait Foldable[F[_]]:
       * val f: (String, String) => String = Lambda$XXXX
       *
       * scala> list @<< ("", (_ + _))
+      * // or
+      * scala> list.foldLeft("")(_ + _)
       * val res0: String = abc
       * }}}
       */

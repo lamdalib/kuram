@@ -10,7 +10,7 @@ class FoldableSuite extends munit.FunSuite:
   test("right foldable on list"):
     val strList = List("a", "b", "c")
     val expected1 = "abc"
-    val obtained1 = strList @>> ("", _ |+| _)
+    val obtained1 = strList.foldRight("")(_ |+| _)
     assertEquals(obtained1, expected1)
 
     val intList = List(1, 2, 3)
@@ -22,7 +22,7 @@ class FoldableSuite extends munit.FunSuite:
   test("left foldable on list"):
     val strList = List("a", "b", "c")
     val expected1 = "abc"
-    val obtained1 = strList @<< ("", _ |+| _)
+    val obtained1 = strList.foldLeft("")(_ |+| _)
     assertEquals(obtained1, expected1)
 
     val intList = List(1, 2, 3)
