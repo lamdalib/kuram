@@ -36,6 +36,14 @@ object MonoidInstances:
     def empty: String = ""
     def combine(a: String, b: String): String = a + b
 
+  given disjunctionBooleanMonoid: Monoid[Boolean] with
+    def empty: Boolean = true
+    def combine(a: Boolean, b: Boolean): Boolean = a && b
+
+  given conjuctionBooleanMonoid: Monoid[Boolean] with
+    def empty: Boolean = false
+    def combine(a: Boolean, b: Boolean): Boolean = a || b
+
   given [A]: Monoid[List[A]] with
     def empty: List[A] = Nil
     def combine(a: List[A], b: List[A]): List[A] = a ++ b
