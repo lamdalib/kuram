@@ -36,7 +36,7 @@ trait Compose[F[_, _]]:
     * Example:
     * {{{
     * scala> import kuram.compose.Compose
-    * scala> import kuram.compose.instances.given
+    * scala> import kuram.compose.instances.int.given
     * scala> import kuram.compose.syntax.*
     *
     * scala> val addOne: Int => Int = _ + 1
@@ -65,7 +65,7 @@ trait Compose[F[_, _]]:
     * Example:
     * {{{
     * scala> import kuram.compose.Compose
-    * scala> import kuram.compose.istances.given
+    * scala> import kuram.compose.istances.int.given
     * scala> import kuram.compose.syntax.*
     *
     * scala> val addOne: Int => Int = _ + 1

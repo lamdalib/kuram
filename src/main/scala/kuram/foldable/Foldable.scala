@@ -34,7 +34,7 @@ trait Foldable[F[_]]:
       *
       * Example:
       * {{{
-      * scala> import kuram.foldable.instances.given
+      * scala> import kuram.foldable.instances.string.given
       * scala> import kuram.foldable.syntax.*
       *
       * scala> val list = List("a", "b", "c")
@@ -55,7 +55,7 @@ trait Foldable[F[_]]:
       *
       * Example:
       * {{{
-      * scala> import kuram.foldable.instances.given
+      * scala> import kuram.foldable.instances.string.given
       * scala> import kuram.foldable.syntax.*
       *
       * scala> val list = List("a", "b", "c")
@@ -77,9 +77,9 @@ trait Foldable[F[_]]:
       *
       * Example:
       * {{{
-      * scala> import kuram.foldable.instances.given
+      * scala> import kuram.foldable.instances.int.given
       * scala> import kuram.foldable.syntax.*
-      * scala> import kuram.monoid.nstances.given
+      * scala> import kuram.monoid.instances.int.given
       *
       * scala> val list = List(1, 2, 3)
       * val list: List[Int] = List(1, 2, 3)
@@ -97,7 +97,7 @@ object Foldable:
     * Example:
     * {{{
     * scala> import kuram.foldable.Foldable
-    * scala> import kuram.foldable.nstances.given
+    * scala> import kuram.foldable.instances.list.given
     *
     * scala> Foldable[List]
     * val res0: kuram.foldable.Foldable[List] = kuram.foldable.FoldableInstances$given_Foldable_List

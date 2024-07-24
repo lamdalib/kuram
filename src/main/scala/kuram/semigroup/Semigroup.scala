@@ -34,7 +34,7 @@ trait Semigroup[T]:
     * Example:
     * {{{
     * scala> import kuram.semigroup.Semigroup
-    * scala> import kuram.semigroup.instances.given
+    * scala> import kuram.semigroup.instances.int.given
     * scala> import kuram.semigroup.syntax.*
     *
     * scala> Semigroup[Int].combine(1, 2)
@@ -52,7 +52,7 @@ object Semigroup:
     * Example:
     * {{{
     * scala> import kuram.semigroup.Semigroup
-    * scala> import kuram.semigroup.instances.given
+    * scala> import kuram.semigroup.instances.int.given
     *
     * scala> Semigroup[Int]
     * val res0: kuram.semigroup.Semigroup[Int] = kuram.semigroup.SemigroupInstances$given_Semigroup_Int

@@ -40,7 +40,7 @@ object Monoid:
     * Example:
     * {{{
     * scala> import kuram.monoid.Monoid
-    * scala> import kuram.monoid.instances.given
+    * scala> import kuram.monoid.instances.int.given
     *
     * scala> Monoid[Int]
     * val res0: kuram.monoid.Monoid[Int] = kuram.monoid.MonoidInstances$given_Monoid_Int
