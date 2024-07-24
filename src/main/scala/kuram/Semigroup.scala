@@ -49,5 +49,7 @@ object SemigroupInstances:
     def combine(a: List[A], b: List[A]): List[A] = a ++ b
 
 object SemigroupSyntax:
+  /** @see Alias of [[kuram.Semigroup.combine]]
+    */
   extension [T](a: T)
     def |+|(b: T)(using semigroup: Semigroup[T]): T = semigroup.combine(a, b)
