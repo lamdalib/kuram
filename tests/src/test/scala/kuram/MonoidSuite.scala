@@ -21,10 +21,9 @@
 
 package kuram
 
-import semigroup.*
 import semigroup.syntax.*
 
-import monoid.*
+import monoid.Monoid
 import monoid.instances.given
 
 class MonoidSuite extends munit.FunSuite:

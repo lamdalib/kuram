@@ -21,7 +21,7 @@
 
 package example
 
-import kuram.monoid.*
+import kuram.monoid.Monoid
 import kuram.monoid.instances.given
 import kuram.semigroup.syntax.*
 

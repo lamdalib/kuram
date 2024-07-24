@@ -21,7 +21,7 @@
 
 package kuram
 
-import semigroup.*
+import semigroup.Semigroup
 import semigroup.syntax.*
 import semigroup.instances.given
 

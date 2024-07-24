@@ -22,7 +22,7 @@
 package kuram
 package semigroup
 
-object SemigroupSyntax:
+package object syntax:
   /** @see Alias of [[kuram.semigroup.Semigroup.combine]]
     */
   extension [T](a: T)

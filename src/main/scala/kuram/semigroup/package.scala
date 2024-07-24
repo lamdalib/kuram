@@ -20,10 +20,5 @@
  */
 
 package kuram
-package semigroup
 
-package object instances:
-  export SemigroupInstances.given
-
-package object syntax:
-  export SemigroupSyntax.*
+package object semigroup

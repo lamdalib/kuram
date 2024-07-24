@@ -20,11 +20,21 @@
  */
 
 package kuram
-package compose
+package foldable
 
-object ComposeSyntax:
-  extension [F[_, _], A, B, C](f: F[B, C])
-    def <<<(g: F[A, B])(using c: Compose[F]): F[A, C] = c.compose(f, g)
+package object instances:
+  given Foldable[List] with
+    extension [A](as: List[A]) 
+      override def foldRight[B](acc: B)(f: (A, B) => B): B =
+        as.foldRight(acc)(f)
 
-  extension [F[_, _], A, B, C](f: F[A, B])
-    def >>>(g: F[B, C])(using c: Compose[F]): F[A, C] = c.andThen(f, g)
+      override def foldLeft[B](acc: B)(f: (B, A) => B): B =
+        as.foldLeft(acc)(f)
+
+  given Foldable[IndexedSeq] with
+    extension [A](as: IndexedSeq[A])
+      override def foldRight[B](acc: B)(f: (A, B) => B): B =
+        as.foldRight(acc)(f)
+
+      override def foldLeft[B](acc: B)(f: (B, A) => B): B =
+        as.foldLeft(acc)(f)     

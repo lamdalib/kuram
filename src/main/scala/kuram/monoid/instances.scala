@@ -22,7 +22,7 @@
 package kuram
 package monoid
 
-object MonoidInstances:
+package object instances:
   given Monoid[Int] with
     def empty: Int = 0
     def combine(a: Int, b: Int): Int = a + b

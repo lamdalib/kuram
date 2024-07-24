@@ -20,16 +20,8 @@
  */
 
 package kuram
-package foldable
+package compose
 
-object FoldableSyntax:
-  extension [F[_]: Foldable, A, B](foldable: F[A])
-    /** @see Alias of [[kuram.foldable.Foldable.foldRight]]
-      */
-    def @>>(acc: B, f: (A, B) => B): B =
-      Foldable[F].foldRight(foldable)(acc)(f)
-
-    /** @see Alias of [[kuram.foldable.Foldable.foldLeft]]
-      */
-    def @<<(acc: B, f: (B, A) => B): B =
-      Foldable[F].foldLeft(foldable)(acc)(f)
+package object instances:
+  given Compose[Function1] with
+    def compose[A, B, C](f: B => C, g: A => B): A => C = f compose g

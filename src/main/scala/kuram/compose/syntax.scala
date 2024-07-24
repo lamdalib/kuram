@@ -22,6 +22,9 @@
 package kuram
 package compose
 
-object ComposeInstances:
-  given Compose[Function1] with
-    def compose[A, B, C](f: B => C, g: A => B): A => C = f compose g
+package object syntax:
+  extension [F[_, _], A, B, C](f: F[B, C])
+    def <<<(g: F[A, B])(using c: Compose[F]): F[A, C] = c.compose(f, g)
+
+  extension [F[_, _], A, B, C](f: F[A, B])
+    def >>>(g: F[B, C])(using c: Compose[F]): F[A, C] = c.andThen(f, g)

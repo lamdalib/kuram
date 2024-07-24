@@ -20,21 +20,9 @@
  */
 
 package kuram
-package foldable
+package category
 
-object FoldableInstances:
-  given Foldable[List] with
-    extension [A](as: List[A]) 
-      override def foldRight[B](acc: B)(f: (A, B) => B): B =
-        as.foldRight(acc)(f)
-
-      override def foldLeft[B](acc: B)(f: (B, A) => B): B =
-        as.foldLeft(acc)(f)
-
-  given Foldable[IndexedSeq] with
-    extension [A](as: IndexedSeq[A])
-      override def foldRight[B](acc: B)(f: (A, B) => B): B =
-        as.foldRight(acc)(f)
-
-      override def foldLeft[B](acc: B)(f: (B, A) => B): B =
-        as.foldLeft(acc)(f)     
+package object instances:
+  given Category[Function1] with
+    def id[A]: A => A = identity
+    def compose[A, B, C](f: B => C, g: A => B): A => C = f compose g

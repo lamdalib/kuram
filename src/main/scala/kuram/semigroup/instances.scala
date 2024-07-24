@@ -22,7 +22,7 @@
 package kuram
 package semigroup
 
-object SemigroupInstances:
+package object instances:
   given Semigroup[Int] with
     def combine(a: Int, b: Int): Int = a + b
 
@@ -31,4 +31,3 @@ object SemigroupInstances:
 
   given [A]: Semigroup[List[A]] with
     def combine(a: List[A], b: List[A]): List[A] = a ++ b
-
