@@ -33,6 +33,7 @@ ThisBuild / scalaVersion := "3.4.2"
 ThisBuild / name := "kuram"
 ThisBuild / version := "0.1.0-SNAPSHOT"
 ThisBuild / organization := "io.github.kattulib"
+ThisBuild / organizationName := "kattulib"
 ThisBuild / description := "Minimal Scala library for functional programming"
 ThisBuild / licenses := List(("MIT", url("https://opensource.org/license/mit")))
 ThisBuild / startYear := Some(2024)
