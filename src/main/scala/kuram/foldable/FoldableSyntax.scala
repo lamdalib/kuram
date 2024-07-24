@@ -1,4 +1,5 @@
-package kuram.foldable
+package kuram
+package foldable
 
 object FoldableSyntax:
   extension [F[_]: Foldable, A, B](foldable: F[A])

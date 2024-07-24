@@ -1,4 +1,5 @@
-package kuram.compose
+package kuram
+package compose
 
 object ComposeSyntax:
   extension [F[_, _], A, B, C](f: F[B, C])

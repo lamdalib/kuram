@@ -1,4 +1,5 @@
-package kuram.compose
+package kuram
+package compose
 
 object ComposeInstances:
   given Compose[Function1] with

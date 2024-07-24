@@ -1,4 +1,5 @@
-package kuram.compose
+package kuram
+package compose
 
 package object instances:
   export ComposeInstances.given

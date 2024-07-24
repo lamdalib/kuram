@@ -1,4 +1,5 @@
-package kuram.foldable
+package kuram
+package foldable
 
 object FoldableInstances:
   given Foldable[List] with

@@ -1,4 +1,4 @@
-package kuram.example
+package example
 
 def assertAndPrint[A, B](inputs: List[(A, B)], solve: A => B): Unit =
   inputs.foreach: (input, expected) =>

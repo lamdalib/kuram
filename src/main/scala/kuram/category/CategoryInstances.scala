@@ -1,4 +1,5 @@
-package kuram.category
+package kuram
+package category
 
 object CategoryInstances:
   given Category[Function1] with

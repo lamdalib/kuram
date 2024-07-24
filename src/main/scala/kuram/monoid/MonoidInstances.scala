@@ -1,4 +1,5 @@
-package kuram.monoid
+package kuram
+package monoid
 
 object MonoidInstances:
   given Monoid[Int] with

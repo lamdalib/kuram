@@ -1,4 +1,5 @@
-package kuram.compose
+package kuram
+package compose
 
 /** Compose
   *

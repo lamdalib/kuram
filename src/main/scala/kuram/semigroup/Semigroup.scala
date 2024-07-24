@@ -1,4 +1,5 @@
-package kuram.semigroup
+package kuram
+package semigroup
 
 /** Semigroup
   *

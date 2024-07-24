@@ -1,4 +1,5 @@
-package kuram.semigroup
+package kuram
+package semigroup
 
 object SemigroupInstances:
   given Semigroup[Int] with

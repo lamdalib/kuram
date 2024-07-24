@@ -1,6 +1,7 @@
-package kuram.foldable
+package kuram
+package foldable
 
-import kuram.monoid.Monoid
+import monoid.Monoid
 
 /** Foldable 
   *

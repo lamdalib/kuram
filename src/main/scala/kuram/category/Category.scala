@@ -1,6 +1,7 @@
-package kuram.category
+package kuram
+package category
 
-import kuram.compose.Compose
+import compose.Compose
 
 /** Category
   *

@@ -1,4 +1,4 @@
-package kuram.example
+package example
 
 import kuram.monoid.*
 import kuram.monoid.instances.given

@@ -1,6 +1,7 @@
-package kuram.monoid
+package kuram
+package monoid
 
-import kuram.semigroup.Semigroup
+import semigroup.Semigroup
 
 /** Monoid
   *
