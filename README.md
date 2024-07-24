@@ -70,3 +70,57 @@ Obtained: None, Expected: None
 # on bash
 $ sbt "example/runMain kuram.example.combineOptions"
 ```
+
+## Quick Start
+Let's create matrix addition Monoid and use it our matrix operations.
+
+```scala
+import kuram.monoid.Monoid
+// you can access combine alias (|+|) under syntax.
+import kuram.semigroup.syntax.*
+
+// you can access int monoid
+import kuram.monoid.instances.int.given
+// or, if you want to access list, string etc.
+// import kuram.monoid.instances.string
+// import kuram.monoid.instances.list
+
+// or, you can import all givens as follows:
+// import kuram.monoid.instances.all
+
+import kuram.foldable.instances.list.given
+
+import Matrix.*
+
+object Matrix:
+    type Matrix[A] = List[List[A]]
+    
+    def apply[A](instance: List[List[A]]): Matrix[A] = instance
+
+    def zero[A: Monoid](row: Int, col: Int): Matrix[A] =
+        Matrix(List.fill[A](row, col)(Monoid[A].empty))
+
+    extension [A: Monoid](m1: Matrix[A])
+        def +(m2: Matrix[A]): Matrix[A] = apply:
+          for (rowLeft, rowRight) <- m1 zip m2 yield
+            for (row, col) <- rowLeft zip rowRight yield
+              row |+| col
+
+def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new:
+    def empty: Matrix[Int] = Matrix.zero(row, col)
+    def combine(a: Matrix[Int], b: Matrix[Int]): Matrix[Int] = a + b
+
+@main def start: Unit = 
+    val m1 = Matrix(List(List(1, 1), List(7, 3)))
+    val m2 = Matrix(List(List(2, 2), List(3, 4)))
+
+    val matrices = List(m1, m2)
+    val (row, col) = (2, 2)
+
+    val expected = Matrix(List(List(3, 3), List(10, 7)))
+    val obtained = matrices.foldMap(identity)(using matrixMonoid(row, col))
+
+    println(s"Obtained: $obtained\nExpected: $expected")
+    assert(obtained == expected, "wrong!")
+```
+
