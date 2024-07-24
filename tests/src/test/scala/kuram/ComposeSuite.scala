@@ -1,7 +1,7 @@
 package kuram
 
-import ComposeSyntax.*
-import CategoryInstances.given
+import compose.syntax.*
+import category.instances.given
 
 class ComposeSuite extends munit.FunSuite:
   test("apply last function"):

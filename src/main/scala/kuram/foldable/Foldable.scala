@@ -1,4 +1,6 @@
-package kuram
+package kuram.foldable
+
+import kuram.monoid.Monoid
 
 /** Foldable 
   *
@@ -10,8 +12,8 @@ trait Foldable[F[_]]:
       *
       * Example:
       * {{{
-      * scala> import kuram.FoldableInstances.given
-      * scala> import kuram.FoldableSyntax.*
+      * scala> import kuram.foldable.instances.given
+      * scala> import kuram.foldable.syntax.*
       *
       * scala> val list = List("a", "b", "c")
       * val list: List[String] = List("a", "b", "c")
@@ -31,8 +33,8 @@ trait Foldable[F[_]]:
       *
       * Example:
       * {{{
-      * scala> import kuram.FoldableInstances.given
-      * scala> import kuram.FoldableSyntax.*
+      * scala> import kuram.foldable.instances.given
+      * scala> import kuram.foldable.syntax.*
       *
       * scala> val list = List("a", "b", "c")
       * val list: List[String] = List("a", "b", "c")
@@ -49,13 +51,13 @@ trait Foldable[F[_]]:
     def foldLeft[B](acc: B)(f: (B, A) => B): B =
       foldRight(acc)((b, a) => f(a, b))
 
-    /** Maps each element of the structure to a [[kuram.Monoid]] and combines the results.
+    /** Maps each element of the structure to a [[kuram.monoid.Monoid]] and combines the results.
       *
       * Example:
       * {{{
-      * scala> import kuram.FoldableInstances.given
-      * scala> import kuram.FoldableSyntax.*
-      * scala> import kuram.MonoidInstances.given
+      * scala> import kuram.foldable.instances.given
+      * scala> import kuram.foldable.syntax.*
+      * scala> import kuram.monoid.nstances.given
       *
       * scala> val list = List(1, 2, 3)
       * val list: List[Int] = List(1, 2, 3)
@@ -72,40 +74,11 @@ object Foldable:
     * 
     * Example:
     * {{{
-    * scala> import kuram.Foldable
-    * scala> import kuram.FoldableInstances.given
+    * scala> import kuram.foldable.Foldable
+    * scala> import kuram.foldable.nstances.given
     *
     * scala> Foldable[List]
-    * val res0: kuram.Foldable[List] = kuram.FoldableInstances$given_Foldable_List
+    * val res0: kuram.foldable.Foldable[List] = kuram.foldable.FoldableInstances$given_Foldable_List
     * }}}
     */
   def apply[F[_]](using instance: Foldable[F]): Foldable[F] = instance
-
-object FoldableInstances:
-  given Foldable[List] with
-    extension [A](as: List[A]) 
-      override def foldRight[B](acc: B)(f: (A, B) => B): B =
-        as.foldRight(acc)(f)
-
-      override def foldLeft[B](acc: B)(f: (B, A) => B): B =
-        as.foldLeft(acc)(f)
-
-  given Foldable[IndexedSeq] with
-    extension [A](as: IndexedSeq[A])
-      override def foldRight[B](acc: B)(f: (A, B) => B): B =
-        as.foldRight(acc)(f)
-
-      override def foldLeft[B](acc: B)(f: (B, A) => B): B =
-        as.foldLeft(acc)(f)     
-
-object FoldableSyntax:
-  extension [F[_]: Foldable, A, B](foldable: F[A])
-    /** @see Alias of [[kuram.Foldable.foldRight]]
-      */
-    def @>>(acc: B, f: (A, B) => B): B =
-      Foldable[F].foldRight(foldable)(acc)(f)
-
-    /** @see Alias of [[kuram.Foldable.foldLeft]]
-      */
-    def @<<(acc: B, f: (B, A) => B): B =
-      Foldable[F].foldLeft(foldable)(acc)(f)

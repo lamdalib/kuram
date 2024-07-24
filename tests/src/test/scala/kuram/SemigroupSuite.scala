@@ -1,7 +1,8 @@
 package kuram
 
-import SemigroupSyntax.*
-import SemigroupInstances.given
+import semigroup.*
+import semigroup.syntax.*
+import semigroup.instances.given
 
 class SemigroupSuite extends munit.FunSuite:
   test("combine int values"):

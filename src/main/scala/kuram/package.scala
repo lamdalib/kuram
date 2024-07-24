@@ -4,12 +4,12 @@ package kuram
   *
   * '''Type Classes Index'''
   *
-  * - [[kuram.Semigroup]]
-  * - [[kuram.Monoid]] extends [[kuram.Semigroup]]
+  * - [[kuram.semigroup.Semigroup]]
+  * - [[kuram.monoid.Monoid]] extends [[kuram.semigroup.Semigroup]]
   *
-  * - [[kuram.Compose]]
-  * - [[kuram.Category]] extends [[kuram.Compose]]
+  * - [[kuram.compose.Compose]]
+  * - [[kuram.category.Category]] extends [[kuram.compose.Compose]]
   *
-  * - [[kuram.Foldable]]
+  * - [[kuram.foldable.Foldable]]
   */
 package object kuram {}

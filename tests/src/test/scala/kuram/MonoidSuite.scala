@@ -1,7 +1,10 @@
 package kuram
 
-import SemigroupSyntax.*
-import MonoidInstances.given
+import semigroup.*
+import semigroup.syntax.*
+
+import monoid.Monoid 
+import monoid.instances.given
 
 class MonoidSuite extends munit.FunSuite:
   test("combine int values"):

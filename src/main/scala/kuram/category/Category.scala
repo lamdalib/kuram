@@ -1,4 +1,6 @@
-package kuram
+package kuram.category
+
+import kuram.compose.Compose
 
 /** Category
   *
@@ -15,8 +17,3 @@ trait Category[F[_, _]] extends Compose[F]:
 
 object Category:
   def apply[F[_, _]](using instance: Category[F]): Category[F] = instance
-
-object CategoryInstances:
-  given Category[Function1] with
-    def id[A]: A => A = identity
-    def compose[A, B, C](f: B => C, g: A => B): A => C = f compose g

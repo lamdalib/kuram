@@ -1,4 +1,4 @@
-package kuram
+package kuram.compose
 
 /** Compose
   *
@@ -13,9 +13,9 @@ trait Compose[F[_, _]]:
     *
     * Example:
     * {{{
-    * scala> import kuram.Compose
-    * scala> import kuram.ComposeInstances.given
-    * scala> import kuram.ComposeSyntax.*
+    * scala> import kuram.compose.Compose
+    * scala> import kuram.compose.instances.given
+    * scala> import kuram.compose.syntax.*
     *
     * scala> val addOne: Int => Int = _ + 1
     * val addOne: Int => Int = Lambda$XXXX
@@ -42,9 +42,9 @@ trait Compose[F[_, _]]:
     *
     * Example:
     * {{{
-    * scala> import kuram.Compose
-    * scala> import kuram.ComposeInstances.given
-    * scala> import kuram.ComposeSyntax.*
+    * scala> import kuram.compose.Compose
+    * scala> import kuram.compose.istances.given
+    * scala> import kuram.compose.syntax.*
     *
     * scala> val addOne: Int => Int = _ + 1
     * val addOne: Int => Int = Lambda$XXXX
@@ -63,14 +63,3 @@ trait Compose[F[_, _]]:
 
 object Compose:
   def apply[F[_, _]](using instance: Compose[F]): Compose[F] = instance
-
-object ComposeInstances:
-  given Compose[Function1] with
-    def compose[A, B, C](f: B => C, g: A => B): A => C = f compose g
-
-object ComposeSyntax:
-  extension [F[_, _], A, B, C](f: F[B, C])
-    def <<<(g: F[A, B])(using c: Compose[F]): F[A, C] = c.compose(f, g)
-
-  extension [F[_, _], A, B, C](f: F[A, B])
-    def >>>(g: F[B, C])(using c: Compose[F]): F[A, C] = c.andThen(f, g)

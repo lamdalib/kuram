@@ -1,10 +1,10 @@
 package kuram
 
-import SemigroupSyntax.*
-import FoldableSyntax.*
+import semigroup.syntax.*
+import foldable.syntax.*
 
-import MonoidInstances.given
-import FoldableInstances.given
+import monoid.instances.given
+import foldable.instances.given
 
 class FoldableSuite extends munit.FunSuite:
   test("right foldable on list"):

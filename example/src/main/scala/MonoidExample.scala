@@ -1,11 +1,11 @@
 package kuram.example
 
-import kuram.*
-import SemigroupSyntax.*
-import MonoidInstances.given
+import kuram.monoid.*
+import kuram.monoid.instances.given
+import kuram.semigroup.syntax.*
 
-import FoldableInstances.given
-
+import kuram.foldable.* 
+import kuram.foldable.instances.given
 
 object MonoidExample:
   @main def sumOfIntegers: Unit =
