@@ -3,7 +3,7 @@ package kuram
 import semigroup.*
 import semigroup.syntax.*
 
-import monoid.Monoid 
+import monoid.*
 import monoid.instances.given
 
 class MonoidSuite extends munit.FunSuite:
