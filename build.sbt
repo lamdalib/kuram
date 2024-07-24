@@ -7,6 +7,7 @@ lazy val example = project
         name := "example",
         publish / skip := true,
     )
+    .enablePlugins(ScalafixPlugin, AutomateHeaderPlugin)
 
 lazy val tests = project
     .in(file("tests"))
@@ -20,13 +21,14 @@ lazy val tests = project
             )
         },
     )
+    .enablePlugins(ScalafixPlugin, AutomateHeaderPlugin)
 
 lazy val kuram = project
     .in(file("."))
     .settings(
         name := (ThisBuild / name).value,
     )
-    .enablePlugins(ScalafixPlugin)
+    .enablePlugins(ScalafixPlugin, AutomateHeaderPlugin)
 
 /* project settings */
 ThisBuild / scalaVersion := "3.4.2"
