@@ -24,7 +24,7 @@ package kuram
 import semigroup.syntax.*
 
 import monoid.Monoid
-import monoid.instances.given
+import monoid.instances.all.given
 
 class MonoidSuite extends munit.FunSuite:
   test("combine int values"):

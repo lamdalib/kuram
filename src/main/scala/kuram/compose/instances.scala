@@ -23,5 +23,9 @@ package kuram
 package compose
 
 package object instances:
-  given Compose[Function1] with
-    def compose[A, B, C](f: B => C, g: A => B): A => C = f compose g
+  object function1:
+    given function1Compose: Compose[Function1] with
+      def compose[A, B, C](f: B => C, g: A => B): A => C = f compose g
+
+  object all:
+    export function1.given

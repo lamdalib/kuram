@@ -23,11 +23,19 @@ package kuram
 package semigroup
 
 package object instances:
-  given Semigroup[Int] with
-    def combine(a: Int, b: Int): Int = a + b
+  object int:
+    given intSemigroup: Semigroup[Int] with
+      def combine(a: Int, b: Int): Int = a + b
 
-  given Semigroup[String] with
-    def combine(a: String, b: String): String = a + b
+  object string:
+    given stringSemigroup: Semigroup[String] with
+      def combine(a: String, b: String): String = a + b
 
-  given [A]: Semigroup[List[A]] with
-    def combine(a: List[A], b: List[A]): List[A] = a ++ b
+  object list:
+    given listSemigroup[A]: Semigroup[List[A]] with
+      def combine(a: List[A], b: List[A]): List[A] = a ++ b
+
+  object all:
+    export int.given
+    export string.given
+    export list.given

@@ -23,7 +23,7 @@ package kuram
 
 import semigroup.Semigroup
 import semigroup.syntax.*
-import semigroup.instances.given
+import semigroup.instances.all.given
 
 class SemigroupSuite extends munit.FunSuite:
   test("combine int values"):

@@ -22,7 +22,7 @@
 package kuram
 
 import compose.syntax.*
-import category.instances.given
+import category.instances.function1.{function1Category}
 
 class CategorySuite extends munit.FunSuite:
   test("apply last function"):
@@ -73,10 +73,10 @@ class CategorySuite extends munit.FunSuite:
 
     val randomValue = System.currentTimeMillis().toInt
     val expected = f(randomValue)
-    val obtained1 = (f <<< given_Category_Function1.id)(randomValue)
-    val obtained2 = (given_Category_Function1.id <<< f)(randomValue)
-    val obtained3 = (f >>> given_Category_Function1.id)(randomValue)
-    val obtained4 = (given_Category_Function1.id >>> f)(randomValue)
+    val obtained1 = (f <<< function1Category.id)(randomValue)
+    val obtained2 = (function1Category.id <<< f)(randomValue)
+    val obtained3 = (f >>> function1Category.id)(randomValue)
+    val obtained4 = (function1Category.id >>> f)(randomValue)
 
     assertEquals(obtained1, expected)
     assertEquals(obtained2, expected)

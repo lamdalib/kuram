@@ -24,8 +24,9 @@ package kuram
 import semigroup.syntax.*
 import foldable.syntax.*
 
-import monoid.instances.given
-import foldable.instances.given
+import monoid.instances.all.given
+import foldable.instances.list.given
+
 
 class FoldableSuite extends munit.FunSuite:
   test("right foldable on list"):

@@ -22,7 +22,7 @@
 package kuram
 
 import compose.syntax.*
-import category.instances.given
+import category.instances.function1.given
 
 class ComposeSuite extends munit.FunSuite:
   test("apply last function"):
