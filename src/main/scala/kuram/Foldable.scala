@@ -100,12 +100,12 @@ object FoldableInstances:
 
 object FoldableSyntax:
   extension [F[_]: Foldable, A, B](foldable: F[A])
-    /** @see Alias for [[kuram.Foldable.foldRight]]
+    /** @see Alias of [[kuram.Foldable.foldRight]]
       */
     def @>>(acc: B, f: (A, B) => B): B =
       Foldable[F].foldRight(foldable)(acc)(f)
 
-    /** @see Alias for [[kuram.Foldable.foldLeft]]
+    /** @see Alias of [[kuram.Foldable.foldLeft]]
       */
     def @<<(acc: B, f: (B, A) => B): B =
       Foldable[F].foldLeft(foldable)(acc)(f)
