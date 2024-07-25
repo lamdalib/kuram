@@ -26,8 +26,8 @@ import semigroup.syntax.*
 import monoid.Monoid
 import monoid.instances.all.given
 
-class MonoidSuite extends munit.FunSuite:
-  test("combine int values"):
+class MonoidSuite extends munit.FunSuite {
+  test("combine int values") {
     val (x, y) = (1, 2)
 
     val expected = x + y
@@ -36,8 +36,9 @@ class MonoidSuite extends munit.FunSuite:
 
     assertEquals(obtained1, expected)
     assertEquals(obtained2, expected)
+  }
 
-  test("combine string values"):
+  test("combine string values") {
     val (s1, s2) = ("foo", "bar")
 
     val expected = s1 + s2
@@ -46,8 +47,9 @@ class MonoidSuite extends munit.FunSuite:
 
     assertEquals(obtained1, expected)
     assertEquals(obtained2, expected)
+  }
 
-  test("combine list of integer values"):
+  test("combine list of integer values") {
     val (l1, l2) = (List(1, 2, 3), List(4, 5))
 
     val expected = l1 ++ l2
@@ -56,8 +58,9 @@ class MonoidSuite extends munit.FunSuite:
 
     assertEquals(obtained1, expected)
     assertEquals(obtained2, expected)
+  }
 
-  test("combine list of string values"):
+  test("combine list of string values") {
     val (l1, l2) = (List("a", "b", "c"), List("d", "e"))
 
     val expected = l1 ++ l2
@@ -66,9 +69,9 @@ class MonoidSuite extends munit.FunSuite:
 
     assertEquals(obtained1, expected)
     assertEquals(obtained2, expected)
+  }
 
-
-  test("combine list of integer lists lists"):
+  test("combine list of integer lists lists") {
     val (l1, l2) = (List(List(1), List(2, 3), List(4)), List(List(5, 6), List(7)))
 
     val expected = l1 ++ l2
@@ -77,22 +80,23 @@ class MonoidSuite extends munit.FunSuite:
 
     assertEquals(obtained1, expected)
     assertEquals(obtained2, expected)
+  }
 
-  test("associativity"):
+  test("associativity") {
     val (a, b, c) = (1, 2, 3)
-    
+
     val expected1 = a + (b + c)
     val expected2 = (a + b) + c
 
     val obtained1 = a |+| (b |+| c)
     val obtained2 = (a |+| b) |+| c
 
-
     assertEquals(obtained1, expected1)
     assertEquals(obtained2, expected2)
     assertEquals(obtained1, obtained2)
+  }
 
-  test("homomorphism"):
+  test("homomorphism") {
     val (s1, s2) = ("hello", "world")
 
     val expected1 = s1.length + s2.length
@@ -104,11 +108,13 @@ class MonoidSuite extends munit.FunSuite:
     assertEquals(obtained1, expected1)
     assertEquals(obtained2, expected2)
     assertEquals(obtained1, obtained2)
+  }
 
-  test("identity element"):
+  test("identity element") {
     val expected = ""
     val obtained = Monoid[String].empty
 
     assertEquals(obtained, expected)
+  }
 
-end MonoidSuite
+}

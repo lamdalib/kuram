@@ -22,8 +22,8 @@
 package kuram
 package foldable
 
-package object syntax:
-  extension [F[_]: Foldable, A, B](foldable: F[A])
+package object syntax {
+  extension [F[_]: Foldable, A, B](foldable: F[A]) {
     /** @see Alias of [[kuram.foldable.Foldable.foldRight]]
       */
     def @>>(acc: B, f: (A, B) => B): B =
@@ -33,3 +33,5 @@ package object syntax:
       */
     def @<<(acc: B, f: (B, A) => B): B =
       Foldable[F].foldLeft(foldable)(acc)(f)
+  }
+}

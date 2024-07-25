@@ -30,7 +30,7 @@ package compose
   * References:
   * - [[https://bartoszmilewski.com/2014/11/04/category-the-essence-of-composition]]
   */
-trait Compose[F[_, _]]:
+trait Compose[F[_, _]] {
   /** Composing two instances of given type, with this function applied last
     *
     * Example:
@@ -82,6 +82,8 @@ trait Compose[F[_, _]]:
     * }}}
     */
   def andThen[A, B, C](f: F[A, B], g: F[B, C]): F[A, C] = compose(g, f)
+}
 
-object Compose:
+object Compose {
   def apply[F[_, _]](using instance: Compose[F]): Compose[F] = instance
+}

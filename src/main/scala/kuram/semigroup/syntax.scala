@@ -22,8 +22,10 @@
 package kuram
 package semigroup
 
-package object syntax:
+package object syntax {
   /** @see Alias of [[kuram.semigroup.Semigroup.combine]]
     */
-  extension [T](a: T)
+  extension [T](a: T) {
     def |+|(b: T)(using semigroup: Semigroup[T]): T = semigroup.combine(a, b)
+  }
+}

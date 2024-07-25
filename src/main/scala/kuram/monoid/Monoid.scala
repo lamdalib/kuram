@@ -31,10 +31,11 @@ import semigroup.Semigroup
   * 2. id + f = f
   *    f + id = f
   */
-trait Monoid[T] extends Semigroup[T]:
+trait Monoid[T] extends Semigroup[T] {
   def empty: T
+}
 
-object Monoid:
+object Monoid {
   /** Creating instance of [[kuram.monoid.Monoid]] with given T.
     *
     * Example:
@@ -50,3 +51,4 @@ object Monoid:
     * - [[https://bartoszmilewski.com/2014/12/05/categories-great-and-small/]]
     */
   def apply[T](using instance: Monoid[T]): Monoid[T] = instance
+}

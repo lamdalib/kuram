@@ -28,8 +28,8 @@ import monoid.Monoid
   *
   * Type class for foldable data structures.
   */
-trait Foldable[F[_]]:
-  extension [A](as: F[A])
+trait Foldable[F[_]] {
+  extension [A](as: F[A]) {
     /** Folds the elements of the structure using a binary operation from right.
       *
       * Example:
@@ -90,8 +90,10 @@ trait Foldable[F[_]]:
       */
     def foldMap[B](f: A => B)(using m: Monoid[B]): B = 
       foldRight(m.empty)((a, b) => m.combine(f(a), b))
+  }
+}
 
-object Foldable:
+object Foldable {
   /** Creating Foldable instance
     * 
     * Example:
@@ -104,3 +106,4 @@ object Foldable:
     * }}}
     */
   def apply[F[_]](using instance: Foldable[F]): Foldable[F] = instance
+}

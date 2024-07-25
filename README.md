@@ -92,7 +92,7 @@ import kuram.foldable.instances.list.given
 
 import Matrix.*
 
-object Matrix:
+object Matrix {
     type Matrix[A] = List[List[A]]
     
     def apply[A](instance: List[List[A]]): Matrix[A] = instance
@@ -105,10 +105,12 @@ object Matrix:
           for (rowLeft, rowRight) <- m1 zip m2 yield
             for (row, col) <- rowLeft zip rowRight yield
               row |+| col
+}
 
-def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new:
+def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
     def empty: Matrix[Int] = Matrix.zero(row, col)
     def combine(a: Matrix[Int], b: Matrix[Int]): Matrix[Int] = a + b
+}
 
 @main def start: Unit = 
     val m1 = Matrix(List(List(1, 1), List(7, 3)))

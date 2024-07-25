@@ -27,9 +27,8 @@ import foldable.syntax.*
 import monoid.instances.all.given
 import foldable.instances.list.given
 
-
-class FoldableSuite extends munit.FunSuite:
-  test("right foldable on list"):
+class FoldableSuite extends munit.FunSuite {
+  test("right foldable on list") {
     val strList = List("a", "b", "c")
     val expected1 = "abc"
     val obtained1 = strList.foldRight("")(_ |+| _)
@@ -40,8 +39,9 @@ class FoldableSuite extends munit.FunSuite:
     val obtained2 = intList @>> (0, _ |+| _)
 
     assertEquals(obtained2, expected2)
+  }
 
-  test("left foldable on list"):
+  test("left foldable on list") {
     val strList = List("a", "b", "c")
     val expected1 = "abc"
     val obtained1 = strList.foldLeft("")(_ |+| _)
@@ -52,12 +52,13 @@ class FoldableSuite extends munit.FunSuite:
     val obtained2 = intList @<< (0, _ |+| _)
 
     assertEquals(obtained2, expected2)
+  }
 
-  test("foldMap on list"):
+  test("foldMap on list") {
     val intList = List(1, 2, 3)
     val expected = 12
     val obtained = intList.foldMap(_ * 2)
 
     assertEquals(obtained, expected)
-
-end FoldableSuite
+  }
+}

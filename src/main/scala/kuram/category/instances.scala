@@ -22,11 +22,15 @@
 package kuram
 package category
 
-package object instances:
-  object function1:
-    given function1Category: Category[Function1] with
+package object instances {
+  object function1 {
+    given function1Category: Category[Function1] with {
       def id[A]: A => A = identity
       def compose[A, B, C](f: B => C, g: A => B): A => C = f compose g
+    }
+  }
 
-  object all:
+  object all {
     export function1.given
+  }
+}

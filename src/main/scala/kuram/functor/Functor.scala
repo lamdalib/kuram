@@ -21,8 +21,9 @@
 
 package kuram
 
-trait Functor[F[_]]:
+trait Functor[F[_]] {
   ???
+}
 
 
 object FunctorInstances

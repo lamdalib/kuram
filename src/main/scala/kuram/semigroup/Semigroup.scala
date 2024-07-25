@@ -28,7 +28,7 @@ package semigroup
   * 1. a + (b + c) = (a + b) + c
   *
   */
-trait Semigroup[T]:
+trait Semigroup[T] {
   /** Combining both given same type values.
     * 
     * Example:
@@ -45,8 +45,9 @@ trait Semigroup[T]:
     * }}}
     */
   def combine(a: T, b: T): T
+}
 
-object Semigroup:
+object Semigroup {
   /** Creating instance of [[kuram.semigroup.Semigroup]] with given T.
     *
     * Example:
@@ -59,3 +60,4 @@ object Semigroup:
     * }}}
     */
   def apply[T](using instance: Semigroup[T]): Semigroup[T] = instance
+}
