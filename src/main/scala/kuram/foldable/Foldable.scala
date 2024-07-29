@@ -30,6 +30,7 @@ import monoid.Monoid
   */
 trait Foldable[F[_]] {
   extension [A](as: F[A]) {
+
     /** Folds the elements of the structure using a binary operation from right.
       *
       * Example:
@@ -43,9 +44,9 @@ trait Foldable[F[_]] {
       * scala> val f: (String, String) => String = _ + _
       * val f: (String, String) => String = Lambda$XXXX
       *
-      * scala> list @>> ("", (_ + _))
+      * scala> list @>> ("", f)
       * // or
-      * scala> list.foldRight("")(_ + _)
+      * scala> list.foldRight("")(f)
       * val res0: String = abc
       * }}}
       */
@@ -64,9 +65,9 @@ trait Foldable[F[_]] {
       * scala> val f: (String, String) => String = _ + _
       * val f: (String, String) => String = Lambda$XXXX
       *
-      * scala> list @<< ("", (_ + _))
+      * scala> list @<< ("", f)
       * // or
-      * scala> list.foldLeft("")(_ + _)
+      * scala> list.foldLeft("")(f)
       * val res0: String = abc
       * }}}
       */
@@ -88,12 +89,13 @@ trait Foldable[F[_]] {
       * val res0: Int = 12
       * }}}
       */
-    def foldMap[B](f: A => B)(using m: Monoid[B]): B = 
+    def foldMap[B](f: A => B)(using m: Monoid[B]): B =
       foldRight(m.empty)((a, b) => m.combine(f(a), b))
   }
 }
 
 object Foldable {
+
   /** Creating Foldable instance
     * 
     * Example:
