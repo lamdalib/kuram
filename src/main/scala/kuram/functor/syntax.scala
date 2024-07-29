@@ -22,50 +22,11 @@
 package kuram
 package functor
 
-/** Functor
-  *
-  * Must obey the laws following
-  * 1. x.map(a => a) == x
-  * 2. x.map(f).map(g) == x.map(f andThen g)
-  */
-trait Functor[F[_]] {
-  extension [A](fa: F[A]) {
-
-    /** Mapping given function onto instance.
-      *
-      * Example:
-      * {{{
-      * scala> import kuram.functor.instances.list.given
-      * scala> import kuram.functor.syntax.*
-      *
-      * scala> val list = List(1, 2, 3)
-      * val list: List[Int] = List(1, 2, 3)
-      *
-      * scala> val f: (Int) => Int = _ * 2
-      * val f: (Int) => Int = Lambda$XXXX
-      *
-      * scala> list |> f
-      * // or
-      * scala> list.map(f)
-      * val res0: List[Int] = List(2, 4, 6)
-      * }}}
+package object syntax {
+  extension [F[_]: Functor, A, B](functor: F[A]) {
+    /** @see Alias of [[kuram.functor.Functor.map]]
       */
-    def map[B](f: A => B): F[B]
+   def |>(f: A => B): F[B] =
+      Functor[F].map(functor)(f)
   }
-}
-
-object Functor {
-
-  /** Creating instance of [[kuram.functor.Functor]] with given T.
-    *
-    * Example:
-    * {{{
-    * scala> import kuram.functor.Functor
-    * scala> import kuram.functor.instances.list.given
-    *
-    * scala> Functor[List]
-    * val res0: kuram.functor.Functor[List] = kuram.functor.FunctorInstances$given_Functor_List
-    * }}}
-    */
-  def apply[F[_]](using instance: Functor[F]): Functor[F] = instance
 }

@@ -21,4 +21,23 @@
 
 package kuram
 
-package object functor
+import functor.instances.all.given
+import functor.syntax.*
+
+import compose.instances.all.given
+import compose.syntax.*
+
+class FunctorSuite extends munit.FunSuite {
+  test("function composition") {
+    val list = List(1, 2, 3, 4, 5)
+    val f = (a: Int) => a + 1
+    val g = (a: Int) => a - 1
+
+    val expected = list
+    val obtained = list |> f |> g
+    val obtained2 = list |> (f >>> g)
+
+    assertEquals(obtained, expected)
+    assertEquals(obtained2, expected)
+  }
+}
