@@ -30,9 +30,30 @@ package object instances {
           as.map(f)
       }
     }
+
+  }
+
+  object map {
+    given mapFunctor[K]: Functor[[V] =>> Map[K, V]] with {
+      extension [A](fa: Map[K, A]) {
+        def map[B](f: A => B): Map[K, B] =
+          fa.map((k, v) => (k, f(v)))
+      }
+    }
+  }
+
+  object option {
+    given optionFunctor: Functor[Option] with {
+      extension [A](fa: Option[A]) {
+        def map[B](f: A => B): Option[B] =
+          fa.map(f)
+      }
+    }
   }
 
   object all {
     export list.given
+    export map.given
+    export option.given
   }
 }

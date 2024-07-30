@@ -24,9 +24,10 @@ package functor
 
 package object syntax {
   extension [F[_]: Functor, A, B](functor: F[A]) {
-    /** @see Alias of [[kuram.functor.Functor.map]]
+
+    /** @see Alias of [[Functor.map]]
       */
-   def |>(f: A => B): F[B] =
+    final def |>(f: A => B): F[B] =
       Functor[F].map(functor)(f)
   }
 }

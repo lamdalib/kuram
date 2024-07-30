@@ -25,13 +25,13 @@ package functor
 /** Functor
   *
   * Must obey the laws following
-  * 1. x.map(a => a) == x
-  * 2. x.map(f).map(g) == x.map(f andThen g)
+  * 1. Identity: x.map(a => a) == x
+  * 2. Associativity: x.map(f).map(g) == x.map(a => f(a).map(g))
   */
 trait Functor[F[_]] {
   extension [A](fa: F[A]) {
 
-    /** Mapping given function onto instance.
+    /** Mapping given function over instance.
       *
       * Example:
       * {{{
@@ -51,12 +51,18 @@ trait Functor[F[_]] {
       * }}}
       */
     def map[B](f: A => B): F[B]
+
+    /** @see Alias of [[map]]. 
+      * Sometimes we can't use [[map]] because the type 
+      * already had a built-in .map combinator.
+      */
+    final def fmap[B](f: A => B): F[B] = fa.map(f)
   }
 }
 
 object Functor {
 
-  /** Creating instance of [[kuram.functor.Functor]] with given T.
+  /** Creating instance of [[Functor]] for F.
     *
     * Example:
     * {{{
