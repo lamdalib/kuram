@@ -26,13 +26,13 @@ package object laws {
   trait FunctorLaws[F[_]] {
     implicit def F: Functor[F]
 
-    /** must obey x.map(a => a) == x
-    */
+    /** must obey `x.map(a => a) == x`
+      */
     def identity[A](fa: F[A]): Boolean =
       F.map(fa)(a => a) == fa
 
-    /** must obey x.map(f).map(g) == x.map(f andThen g)
-    */
+    /** must obey `x.map(f).map(g) == x.map(f andThen g)`
+      */
     def composition[A, B, C](fa: F[A], f: A => B, g: B => C): Boolean =
       F.map(F.map(fa)(f))(g) == F.map(fa)(f.andThen(g))
   }
