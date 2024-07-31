@@ -26,8 +26,8 @@ import functor.instances.all.given
 import functor.laws.FunctorLaws
 
 class FunctorSuite extends munit.FunSuite {
-  test("identity") {
-    // TODO: I ought to use property based testing.
+  test("Should satisfy identity law") {
+    // TODO: I should use property based testing.
     val inputs = List(
       (List(), true),
       (List(1), true),
@@ -45,7 +45,7 @@ class FunctorSuite extends munit.FunSuite {
     })
   }
 
-  test("composition") {
+  test("Should satisfy composition law") {
     val f: Int => Double = _ * 2.5
     val g: Double => String = _.toString
 
