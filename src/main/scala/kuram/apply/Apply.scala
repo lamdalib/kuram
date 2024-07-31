@@ -51,6 +51,15 @@ import functor.Functor
   */
 trait Apply[F[_]] extends Functor[F] {
   def ap[A, B](ff: F[A => B])(fa: F[A]): F[B]
+
+  def ap2[A, B, Z](ff: F[(A, B) => Z])(fa: F[A], fb: F[B]): F[Z] =
+    ap(ap(ff.map(_.curried))(fa))(fb)
+
+  def product[A, B](fa: F[A], fb: F[B]): F[(A, B)] =
+    ap(fa.map(a => (b: B) => (a, b)))(fb)
+
+  def product2[A, B, C](fa: F[A], fb: F[B], fc: F[C]): F[(A, B, C)] =
+    ap(ap(fa.map(a => (b: B) => (c: C) => (a, b, c)))(fb))(fc)
 }
 
 object Apply {
