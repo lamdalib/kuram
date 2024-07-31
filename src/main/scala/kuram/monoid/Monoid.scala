@@ -24,18 +24,12 @@ package monoid
 
 import semigroup.Semigroup
 
-/** Monoid
-  *
-  * Must obey the laws following:
-  * 1. a + (b + c) = (a + b) + c
-  * 2. id + f = f
-  *    f + id = f
-  */
 trait Monoid[T] extends Semigroup[T] {
   def empty: T
 }
 
 object Monoid {
+
   /** Creating instance of [[kuram.monoid.Monoid]] with given T.
     *
     * Example:
