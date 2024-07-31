@@ -126,3 +126,66 @@ def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
     assert(obtained == expected, "wrong!")
 ```
 
+## Progress
+- [ ] Applicative
+    - [x] Implementation
+    - [ ] Documentation
+    - [x] Laws
+    - [x] Instances
+    - [ ] Tests
+
+- [ ] Apply
+    - [x] Implementation
+    - [ ] Documentation
+    - [ ] Laws
+    - [x] Instances
+    - [ ] Tests
+
+- [ ] Category
+    - [x] Implementation
+    - [ ] Documentation
+    - [ ] Laws
+    - [x] Instances
+    - [ ] Tests
+
+- [ ] Compose
+    - [x] Implementation
+    - [ ] Documentation
+    - [ ] Laws
+    - [x] Instances
+    - [ ] Tests
+
+- [ ] Foldable
+    - [x] Implementation
+    - [ ] Documentation
+    - [ ] Laws
+    - [x] Instances
+    - [ ] Tests
+
+- [ ] Functor
+    - [x] Implementation
+    - [ ] Documentation
+    - [ ] Laws
+    - [x] Instances
+    - [ ] Tests
+
+- [ ] Monad
+    - [x] Implementation
+    - [ ] Documentation
+    - [ ] Laws
+    - [x] Instances
+    - [ ] Tests
+
+- [ ] Monoid
+    - [x] Implementation
+    - [ ] Documentation
+    - [ ] Laws
+    - [x] Instances
+    - [ ] Tests
+
+- [ ] Semigroup
+    - [x] Implementation
+    - [ ] Documentation
+    - [ ] Laws
+    - [x] Instances
+    - [ ] Tests
