@@ -21,23 +21,42 @@
 
 package kuram
 
+import functor.Functor
 import functor.instances.all.given
-import functor.syntax.*
-
-import compose.instances.all.given
-import compose.syntax.*
+import functor.laws.FunctorLaws
 
 class FunctorSuite extends munit.FunSuite {
-  test("function composition") {
-    val list = List(1, 2, 3, 4, 5)
-    val f = (a: Int) => a + 1
-    val g = (a: Int) => a - 1
+  test("identity") {
+    // TODO: I ought to use property based testing.
+    val inputs = List(
+      (List(), true),
+      (List(1), true),
+      (List(1, 2, 3), true),
+      (List('a', 'b', 'c'), true),
+      (List("hello", "world"), true),
+      (List(List(), List()), true),
+      (List(List(1), List(1)), true),
+      (List(List(List(1)), List(1)), true)
+    )
 
-    val expected = list
-    val obtained = list |> f |> g
-    val obtained2 = list |> (f >>> g)
+    inputs.foreach((fa, expected) => {
+      val obtained = FunctorLaws(using Functor[List]).identity(fa)
+      assertEquals(obtained, expected)
+    })
+  }
 
-    assertEquals(obtained, expected)
-    assertEquals(obtained2, expected)
+  test("composition") {
+    val f: Int => Double = _ * 2.5
+    val g: Double => String = _.toString
+
+    val inputs = List(
+      (Some(42), f, g, true),
+      (None, f, g, true)
+    )
+
+    inputs.foreach((fa, f, g, expected) => {
+      val obtained = FunctorLaws(using Functor[Option]).composition(fa, f, g)
+      assertEquals(obtained, expected)
+    })
   }
 }
