@@ -27,12 +27,12 @@ package object instances {
     given listApply: Apply[List] with {
       extension [A](fa: List[A]) {
         def map[B](f: A => B): List[B] = fa.map(f)
-      }
 
-      def ap[A, B](ff: List[A => B])(fa: List[A]): List[B] = for {
-        f <- ff
-        a <- fa
-      } yield f(a)
+        def ap[B](ff: List[A => B]): List[B] = for {
+          f <- ff
+          a <- fa
+        } yield f(a)
+      }
     }
   }
 
@@ -40,12 +40,12 @@ package object instances {
     given mapApply[K]: Apply[[V] =>> Map[K, V]] with {
       extension [A](fa: Map[K, A]) {
         def map[B](f: A => B): Map[K, B] = fa.map((k, v) => (k, f(v)))
-      }
 
-      def ap[A, B](ff: Map[K, A => B])(fa: Map[K, A]): Map[K, B] = for {
-        (k, f) <- ff
-        a <- fa.get(k)
-      } yield (k, f(a))
+        def ap[B](ff: Map[K, A => B]): Map[K, B] = for {
+          (k, f) <- ff
+          a <- fa.get(k)
+        } yield (k, f(a))
+      }
     }
   }
 
@@ -53,12 +53,12 @@ package object instances {
     given optionApply: Apply[Option] with {
       extension [A](fa: Option[A]) {
         def map[B](f: A => B): Option[B] = fa.map(f)
-      }
 
-      def ap[A, B](ff: Option[A => B])(fa: Option[A]): Option[B] = for {
-        f <- ff
-        a <- fa
-      } yield f(a)
+        def ap[B](ff: Option[A => B]): Option[B] = for {
+          f <- ff
+          a <- fa
+        } yield f(a)
+      }
     }
   }
 
