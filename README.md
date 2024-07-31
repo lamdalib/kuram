@@ -4,7 +4,12 @@
     <img src="/docs/icon.jpeg" width="256" height="256" />
 </p>
 
-Minimal Scala library for functional programming.
+Kuram is a minimal functional programming library for Scala3
+as like [Cats](https://github.com/typelevel/cats) or [Scalaz](https://github.com/scalaz/scalaz).
+
+> [!WARNING]
+> I aiming to understand functional programming better. Hence, I'm developing this library. 
+Please do not use Kuram in production use Cats or Scalaz instead.
 
 ## Getting Kuram
 Right now, Kuram is not a published project. If you want to use the library,
@@ -165,9 +170,9 @@ def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
 - [ ] Functor
     - [x] Implementation
     - [ ] Documentation
-    - [ ] Laws
+    - [x] Laws
     - [x] Instances
-    - [ ] Tests
+    - [x] Tests
 
 - [ ] Monad
     - [x] Implementation
