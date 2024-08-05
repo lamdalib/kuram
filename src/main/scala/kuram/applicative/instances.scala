@@ -36,19 +36,6 @@ package object instances {
     }
   }
 
-  object map {
-    given mapApplicative[K]: Applicative[[V] =>> Map[K, V]] with {
-      def pure[A](a: => A): Map[K, A] = Map.empty[K, A].withDefaultValue(a)
-
-      extension [A](fa: Map[K, A]) {
-        def ap[B](ff: Map[K, A => B]): Map[K, B] = for {
-          (k, f) <- ff
-          a <- fa.get(k)
-        } yield (k, f(a))
-      }
-    }
-  }
-
   object option {
     given optionApplicative: Applicative[Option] with {
       def pure[A](a: => A): Option[A] = Option(a)
@@ -64,7 +51,6 @@ package object instances {
 
   object all {
     export list.given
-    export map.given
     export option.given
   }
 }

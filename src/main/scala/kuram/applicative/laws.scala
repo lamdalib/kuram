@@ -43,9 +43,9 @@ package object laws {
       fa.map2(F.pure(()))((a, _) => a) == fa
 
     /** must obey `x.product(y).product(z) == x.product(y.product(z)).map(assoc)` */
-    def associativity[A, B, C, Z](fa: F[A], fb: F[B], fc: F[C], f: (A, B, C) => Z): Boolean =
+    def associativity[A, B, C, Z](fa: F[A], fb: F[B], fc: F[C]): Boolean =
       fa.product(fb).product(fc) == fa.product(fb.product(fc)).map { case (a, (b, c)) =>
-        f(a, b, c)
+        ((a, b), c)
       }
 
     /** must obey `x.map2(y)((a, b) => ((f(a), g(b)))) == x.map(f).product(y.map(g))` */

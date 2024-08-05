@@ -24,9 +24,6 @@ package applicative
 
 import apply.Apply
 
-/** Applicative
-  * TODO: description
-  */
 trait Applicative[F[_]] extends Apply[F] {
 
   /** Convert any value into Applicative.
