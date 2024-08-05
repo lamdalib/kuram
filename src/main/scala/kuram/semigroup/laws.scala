@@ -25,6 +25,14 @@ package semigroup
 package object laws {
   trait SemigroupLaws[T] {
     implicit def F: Semigroup[T]
+
+    /** must obey: `a + (b + c) = (a + b) + c` */
+    def associativity(a: T, b: T, c: T): Boolean =
+      F.combine(a, F.combine(b, c)) == F.combine(F.combine(a, b), c)
+
+    /** must obey: `combine(f(a), f(b)) == f(combine(a, b))` */
+    def homomorphism[U](a: T, b: T)(f: T => U)(using U: Semigroup[U]): Boolean =
+      U.combine(f(a), f(b)) == f(F.combine(a, b))
   }
 
   object SemigroupLaws {

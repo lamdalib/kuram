@@ -22,13 +22,8 @@
 package kuram
 package semigroup
 
-/** Semigroup
-  *
-  * Must obey the laws following:
-  * 1. a + (b + c) = (a + b) + c
-  *
-  */
 trait Semigroup[T] {
+
   /** Combining both given same type values.
     * 
     * Example:
@@ -48,6 +43,7 @@ trait Semigroup[T] {
 }
 
 object Semigroup {
+
   /** Creating instance of [[kuram.semigroup.Semigroup]] with given T.
     *
     * Example:
