@@ -137,7 +137,7 @@ def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
     - [ ] Documentation
     - [x] Laws
     - [x] Instances
-    - [ ] Tests
+    - [x] Tests
 
 - [ ] Apply
     - [x] Implementation
@@ -177,20 +177,20 @@ def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
 - [ ] Monad
     - [x] Implementation
     - [ ] Documentation
-    - [ ] Laws
+    - [x] Laws
     - [x] Instances
     - [ ] Tests
 
 - [ ] Monoid
     - [x] Implementation
     - [ ] Documentation
-    - [ ] Laws
+    - [x] Laws
     - [x] Instances
     - [ ] Tests
 
 - [ ] Semigroup
     - [x] Implementation
     - [ ] Documentation
-    - [ ] Laws
+    - [x] Laws
     - [x] Instances
     - [ ] Tests
