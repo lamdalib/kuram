@@ -24,12 +24,7 @@ package monad
 
 import applicative.Applicative
 
-/** Monad
-  *
-  * Must obeys following laws:
-  * 1. Associativity: x.flatMap(f).flatMap(g) == x.flatMap(a => f(a).flatMap(g))
-  * 2. Right Identity: x.flatMap(unit) == x
-  * 3. Left Identity: unit(y).flatMap(f) == f(y)
+/**
   *
   * Example:
   * {{{

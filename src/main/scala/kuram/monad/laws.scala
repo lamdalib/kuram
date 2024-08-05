@@ -24,12 +24,24 @@ package monad
 
 package object laws {
   trait MonadLaws[F[_]] {
-    implicit def F: Monad[F]
+    implicit def M: Monad[F]
+
+    /** must obey `x.flatMap(f).flatMap(g) == x.flatMap(a => f(a).flatMap(g))` */
+    def associativity[A, B, C, Z](x: F[A])(f: A => F[B], g: B => F[C]): Boolean =
+      x.flatMap(f).flatMap(g) == x.flatMap(a => f(a).flatMap(g))
+
+    /** must obey `pure(x).flatMap(f) == f(x)` */
+    def leftIdentity[A, B](x: A, f: A => F[B]): Boolean =
+      M.pure(x).flatMap(f) == f(x)
+
+    /** must obey `x.flatMap(pure) == x` */
+    def rightIdentity[A, B](x: F[A]): Boolean =
+      x.flatMap(M.pure) == x
   }
 
   object MonadLaws {
     def apply[F[_]](using monad: Monad[F]): MonadLaws[F] = new {
-      implicit def F: Monad[F] = monad
+      implicit def M: Monad[F] = monad
     }
   }
 }
