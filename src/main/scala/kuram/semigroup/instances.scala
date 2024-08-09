@@ -41,9 +41,20 @@ package object instances {
     }
   }
 
+  object option {
+    given optionSemigroup[A: Semigroup]: Semigroup[Option[A]] with {
+      def combine(a: Option[A], b: Option[A]): Option[A] = (a, b) match {
+        case (Some(aa), Some(bb)) => Some(Semigroup[A].combine(aa, bb))
+        case (aa @ _, None)       => aa
+        case (None, bb @ _)       => bb
+      }
+    }
+  }
+
   object all {
     export int.given
     export string.given
     export list.given
+    export option.given
   }
 }
