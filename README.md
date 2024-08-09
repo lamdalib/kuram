@@ -131,6 +131,9 @@ def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
     assert(obtained == expected, "wrong!")
 ```
 
+## Type classes
+![infographic](docs/infographic.png)
+
 ## Progress
 - [ ] Applicative
     - [x] Implementation
@@ -186,11 +189,11 @@ def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
     - [ ] Documentation
     - [x] Laws
     - [x] Instances
-    - [ ] Tests
+    - [x] Tests
 
 - [ ] Semigroup
     - [x] Implementation
     - [ ] Documentation
     - [x] Laws
     - [x] Instances
-    - [ ] Tests
+    - [x] Tests
