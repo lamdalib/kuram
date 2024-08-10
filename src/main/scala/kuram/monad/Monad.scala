@@ -41,6 +41,11 @@ trait Monad[F[_]] extends Applicative[F] {
 
     override def map[B](f: A => B): F[B] =
       fa.flatMap(a => pure(f(a)))
+
+    override def ap[B](ff: F[A => B]): F[B] = for {
+      a <- fa
+      f <- ff
+    } yield f(a)
   }
 }
 

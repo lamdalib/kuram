@@ -30,34 +30,6 @@ package object instances {
       extension [A](fa: List[A]) {
         def flatMap[B](f: A => List[B]): List[B] =
           fa.flatMap(f)
-
-        def ap[B](ff: List[A => B]): List[B] =
-          for {
-            f <- ff
-            a <- fa
-          } yield f(a)
-      }
-    }
-  }
-
-  object map {
-    given mapMonad[K]: Monad[[V] =>> Map[K, V]] with {
-      def pure[A](a: => A): Map[K, A] = Map.empty[K, A].withDefaultValue(a)
-
-      extension [A](fa: Map[K, A]) {
-        def flatMap[B](f: A => Map[K, B]): Map[K, B] =
-          fa.flatMap { case (k, v) =>
-            f(v).get(k) match {
-              case Some(b) => Map(k -> b)
-              case None    => Map.empty[K, B]
-            }
-          }
-
-        def ap[B](ff: Map[K, A => B]): Map[K, B] =
-          for {
-            (k, f) <- ff
-            a <- fa.get(k)
-          } yield (k, f(a))
       }
     }
   }
@@ -69,19 +41,12 @@ package object instances {
       extension [A](fa: Option[A]) {
         def flatMap[B](f: A => Option[B]): Option[B] =
           fa.flatMap(f)
-
-        def ap[B](ff: Option[A => B]): Option[B] =
-          for {
-            f <- ff
-            a <- fa
-          } yield f(a)
       }
     }
   }
 
   object all {
     export list.given
-    export map.given
     export option.given
   }
 }
