@@ -22,15 +22,8 @@
 package kuram
 package compose
 
-/** Compose
-  *
-  * Must obey the laws following:
-  * 1. f ∘ (g ∘ h) = (f ∘ g) ∘ h
-  *
-  * References:
-  * - [[https://bartoszmilewski.com/2014/11/04/category-the-essence-of-composition]]
-  */
 trait Compose[F[_, _]] {
+
   /** Composing two instances of given type, with this function applied last
     *
     * Example:
