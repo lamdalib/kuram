@@ -132,68 +132,80 @@ def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
 ```
 
 ## Type classes
-![infographic](docs/infographic.png)
+```
+ -----------     ---------      ---------       ----------
+| Semigroup |   | Functor |    | Compose |     | Foldable |
+ -----------     ---------      ---------       ----------
+      *              *
+      |              |
+  ---------      ---------
+ | Monoid  |    |  Apply  |
+  ---------      ---------
+                     *
+                     |
+               -------------
+              | Applicative |   
+               -------------
+                     *
+                     |
+                 ---------         
+                |  Monad  |        
+                 ---------         
+```
 
 ## Progress
 - [ ] Applicative
     - [x] Implementation
-    - [ ] Documentation
     - [x] Laws
     - [x] Instances
     - [x] Tests
+    - [ ] Documentation
 
 - [ ] Apply
     - [x] Implementation
-    - [ ] Documentation
     - [ ] Laws
     - [x] Instances
     - [ ] Tests
-
-- [ ] Category
-    - [x] Implementation
     - [ ] Documentation
-    - [ ] Laws
-    - [x] Instances
-    - [ ] Tests
 
 - [ ] Compose
     - [x] Implementation
-    - [ ] Documentation
     - [ ] Laws
     - [x] Instances
     - [ ] Tests
+    - [ ] Documentation
 
 - [ ] Foldable
     - [x] Implementation
-    - [ ] Documentation
     - [ ] Laws
     - [x] Instances
     - [ ] Tests
+    - [ ] Documentation
 
 - [ ] Functor
     - [x] Implementation
-    - [ ] Documentation
     - [x] Laws
     - [x] Instances
     - [x] Tests
+    - [ ] Documentation
 
 - [ ] Monad
     - [x] Implementation
-    - [ ] Documentation
     - [x] Laws
     - [x] Instances
-    - [ ] Tests
+    - [x] Tests
+    - [ ] Documentation
 
 - [ ] Monoid
     - [x] Implementation
-    - [ ] Documentation
     - [x] Laws
     - [x] Instances
     - [x] Tests
+    - [ ] Documentation
 
 - [ ] Semigroup
     - [x] Implementation
-    - [ ] Documentation
     - [x] Laws
     - [x] Instances
     - [x] Tests
+    - [ ] Documentation
