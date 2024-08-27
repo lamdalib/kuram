@@ -136,9 +136,6 @@ def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
 flowchart BT
     monoid --> semigroup
     monad --> applicative --> apply --> functor
-    apply --> semigroupal
-    flatMap --> functor
-    monad --> flatMap
     compose
     foldable
 ```
