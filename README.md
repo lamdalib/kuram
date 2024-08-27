@@ -132,25 +132,15 @@ def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
 ```
 
 ## Type classes
-```
- -----------     ---------      ---------       ----------
-| Semigroup |   | Functor |    | Compose |     | Foldable |
- -----------     ---------      ---------       ----------
-      *              *
-      |              |
-  ---------      ---------
- | Monoid  |    |  Apply  |
-  ---------      ---------
-                     *
-                     |
-               -------------
-              | Applicative |   
-               -------------
-                     *
-                     |
-                 ---------         
-                |  Monad  |        
-                 ---------         
+```mermaid
+flowchart BT
+    monoid --> semigroup
+    monad --> applicative --> apply --> functor
+    apply --> semigroupal
+    flatMap --> functor
+    monad --> flatMap
+    compose
+    foldable
 ```
 
 ## Progress
@@ -170,7 +160,7 @@ def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
 
 - [ ] Compose
     - [x] Implementation
-    - [ ] Laws
+    - [x] Laws
     - [x] Instances
     - [ ] Tests
     - [ ] Documentation
@@ -208,4 +198,18 @@ def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
     - [x] Laws
     - [x] Instances
     - [x] Tests
+    - [ ] Documentation
+
+- [ ] Flatmap
+    - [ ] Implementation
+    - [ ] Laws
+    - [ ] Instances
+    - [ ] Tests
+    - [ ] Documentation
+
+- [ ] Semigroupal
+    - [ ] Implementation
+    - [ ] Laws
+    - [ ] Instances
+    - [ ] Tests
     - [ ] Documentation
