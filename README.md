@@ -134,10 +134,13 @@ def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
 ## Type classes
 ```mermaid
 flowchart BT
-    monoid --> semigroup
-    monad --> applicative --> apply --> functor
-    compose
-    foldable
+    Monoid --> Semigroup
+
+    Monad --> Applicative & FlatMap --> Apply --> Semigroupal & Functor
+
+    Compose
+    Foldable
+    Traverse
 ```
 
 ## Progress
