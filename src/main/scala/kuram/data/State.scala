@@ -20,11 +20,10 @@
  */
 
 package kuram
-package state
+package data
 
 import applicative.Applicative
 import flatmap.FlatMap
-import eval.Eval
 
 final class IndexedStateT[F[_], S1, S2, A](underlying: F[S1 => F[(S2, A)]]) {
   def run(s1: S1)(using F: FlatMap[F]): F[(S2, A)] = {

@@ -20,7 +20,7 @@
  */
 
 package kuram
-package eval
+package data
 
 trait Eval[+A] { self =>
   def value: A
