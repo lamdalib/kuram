@@ -22,7 +22,7 @@
 package kuram
 package flatmap
 
-import eval.Eval
+import data.Eval
 
 package object instances {
   object eval {
