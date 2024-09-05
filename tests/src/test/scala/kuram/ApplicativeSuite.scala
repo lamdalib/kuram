@@ -19,11 +19,9 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-
-import applicative.Applicative
-import applicative.instances.all.given
-import applicative.laws.{ApplicativeLaws => laws}
+import kuram.Applicative
+import kuram.instances.all.given
+import kuram.laws.ApplicativeLaws
 
 class ApplicativeSuite extends munit.FunSuite {
   val listInputs = List(
@@ -50,12 +48,12 @@ class ApplicativeSuite extends munit.FunSuite {
 
   test("Should satisfy identity law") {
     listInputs.foreach(fa => {
-      val obtained = laws(using Applicative[List]).identity(fa)
+      val obtained = ApplicativeLaws(using Applicative[List]).identity(fa)
       assertEquals(obtained, true)
     })
 
     optionInputs.foreach(fa => {
-      val obtained = laws(using Applicative[Option]).identity(fa)
+      val obtained = ApplicativeLaws(using Applicative[Option]).identity(fa)
       assertEquals(obtained, true)
     })
   }
@@ -64,33 +62,33 @@ class ApplicativeSuite extends munit.FunSuite {
     val f = (x: Int) => x + 1
     val x = 1
 
-    val listObtained = laws(using Applicative[List]).homomorphism(x, f)
+    val listObtained = ApplicativeLaws(using Applicative[List]).homomorphism(x, f)
     assertEquals(listObtained, true)
 
-    val optionObtained = laws(using Applicative[Option]).homomorphism(x, f)
+    val optionObtained = ApplicativeLaws(using Applicative[Option]).homomorphism(x, f)
     assertEquals(optionObtained, true)
   }
 
   test("Should satisfy left identity law") {
     listInputs.foreach(fa => {
-      val obtained = laws(using Applicative[List]).leftIdentity(fa)
+      val obtained = ApplicativeLaws(using Applicative[List]).leftIdentity(fa)
       assertEquals(obtained, true)
     })
 
     optionInputs.foreach(fa => {
-      val obtained = laws(using Applicative[Option]).leftIdentity(fa)
+      val obtained = ApplicativeLaws(using Applicative[Option]).leftIdentity(fa)
       assertEquals(obtained, true)
     })
   }
 
   test("Should satisfy right identity law") {
     listInputs.foreach(fa => {
-      val obtained = laws(using Applicative[List]).rightIdentity(fa)
+      val obtained = ApplicativeLaws(using Applicative[List]).rightIdentity(fa)
       assertEquals(obtained, true)
     })
 
     optionInputs.foreach(fa => {
-      val obtained = laws(using Applicative[Option]).rightIdentity(fa)
+      val obtained = ApplicativeLaws(using Applicative[Option]).rightIdentity(fa)
       assertEquals(obtained, true)
     })
   }
@@ -102,7 +100,7 @@ class ApplicativeSuite extends munit.FunSuite {
       (List(1, 2, 3), List(4, 5, 6), List(7, 8, 9)),
       (List('a'), List('b', 'c'), List('e'))
     ).foreach((fa, fb, fc) => {
-      val obtained = laws(using Applicative[List]).associativity(fa, fb, fc)
+      val obtained = ApplicativeLaws(using Applicative[List]).associativity(fa, fb, fc)
       assertEquals(obtained, true)
     })
   }
@@ -114,7 +112,7 @@ class ApplicativeSuite extends munit.FunSuite {
     List(
       (List(1), List(2))
     ).foreach((fa, fb) => {
-      val obtained = laws(using Applicative[List]).naturality(fa, fb, f, g)
+      val obtained = ApplicativeLaws(using Applicative[List]).naturality(fa, fb, f, g)
       assertEquals(obtained, true)
     })
 
@@ -124,7 +122,7 @@ class ApplicativeSuite extends munit.FunSuite {
       (None, Option(2)),
       (Option(1), None)
     ).foreach((fa, fb) => {
-      val obtained = laws(using Applicative[Option]).naturality(fa, fb, f, g)
+      val obtained = ApplicativeLaws(using Applicative[Option]).naturality(fa, fb, f, g)
       assertEquals(obtained, true)
     })
   }

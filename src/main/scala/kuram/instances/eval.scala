@@ -20,3 +20,19 @@
  */
 
 package kuram
+package instances
+
+import data.Eval
+
+object eval {
+    // FlatMap
+    given FlatMap[Eval] with {
+      extension [A](fa: Eval[A]) {
+        def flatMap[B](f: A => Eval[B]): Eval[B] =
+          flatMap(f)
+
+        def map[B](f: A => B): Eval[B] =
+          map(f)
+      }
+    }
+}

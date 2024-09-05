@@ -80,20 +80,20 @@ $ sbt "example/runMain kuram.example.combineOptions"
 Let's create matrix addition Monoid and use it our matrix operations.
 
 ```scala
-import kuram.monoid.Monoid
+import kuram.Monoid
 // you can access combine alias (|+|) under syntax.
-import kuram.semigroup.syntax.*
+import kuram.SemigroupOps.*
 
 // you can access int monoid
-import kuram.monoid.instances.int.given
+import kuram.instances.int.given
 // or, if you want to access list, string etc.
 // import kuram.monoid.instances.string
-// import kuram.monoid.instances.list
+// import kuram.monoid.instances.list.given
 
 // or, you can import all givens as follows:
-// import kuram.monoid.instances.all
+// import kuram.monoid.instances.all.given
 
-import kuram.foldable.instances.list.given
+import kuram.instances.list.given
 
 import Matrix.*
 
@@ -143,73 +143,9 @@ flowchart BT
     Traverse
 ```
 
-## Progress
-- [ ] Applicative
-    - [x] Implementation
-    - [x] Laws
-    - [x] Instances
-    - [x] Tests
-    - [ ] Documentation
-
-- [ ] Apply
-    - [x] Implementation
-    - [ ] Laws
-    - [x] Instances
-    - [ ] Tests
-    - [ ] Documentation
-
-- [ ] Compose
-    - [x] Implementation
-    - [x] Laws
-    - [x] Instances
-    - [ ] Tests
-    - [ ] Documentation
-
-- [ ] Foldable
-    - [x] Implementation
-    - [ ] Laws
-    - [x] Instances
-    - [ ] Tests
-    - [ ] Documentation
-
-- [ ] Functor
-    - [x] Implementation
-    - [x] Laws
-    - [x] Instances
-    - [x] Tests
-    - [ ] Documentation
-
-- [ ] Monad
-    - [x] Implementation
-    - [x] Laws
-    - [x] Instances
-    - [x] Tests
-    - [ ] Documentation
-
-- [ ] Monoid
-    - [x] Implementation
-    - [x] Laws
-    - [x] Instances
-    - [x] Tests
-    - [ ] Documentation
-
-- [ ] Semigroup
-    - [x] Implementation
-    - [x] Laws
-    - [x] Instances
-    - [x] Tests
-    - [ ] Documentation
-
-- [ ] Flatmap
-    - [ ] Implementation
-    - [ ] Laws
-    - [ ] Instances
-    - [ ] Tests
-    - [ ] Documentation
-
-- [ ] Semigroupal
-    - [ ] Implementation
-    - [ ] Laws
-    - [ ] Instances
-    - [ ] Tests
-    - [ ] Documentation
+## Data classes
+```mermaid
+flowchart BT
+    State
+    Eval
+```

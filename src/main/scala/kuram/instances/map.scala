@@ -20,3 +20,35 @@
  */
 
 package kuram
+package instances
+
+object map {
+    // Apply
+    given mapApply[K]: Apply[[V] =>> Map[K, V]] with {
+        extension [A](fa: Map[K, A]) {
+        def map[B](f: A => B): Map[K, B] = fa.map((k, v) => (k, f(v)))
+
+        def ap[B](ff: Map[K, A => B]): Map[K, B] = for {
+            (k, f) <- ff
+            a <- fa.get(k)
+        } yield (k, f(a))
+        }
+    }
+
+    // Functor
+    given mapFunctor[K]: Functor[[V] =>> Map[K, V]] with {
+      extension [A](fa: Map[K, A]) {
+        def map[B](f: A => B): Map[K, B] =
+          fa.map((k, v) => (k, f(v)))
+      }
+    }
+
+    // Monoid
+    given mapMonoid[K, V: Monoid]: Monoid[Map[K, V]] with {
+      def empty: Map[K, V] = Map.empty[K, V]
+      def combine(a: Map[K, V], b: Map[K, V]): Map[K, V] =
+        (a.keySet ++ b.keySet).foldRight(Map.empty[K, V]) { (key, acc) =>
+          acc.updated(key, Monoid[V].combine(a.getOrElse(key, Monoid[V].empty), b.getOrElse(key, Monoid[V].empty)))
+        }
+    }
+}

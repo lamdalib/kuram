@@ -19,11 +19,10 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-
-import semigroup.Semigroup
-import semigroup.instances.all.given
-import semigroup.laws.{SemigroupLaws => laws}
+import kuram.Semigroup
+import kuram.instances.all.given
+import kuram.instances.list.given
+import kuram.laws.SemigroupLaws
 
 class SemigroupSuite extends munit.FunSuite {
   test("Should satisfy associativity") {
@@ -33,7 +32,7 @@ class SemigroupSuite extends munit.FunSuite {
       (1, 10, 100)
     ).foreach {
       case (a, b, c) => {
-        val obtained = laws(using Semigroup[Int]).associativity(a, b, c)
+        val obtained = SemigroupLaws(using Semigroup[Int]).associativity(a, b, c)
         assertEquals(obtained, true)
       }
     }
@@ -44,7 +43,7 @@ class SemigroupSuite extends munit.FunSuite {
       ("", "", "w")
     ).foreach {
       case (a, b, c) => {
-        val obtained = laws(using Semigroup[String]).associativity(a, b, c)
+        val obtained = SemigroupLaws(using Semigroup[String]).associativity(a, b, c)
         assertEquals(obtained, true)
       }
     }
@@ -56,7 +55,7 @@ class SemigroupSuite extends munit.FunSuite {
       (List(), List(), List())
     ).foreach {
       case (a, b, c) => {
-        val obtained = laws(using Semigroup[List[Int]]).associativity(a, b, c)
+        val obtained = SemigroupLaws(using summon[Semigroup[List[Int]]]).associativity(a, b, c)
         assertEquals(obtained, true)
       }
     }
@@ -68,7 +67,7 @@ class SemigroupSuite extends munit.FunSuite {
       (List(), List(), List())
     ).foreach {
       case (a, b, c) => {
-        val obtained = laws(using Semigroup[List[String]]).associativity(a, b, c)
+        val obtained = SemigroupLaws(using Semigroup[List[String]]).associativity(a, b, c)
         assertEquals(obtained, true)
       }
     }
@@ -83,7 +82,7 @@ class SemigroupSuite extends munit.FunSuite {
       ("hello", "world")
     ).foreach {
       case (s1, s2) => {
-        val obtained = laws(using Semigroup[String]).homomorphism(s1, s2)(_.length)
+        val obtained = SemigroupLaws(using Semigroup[String]).homomorphism(s1, s2)(_.length)
         assertEquals(obtained, true)
       }
     }

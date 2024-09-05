@@ -20,3 +20,18 @@
  */
 
 package kuram
+package laws
+
+trait MonoidLaws[T] extends SemigroupLaws[T] {
+    implicit def F: Monoid[T]
+
+    /** must obey: `id + x == x + id` */
+    def identity(x: T): Boolean =
+        (F.combine(F.empty, x) == x) == (F.combine(x, F.empty) == x)
+}
+
+object MonoidLaws {
+    def apply[T](using monoid: Monoid[T]): MonoidLaws[T] = new {
+        implicit def F: Monoid[T] = monoid
+    }
+}

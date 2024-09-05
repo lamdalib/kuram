@@ -19,11 +19,9 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-
-import functor.Functor
-import functor.instances.all.given
-import functor.laws.FunctorLaws
+import kuram.Functor
+import kuram.instances.all.given
+import kuram.laws.FunctorLaws
 
 class FunctorSuite extends munit.FunSuite {
   test("Should satisfy identity law") {

@@ -20,3 +20,41 @@
  */
 
 package kuram
+
+/**
+  *
+  * Example:
+  * {{{
+  * scala> import kuram.Monad
+  * scala> import kuram.instances.list.given
+  *
+  * scala> Monad[List].map(List(1, 2, 3))(_ + 2)
+  * res0: List[Int] = List(3, 4, 5)
+  * }}}
+  */
+trait Monad[F[_]] extends Applicative[F] with FlatMap[F] {
+  extension [A](fa: F[A]) {
+    override def map[B](f: A => B): F[B] =
+      fa.flatMap(a => pure(f(a)))
+
+    override def ap[B](ff: F[A => B]): F[B] = for {
+      a <- fa
+      f <- ff
+    } yield f(a)
+  }
+}
+
+object Monad {
+
+  /** Creating instance of [[Monad]] with given F.
+    *
+    * Example:
+    * {{{
+    * scala> import kuram.Monad
+    * scala> import kuram.instances.list.given
+    *
+    * scala> Monad[List]
+    * }}}
+    */
+  def apply[F[_]](using instance: Monad[F]): Monad[F] = instance
+}

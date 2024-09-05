@@ -21,12 +21,10 @@
 
 package example
 
-import kuram.monoid.Monoid
-import kuram.monoid.instances.all.given
-import kuram.semigroup.syntax.*
-
-import kuram.foldable.*
-import kuram.foldable.instances.all.given
+import kuram.Monoid
+import kuram.instances.all.given
+import kuram.instances.list.given
+import kuram.SemigroupOps.*
 
 object MonoidExample {
   @main def sumOfIntegers: Unit = {

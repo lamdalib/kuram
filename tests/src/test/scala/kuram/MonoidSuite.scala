@@ -19,11 +19,9 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-
-import monoid.Monoid
-import monoid.instances.all.given
-import monoid.laws.{MonoidLaws => laws}
+import kuram.Monoid
+import kuram.laws.MonoidLaws
+import kuram.instances.all.given
 
 class MonoidSuite extends munit.FunSuite {
   test("Should satisfy identity") {
@@ -34,7 +32,7 @@ class MonoidSuite extends munit.FunSuite {
       10
     ).foreach {
       case a => {
-        val obtained = laws(using Monoid[Int]).identity(a)
+        val obtained = MonoidLaws(using Monoid[Int]).identity(a)
         assertEquals(obtained, true)
       }
     }
@@ -45,7 +43,7 @@ class MonoidSuite extends munit.FunSuite {
       "hello"
     ).foreach {
       case s => {
-        val obtained = laws(using Monoid[String]).identity(s)
+        val obtained = MonoidLaws(using Monoid[String]).identity(s)
         assertEquals(obtained, true)
       }
     }
@@ -56,7 +54,7 @@ class MonoidSuite extends munit.FunSuite {
     ).foreach {
       case b => {
         List(conjuctionBooleanMonoid, disjunctionBooleanMonoid).foreach(law => {
-          val obtained = laws(using law).identity(b)
+          val obtained = MonoidLaws(using law).identity(b)
           assertEquals(obtained, true)
         })
       }
@@ -68,7 +66,7 @@ class MonoidSuite extends munit.FunSuite {
       List(1, 2, 3)
     ).foreach {
       case a => {
-        val obtained = laws(using Monoid[List[Int]]).identity(a)
+        val obtained = MonoidLaws(using Monoid[List[Int]]).identity(a)
         assertEquals(obtained, true)
       }
     }
@@ -81,7 +79,7 @@ class MonoidSuite extends munit.FunSuite {
     ).foreach {
       case s => {
         List(unionSetMonoid[Int], intersectSetMonoid[Int]).foreach(law => {
-          val obtained = laws(using law).identity(s)
+          val obtained = MonoidLaws(using law).identity(s)
           assertEquals(obtained, true)
         })
       }
@@ -92,7 +90,7 @@ class MonoidSuite extends munit.FunSuite {
       Option(1)
     ).foreach {
       case a => {
-        val obtained = laws(using Monoid[Option[Int]]).identity(a)
+        val obtained = MonoidLaws(using Monoid[Option[Int]]).identity(a)
         assertEquals(obtained, true)
       }
     }
@@ -104,7 +102,7 @@ class MonoidSuite extends munit.FunSuite {
       Map("x" -> 1, "y" -> 2, "z" -> 3)
     ).foreach {
       case a => {
-        val obtained = laws(using Monoid[Map[String, Int]]).identity(a)
+        val obtained = MonoidLaws(using Monoid[Map[String, Int]]).identity(a)
         assertEquals(obtained, true)
       }
     }

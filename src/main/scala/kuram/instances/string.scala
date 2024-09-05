@@ -20,3 +20,17 @@
  */
 
 package kuram
+package instances
+
+object string {
+    // Semigroup
+    given stringSemigroup: Semigroup[String] with {
+      def combine(a: String, b: String): String = a + b
+    }
+
+    // Monoid
+    given stringMonoid: Monoid[String] with {
+      def empty: String = ""
+      def combine(a: String, b: String): String = a + b
+    }   
+}

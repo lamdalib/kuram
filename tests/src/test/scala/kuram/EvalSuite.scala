@@ -19,4 +19,8 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
+class EvalSuite extends munit.FunSuite {
+  test("test") {
+    assertEquals(1, 1)
+  }
+}

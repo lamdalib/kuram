@@ -19,10 +19,8 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-
-import compose.instances.all.given
-import compose.syntax.*
+import kuram.instances.all.given
+import kuram.ComposeOps.*
 
 class ComposeSuite extends munit.FunSuite {
   test("Should satisfy associativity") {

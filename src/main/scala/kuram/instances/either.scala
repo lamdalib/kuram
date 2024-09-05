@@ -20,3 +20,6 @@
  */
 
 package kuram
+package instances
+
+object either

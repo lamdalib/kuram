@@ -19,11 +19,9 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-
-import monad.Monad
-import monad.instances.all.given
-import monad.laws.{MonadLaws => laws}
+import kuram.Monad
+import kuram.instances.all.given
+import kuram.laws.MonadLaws
 
 class MonadSuite extends munit.FunSuite {
   test("Should satisfy associativity") {
@@ -36,7 +34,7 @@ class MonadSuite extends munit.FunSuite {
       List(1, 2, 3)
     ).foreach {
       case x => {
-        val obtained = laws(using Monad[List]).associativity(x)(f, g)
+        val obtained = MonadLaws(using Monad[List]).associativity(x)(f, g)
         assertEquals(obtained, true)
       }
     }
@@ -48,7 +46,7 @@ class MonadSuite extends munit.FunSuite {
       Some(1)
     ).foreach {
       case x => {
-        val obtained = laws(using Monad[Option]).associativity(x)(fo, go)
+        val obtained = MonadLaws(using Monad[Option]).associativity(x)(fo, go)
         assertEquals(obtained, true)
       }
     }
@@ -56,11 +54,11 @@ class MonadSuite extends munit.FunSuite {
 
   test("Should satisfy leftIdentity") {
     val f = (a: Int) => List(a + 1)
-    val obtained1 = laws(using Monad[List]).leftIdentity(1, f)
+    val obtained1 = MonadLaws(using Monad[List]).leftIdentity(1, f)
     assertEquals(obtained1, true)
 
     val fo = (a: Int) => Some(a + 1)
-    val obtained2 = laws(using Monad[Option]).leftIdentity(1, fo)
+    val obtained2 = MonadLaws(using Monad[Option]).leftIdentity(1, fo)
     assertEquals(obtained2, true)
   }
 
@@ -72,7 +70,7 @@ class MonadSuite extends munit.FunSuite {
       List(1, 2, 3)
     ).foreach {
       case x => {
-        val obtained = laws(using Monad[List]).rightIdentity(x)
+        val obtained = MonadLaws(using Monad[List]).rightIdentity(x)
         assertEquals(obtained, true)
       }
     }

@@ -20,3 +20,26 @@
  */
 
 package kuram
+
+
+trait Monoid[T] extends Semigroup[T] {
+  def empty: T
+}
+
+object Monoid {
+  /** Creating instance of [[kuram.Monoid]] with given T.
+    *
+    * Example:
+    * {{{
+    * scala> import kuram.Monoid
+    * scala> import kuram.instances.int.given
+    *
+    * scala> Monoid[Int]
+    * val res0: kuram.Monoid[Int] = kuram.MonoidInstances$given_Monoid_Int
+    * }}}
+    *
+    * References:
+    * - [[https://bartoszmilewski.com/2014/12/05/categories-great-and-small/]]
+    */
+  def apply[T](using instance: Monoid[T]): Monoid[T] = instance
+}

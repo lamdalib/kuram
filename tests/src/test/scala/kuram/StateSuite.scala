@@ -19,4 +19,17 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
+import kuram.data.State
+import kuram.instances.eval.given
+
+class StateSuite extends munit.FunSuite {
+  test("test") {
+    val s = State.apply[Int, Int] { s =>
+      (1, 1)
+    }
+
+    println(s.run(1).value)
+
+    assertEquals(1, 1)
+  }
+}

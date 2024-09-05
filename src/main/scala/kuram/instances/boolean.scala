@@ -20,3 +20,18 @@
  */
 
 package kuram
+package instances
+
+object boolean {
+    // Monoid - disjunction
+    given disjunctionBooleanMonoid: Monoid[Boolean] with {
+      def empty: Boolean = true
+      def combine(a: Boolean, b: Boolean): Boolean = a && b
+    }
+
+    // Monoid - conjuction
+    given conjuctionBooleanMonoid: Monoid[Boolean] with {
+      def empty: Boolean = false
+      def combine(a: Boolean, b: Boolean): Boolean = a || b
+    }
+}

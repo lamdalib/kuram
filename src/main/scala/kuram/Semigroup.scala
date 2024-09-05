@@ -20,3 +20,45 @@
  */
 
 package kuram
+
+trait Semigroup[T] {
+  /** Combining both given same type values.
+    * 
+    * Example:
+    * {{{
+    * scala> import kuram.Semigroup
+    * scala> import kuram.instances.int.given
+    * scala> import kuram.syntax.*
+    *
+    * scala> Semigroup[Int].combine(1, 2)
+    * val res0: Int = 3
+    *
+    * scala> "foo" |+| "bar"
+    * val res1: String = "foobar"
+    * }}}
+    */
+  def combine(a: T, b: T): T
+}
+
+object SemigroupOps {
+  /** @see Alias of [[kuram.Semigroup.combine]]
+    */
+  extension [T](a: T) {
+    def |+|(b: T)(using semigroup: Semigroup[T]): T = semigroup.combine(a, b)
+  }
+}
+
+object Semigroup {
+  /** Creating instance of [[kuram.Semigroup]] with given T.
+    *
+    * Example:
+    * {{{
+    * scala> import kuram.Semigroup
+    * scala> import kuram.instances.int.given
+    *
+    * scala> Semigroup[Int]
+    * val res0: kuram.Semigroup[Int] = kuram.SemigroupInstances$given_Semigroup_Int
+    * }}}
+    */
+  def apply[T](using instance: Semigroup[T]): Semigroup[T] = instance
+}

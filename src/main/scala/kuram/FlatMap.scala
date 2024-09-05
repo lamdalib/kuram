@@ -20,3 +20,14 @@
  */
 
 package kuram
+
+trait FlatMap[F[_]] extends Apply[F] {
+  extension [A](fa: F[A]) {
+    def flatMap[B](f: A => F[B]): F[B]
+
+    override def ap[B](ff: F[A => B]): F[B] = for {
+      a <- fa
+      f <- ff
+    } yield f(a)
+  }
+}

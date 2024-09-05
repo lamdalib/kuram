@@ -19,13 +19,8 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-
-import semigroup.syntax.*
-import foldable.syntax.*
-
-import monoid.instances.all.given
-import foldable.instances.list.given
+import kuram.instances.all.given
+import kuram.SemigroupOps.*
 
 class FoldableSuite extends munit.FunSuite {
   test("right foldable on list") {
@@ -36,7 +31,7 @@ class FoldableSuite extends munit.FunSuite {
 
     val intList = List(1, 2, 3)
     val expected2 = 6
-    val obtained2 = intList @>> (0, _ |+| _)
+    val obtained2 = intList.foldRight(0)(_ |+| _)
 
     assertEquals(obtained2, expected2)
   }
@@ -49,7 +44,7 @@ class FoldableSuite extends munit.FunSuite {
 
     val intList = List(1, 2, 3)
     val expected2 = 6
-    val obtained2 = intList @<< (0, _ |+| _)
+    val obtained2 = intList.foldLeft(0)(_ |+| _)
 
     assertEquals(obtained2, expected2)
   }
