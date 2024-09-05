@@ -33,17 +33,17 @@ trait Eval[+A] { self =>
 }
 
 // call-by-value, eager and memoized
-final case class Now[A](a: A) extends Eval[A] {
+final private[data] case class Now[A](a: A) extends Eval[A] {
   def value: A = a
 }
 
 // call-by-name, lazy and not-memoized
-final case class Always[A](f: () => A) extends Eval[A] {
+final private[data] case class Always[A](f: () => A) extends Eval[A] {
   def value: A = f()
 }
 
 // call-by-need, lazy and memoized
-final case class Later[A](f: () => A) extends Eval[A] {
+final private[data] case class Later[A](f: () => A) extends Eval[A] {
   lazy val value: A = f()
 }
 
@@ -60,7 +60,7 @@ object Eval {
   def defer[A](thunk: => Eval[A]): Eval[A] =
     Eval.Defer(() => thunk)
 
-  sealed case class Defer[A](f: () => Eval[A]) extends Eval[A] {
+  sealed private[data] case class Defer[A](f: () => Eval[A]) extends Eval[A] {
     def value: A = f().value
   }
 }

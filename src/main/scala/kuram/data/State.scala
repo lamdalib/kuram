@@ -26,6 +26,7 @@ import applicative.Applicative
 import flatmap.FlatMap
 
 final class IndexedStateT[F[_], S1, S2, A](underlying: F[S1 => F[(S2, A)]]) {
+
   def run(s1: S1)(using F: FlatMap[F]): F[(S2, A)] = {
     F.flatMap(underlying)(f => f(s1))
   }
@@ -48,17 +49,17 @@ object IndexedStateT {
   }
 }
 
-private type IndexedState[S1, S2, A] = IndexedStateT[Eval, S1, S2, A]
-private object IndexedState {
-  def apply[S1, S2, A](f: S1 => (S2, A)): IndexedState[S1, S2, A] = {
-    IndexedStateT.applyF(Eval.now((s: S1) => Eval.now(f(s))))
+type StateT[F[_], S, A] = IndexedStateT[F, S, S, A]
+object StateT {
+  def apply[F[_], S, A](f: S => F[(S, A)])(using F: Applicative[F]): StateT[F, S, A] = {
+    IndexedStateT(f)
   }
 }
 
-private type StateT[F[_], S, A] = IndexedStateT[F, S, S, A]
-private object StateT {
-  def apply[F[_], S, A](f: S => F[(S, A)])(using F: Applicative[F]): StateT[F, S, A] = {
-    IndexedStateT(f)
+type IndexedState[S1, S2, A] = IndexedStateT[Eval, S1, S2, A]
+object IndexedState {
+  def apply[S1, S2, A](f: S1 => (S2, A)): IndexedState[S1, S2, A] = {
+    IndexedStateT.applyF(Eval.now((s: S1) => Eval.now(f(s))))
   }
 }
 
