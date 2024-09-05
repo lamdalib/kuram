@@ -143,9 +143,23 @@ flowchart BT
     Traverse
 ```
 
-## Data classes
+## Data types
 ```mermaid
 flowchart BT
-    State
+    State --> StateT --> IndexedStateT
+    IndexedState --> IndexedStateT
     Eval
+    Id
 ```
+
+## Type class instances
+
+| Type         | Functor | Apply    | Applicative | Monad      | Monoid     | Semigroup  | Foldable | FlatMap |
+| ------------ | ------- | -------- | ----------- | ---------- | ---------- | ---------- | -------- | ------- |
+| List[A]      | &check; | &check;  | &check;     | &check;    | &check;    | &check;    | &check;  | ?       |
+| Map[K, A]    | &check; | &check;  | &cross;     | &cross;    | &check;    | &cross;    | ?        | ?       |
+| Option[A]    | &check; | &check;  | &check;     | &check;    | &check;    | &check;    | ?        | ?       |
+| Either[A]    | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
+| Id[A]        | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
+| Eval[A]      | ?       | ?        | ?           | ?          | ?          | ?          | ?        | &check; |
+| State[A]     | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
