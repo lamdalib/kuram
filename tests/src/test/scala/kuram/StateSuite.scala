@@ -23,13 +23,37 @@ import kuram.data.State
 import kuram.instances.eval.given
 
 class StateSuite extends munit.FunSuite {
-  test("test") {
-    val s = State.apply[Int, Int] { s =>
-      (1, 1)
-    }
+  test("Should satisfy run") {
+    val (s1, v1) = State
+      .apply[Int, Int] { s =>
+        (s, s + 1)
+      }
+      .run(1)
+      .value
 
-    println(s.run(1).value)
+    assertEquals(s1, 1)
+    assertEquals(v1, s1 + 1)
+  }
 
-    assertEquals(1, 1)
+  test("Should satisfy runS") {
+    val s1 = State
+      .apply[Int, Int] { s =>
+        (s, s + 1)
+      }
+      .runS(1)
+      .value
+
+    assertEquals(s1, 1)
+  }
+
+  test("Should satisfy runA") {
+    val v1 = State
+      .apply[Int, Int] { s =>
+        (s, s + 1)
+      }
+      .runA(1)
+      .value
+
+    assertEquals(v1, 2)
   }
 }
