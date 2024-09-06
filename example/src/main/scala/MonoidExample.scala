@@ -23,7 +23,6 @@ package example
 
 import kuram.Monoid
 import kuram.instances.all.given
-import kuram.instances.list.given
 import kuram.SemigroupOps.*
 
 object MonoidExample {

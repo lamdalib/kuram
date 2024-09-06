@@ -87,11 +87,11 @@ import kuram.SemigroupOps.*
 // you can access int monoid
 import kuram.instances.int.given
 // or, if you want to access list, string etc.
-// import kuram.monoid.instances.string
-// import kuram.monoid.instances.list.given
+// import kuram.instances.string.given
+// import kuram.instances.list.given
 
 // or, you can import all givens as follows:
-// import kuram.monoid.instances.all.given
+// import kuram.instances.all.given
 
 import kuram.instances.list.given
 

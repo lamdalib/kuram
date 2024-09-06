@@ -81,9 +81,4 @@ object list {
     def empty: List[A] = Nil
     def combine(a: List[A], b: List[A]): List[A] = a ++ b
   }
-
-  // Semigroup
-  given listSemigroup[A]: Semigroup[List[A]] with {
-    def combine(a: List[A], b: List[A]): List[A] = a ++ b
-  }
 }

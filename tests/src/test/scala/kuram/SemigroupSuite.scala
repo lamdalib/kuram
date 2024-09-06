@@ -21,7 +21,6 @@
 
 import kuram.Semigroup
 import kuram.instances.all.given
-import kuram.instances.list.given
 import kuram.laws.SemigroupLaws
 
 class SemigroupSuite extends munit.FunSuite {
@@ -55,7 +54,7 @@ class SemigroupSuite extends munit.FunSuite {
       (List(), List(), List())
     ).foreach {
       case (a, b, c) => {
-        val obtained = SemigroupLaws(using summon[Semigroup[List[Int]]]).associativity(a, b, c)
+        val obtained = SemigroupLaws(using Semigroup[List[Int]]).associativity(a, b, c)
         assertEquals(obtained, true)
       }
     }

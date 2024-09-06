@@ -22,13 +22,14 @@
 package kuram
 
 trait Semigroup[T] {
+
   /** Combining both given same type values.
     * 
     * Example:
     * {{{
     * scala> import kuram.Semigroup
     * scala> import kuram.instances.int.given
-    * scala> import kuram.syntax.*
+    * scala> import kuram.SemigroupOps.*
     *
     * scala> Semigroup[Int].combine(1, 2)
     * val res0: Int = 3
@@ -41,6 +42,7 @@ trait Semigroup[T] {
 }
 
 object SemigroupOps {
+
   /** @see Alias of [[kuram.Semigroup.combine]]
     */
   extension [T](a: T) {
@@ -49,6 +51,7 @@ object SemigroupOps {
 }
 
 object Semigroup {
+
   /** Creating instance of [[kuram.Semigroup]] with given T.
     *
     * Example:
