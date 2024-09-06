@@ -22,36 +22,7 @@
 package kuram
 package data
 
-final class IndexedStateT[F[_], S1, S2, A](underlying: F[S1 => F[(S2, A)]]) {
-
-  def run(s1: S1)(using F: FlatMap[F]): F[(S2, A)] = {
-    F.flatMap(underlying)(f => f(s1))
-  }
-
-  def runS(s1: S1)(using F: FlatMap[F]): F[S2] = {
-    F.map(run(s1))(_._1)
-  }
-
-  def runA(s1: S1)(using F: FlatMap[F]): F[A] = {
-    F.map(run(s1))(_._2)
-  }
-}
-object IndexedStateT {
-  def apply[F[_], S1, S2, A](f: S1 => F[(S2, A)])(using F: Applicative[F]): IndexedStateT[F, S1, S2, A] = {
-    new IndexedStateT(F.pure(f))
-  }
-
-  def applyF[F[_], S1, S2, A](f: F[S1 => F[(S2, A)]]): IndexedStateT[F, S1, S2, A] = {
-    new IndexedStateT(f)
-  }
-}
-
-type StateT[F[_], S, A] = IndexedStateT[F, S, S, A]
-object StateT {
-  def apply[F[_], S, A](f: S => F[(S, A)])(using F: Applicative[F]): StateT[F, S, A] = {
-    IndexedStateT(f)
-  }
-}
+import transformers.{IndexedStateT, StateT}
 
 type IndexedState[S1, S2, A] = IndexedStateT[Eval, S1, S2, A]
 object IndexedState {
