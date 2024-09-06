@@ -21,7 +21,6 @@
 
 package kuram
 
-
 /** Apply
   *
   * Version of [[kuram.Applicative]] without [[kuram.Applicative.pure]] combinator.
@@ -47,18 +46,15 @@ package kuram
   * res1: Map[String, Int] = Map(a -> 2, b -> 4)
   * }}}
   */
-trait Apply[F[_]] extends Functor[F] {
+trait Apply[F[_]] extends Functor[F] with Semigroupal[F] {
   extension [A](fa: F[A]) {
     def ap[B](ff: F[A => B]): F[B]
 
     def ap2[B, Z](ff: F[(A, B) => Z])(fb: F[B]): F[Z] =
       fb.ap(fa.ap(ff.map(_.curried)))
 
-    def product[B](fb: F[B]): F[(A, B)] =
+    override def product[B](fb: F[B]): F[(A, B)] =
       fb.ap(fa.map(a => (b: B) => (a, b)))
-
-    def product2[B, C](fb: F[B], fc: F[C]): F[(A, B, C)] =
-      fc.ap(fb.ap(fa.map(a => (b: B) => (c: C) => (a, b, c))))
   }
 }
 
