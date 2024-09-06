@@ -41,14 +41,14 @@ trait Applicative[F[_]] extends Apply[F] {
       fa.ap(pure(f))
 
     def map2[B, Z](fb: F[B])(f: (A, B) => Z): F[Z] =
-      fb.ap(
-        fa.map(f.curried)
+      fa.ap(
+        fb.map(b => a => f(a, b))
       )
 
     def map3[B, C, Z](fb: F[B], fc: F[C])(f: (A, B, C) => Z): F[Z] =
-      fc.ap(
-        fa.map2(fb) { (a, b) =>
-          f(a, b, _)
+      fa.ap(
+        fb.map2(fc) { (b, c) =>
+          f(_, b, c)
         }
       )
 
@@ -58,7 +58,7 @@ trait Applicative[F[_]] extends Apply[F] {
       }
 
     def map5[B, C, D, E, Z](fb: F[B], fc: F[C], fd: F[D], fe: F[E])(f: (A, B, C, D, E) => Z): F[Z] =
-      fa.product(fb).map2(fc.product2(fd, fe)) { case ((a, b), (c, d, e)) =>
+      fa.product(fb).map3(fc.product(fd), fe) { case ((a, b), (c, d), e) =>
         f(a, b, c, d, e)
       }
 
