@@ -27,22 +27,10 @@ object list {
   given listApplicative: Applicative[List] with {
     def pure[A](a: => A): List[A] = List(a)
 
-    extension [A](fa: List[A]) {
+    extension [A](as: List[A]) {
       def ap[B](ff: List[A => B]): List[B] = for {
         f <- ff
-        a <- fa
-      } yield f(a)
-    }
-  }
-
-  // Apply
-  given listApply: Apply[List] with {
-    extension [A](fa: List[A]) {
-      def map[B](f: A => B): List[B] = fa.map(f)
-
-      def ap[B](ff: List[A => B]): List[B] = for {
-        f <- ff
-        a <- fa
+        a <- as
       } yield f(a)
     }
   }
@@ -70,9 +58,9 @@ object list {
   given listMonad: Monad[List] with {
     def pure[A](a: => A): List[A] = List(a)
 
-    extension [A](fa: List[A]) {
+    extension [A](as: List[A]) {
       def flatMap[B](f: A => List[B]): List[B] =
-        fa.flatMap(f)
+        as.flatMap(f)
     }
   }
 
