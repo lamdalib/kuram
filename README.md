@@ -134,6 +134,23 @@ def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
 ## Type classes
 ```mermaid
 flowchart BT
+    Semigroup["Semigroup (combine)"]
+    Monoid["Monoid (empty)"]
+
+    Monad["Monad"]
+
+    Applicative["Applicative (pure)"]
+    FlatMap["FlatMap (flatMap)"]
+
+    Apply["Apply (ap)"]
+
+    Semigroupal["Semigroupal (product)"]
+    Functor["Functor (map)"]
+
+    Compose["Compose (compose)"]
+    Foldable["Foldable (foldRight & foldLeft)"]
+    Traverse["Traverse"]
+
     Monoid --> Semigroup
 
     Monad --> Applicative & FlatMap --> Apply --> Semigroupal & Functor
@@ -154,12 +171,14 @@ flowchart BT
 
 ## Type class instances
 
-| Type         | Functor | Apply    | Applicative | Monad      | Monoid     | Semigroup  | Foldable | FlatMap |
-| ------------ | ------- | -------- | ----------- | ---------- | ---------- | ---------- | -------- | ------- |
-| List[A]      | &check; | &check;  | &check;     | &check;    | &check;    | &check;    | &check;  | ?       |
-| Map[K, A]    | &check; | &check;  | &cross;     | &cross;    | &check;    | &cross;    | ?        | ?       |
-| Option[A]    | &check; | &check;  | &check;     | &check;    | &check;    | &check;    | ?        | ?       |
-| Either[A]    | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
-| Id[A]        | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
-| Eval[A]      | ?       | ?        | ?           | ?          | ?          | ?          | ?        | &check; |
-| State[A]     | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
+| Type              | Functor | Apply    | Applicative | Monad      | Monoid     | Semigroup  | Foldable | FlatMap |
+| ----------------- | ------- | -------- | ----------- | ---------- | ---------- | ---------- | -------- | ------- |
+| List[A]           | ✔       | ✔        | ✔           | ✔          | ✔          | ✔          | ✔        | ✔       |
+| Map[K, A]         | ✔       | ✔        | ✗           | ✗          | ✔          | ✗          | ?        | ✔       |
+| Option[A]         | ✔       | ✔        | ✔           | ✔          | ✔          | ✔          | ?        | ✔       |
+| Either[A]         | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
+| Id[A]             | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
+| Eval[A]           | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
+| State[A]          | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
+| IO[A]             | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
+| NonEmptyList[A]   | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
