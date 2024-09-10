@@ -20,9 +20,6 @@
  */
 
 package kuram
+package instances
 
-trait Semigroupal[F[_]] {
-  extension [A](fa: F[A]) {
-    def product[B](fb: F[B]): F[(A, B)]
-  }
-}
+object state {}

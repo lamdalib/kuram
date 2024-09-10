@@ -20,20 +20,19 @@
  */
 
 package kuram
-package data
+package instances
 
-import transformers.{IndexedStateT, StateT}
-
-type IndexedState[S1, S2, A] = IndexedStateT[Eval, S1, S2, A]
-object IndexedState {
-  def apply[S1, S2, A](f: S1 => (S2, A)): IndexedState[S1, S2, A] = {
-    IndexedStateT.applyF(Eval.now((s: S1) => Eval.now(f(s))))
-  }
-}
-
-type State[S, A] = StateT[Eval, S, A]
-object State {
-  def apply[S, A](f: S => (S, A)): State[S, A] = {
-    IndexedStateT.applyF(Eval.now(s => Eval.now(f(s))))
-  }
+package object all {
+  export boolean.given
+  export either.given
+  export eval.given
+  export function.given
+  export int.given
+  export list.given
+  export map.given
+  export option.given
+  export seq.given
+  export set.given
+  export string.given
+  export state.given
 }

@@ -20,30 +20,39 @@
  */
 
 package kuram
-package transformers
+package instances
 
-final class IndexedStateT[F[_], S1, S2, A](underlying: F[S1 => F[(S2, A)]]) {
+import data.Eval
 
-  def run(s1: S1)(using F: FlatMap[F]): F[(S2, A)] = {
-    F.flatMap(underlying)(f => f(s1))
+object eval {
+
+  // Functor
+  given evalFunctor: Functor[Eval] with {
+    extension [A](fa: Eval[A]) {
+      def map[B](f: A => B): Eval[B] =
+        fa.map(f)
+    }
   }
 
-  def runS(s1: S1)(using F: FlatMap[F]): F[S2] = {
-    F.map(run(s1))(_._1)
+  // Applicative
+  given evalApplicative: Applicative[Eval] with {
+    def pure[A](a: => A): Eval[A] = Eval.now(a)
+
+    extension [A](fa: Eval[A]) {
+      def ap[B](ff: Eval[A => B]): Eval[B] = for {
+        a <- fa
+        f <- ff
+      } yield f(a)
+    }
   }
 
-  def runA(s1: S1)(using F: FlatMap[F]): F[A] = {
-    F.map(run(s1))(_._2)
+  // Monad
+  given evalMonad: Monad[Eval] with {
+    def pure[A](a: => A): Eval[A] = Eval.now(a)
+
+    extension [A](fa: Eval[A]) {
+      def flatMap[B](f: A => Eval[B]): Eval[B] =
+        fa.flatMap(f)
+    }
   }
 }
-
-object IndexedStateT {
-  def apply[F[_], S1, S2, A](f: S1 => F[(S2, A)])(using F: Applicative[F]): IndexedStateT[F, S1, S2, A] = {
-    new IndexedStateT(F.pure(f))
-  }
-
-  def applyF[F[_], S1, S2, A](f: F[S1 => F[(S2, A)]]): IndexedStateT[F, S1, S2, A] = {
-    new IndexedStateT(f)
-  }
-}
-

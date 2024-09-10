@@ -20,13 +20,28 @@
  */
 
 package kuram
-package transformers
+package data
 
-type StateT[F[_], S, A] = IndexedStateT[F, S, S, A]
+opaque type State[S, A] = S => (S, A)
+object State {
+  def apply[S, A](instance: S => (S, A)): State[S, A] = instance
 
-object StateT {
-  def apply[F[_], S, A](f: S => F[(S, A)])(using F: Applicative[F]): StateT[F, S, A] = {
-    IndexedStateT(f)
+  def lift[S, A](a: A): State[S, A] = State { s =>
+    (s, a)
+  }
+
+  extension [S, A](runF: State[S, A]) {
+    def run(initialState: S): (S, A) = {
+      runF(initialState)
+    }
+
+    def flatMap[B](f: A => State[S, B]): State[S, B] = State { s1 =>
+      val (s2, a) = run(s1)
+      f(a)(s2)
+    }
+
+    def map[B](f: A => B): State[S, B] = {
+      flatMap(a => State.lift(f(a)))
+    }
   }
 }
-

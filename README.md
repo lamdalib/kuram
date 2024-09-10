@@ -134,37 +134,42 @@ def matrixMonoid(row: Int, col: Int): Monoid[Matrix[Int]] = new {
 ## Type classes
 ```mermaid
 flowchart BT
-    Semigroup["Semigroup (combine)"]
-    Monoid["Monoid (empty)"]
+    %% Typeclasses
+        Semigroup["Semigroup (combine)"]
+        Monoid["Monoid (empty)"]
 
-    Monad["Monad"]
+        Monad["Monad"]
 
-    Applicative["Applicative (pure)"]
-    FlatMap["FlatMap (flatMap)"]
+        Applicative["Applicative (pure)"]
+        FlatMap["FlatMap (flatMap)"]
 
-    Apply["Apply (ap)"]
+        Apply["Apply (ap)"]
 
-    Semigroupal["Semigroupal (product)"]
-    Functor["Functor (map)"]
+        Semigroupal["Semigroupal (product)"]
+        Functor["Functor (map)"]
 
-    Compose["Compose (compose)"]
-    Foldable["Foldable (foldRight & foldLeft)"]
-    Traverse["Traverse"]
+        Compose["Compose (compose)"]
+        Foldable["Foldable (fold)"]
+        Traverse["Traverse"]
+    %% %
 
-    Monoid --> Semigroup
 
-    Monad --> Applicative & FlatMap --> Apply --> Semigroupal & Functor
 
-    Compose
-    Foldable
-    Traverse
+    %% Relations
+        Monoid --> Semigroup
+
+        Monad --> Applicative & FlatMap --> Apply --> Semigroupal & Functor
+
+        Compose
+        Traverse
+        Foldable
+    %% %
 ```
 
 ## Data types
 ```mermaid
 flowchart BT
-    State --> StateT --> IndexedStateT
-    IndexedState --> IndexedStateT
+    State --> StateT
     Eval
     Id
 ```
@@ -178,7 +183,7 @@ flowchart BT
 | Option[A]         | ✔       | ✔        | ✔           | ✔          | ✔          | ✔          | ?        | ✔       |
 | Either[A]         | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
 | Id[A]             | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
-| Eval[A]           | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
+| Eval[A]           | ✔       | ✔        | ✔           | ✔          | ?          | ?          | ?        | ✔       |
 | State[A]          | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
 | IO[A]             | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
 | NonEmptyList[A]   | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |

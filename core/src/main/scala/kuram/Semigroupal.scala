@@ -20,18 +20,13 @@
  */
 
 package kuram
-package instances
 
-package object all {
-  export boolean.given
-  export either.given
-  export eval.given
-  export function.given
-  export int.given
-  export list.given
-  export map.given
-  export option.given
-  export seq.given
-  export set.given
-  export string.given
+trait Semigroupal[F[_]] {
+  extension [A](fa: F[A]) {
+    def product[B](fb: F[B]): F[(A, B)]
+  }
+}
+
+object Semigroupal {
+  def apply[F[_]](using instance: Semigroupal[F]): Semigroupal[F] = instance
 }
