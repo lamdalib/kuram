@@ -22,18 +22,28 @@
 package kuram
 package instances
 
-package object all {
-  export boolean.given
-  export either.given
-  export eval.given
-  export function.given
-  export int.given
-  export list.given
-  export map.given
-  export option.given
-  export seq.given
-  export set.given
-  export string.given
-  export state.given
-  export io.given
+import effects.IO
+
+object io {
+  // Applicative
+  given ioApplicative: Applicative[IO] with {
+    def pure[A](a: => A): IO[A] = IO(a)
+
+    extension [A](fa: IO[A]) {
+      def ap[B](ff: IO[A => B]): IO[B] = for {
+        a <- fa
+        f <- ff
+      } yield f(a)
+    }
+  }
+
+  // Monad
+  given ioMonad: Monad[IO] with {
+    def pure[A](a: => A): IO[A] = IO(a)
+
+    extension [A](fa: IO[A]) {
+      def flatMap[B](f: A => IO[B]): IO[B] =
+        fa.flatMap(f)
+    }
+  }
 }
