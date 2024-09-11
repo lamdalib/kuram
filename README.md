@@ -174,6 +174,12 @@ flowchart BT
     Id
 ```
 
+## Effects
+```mermaid
+flowchart BT
+    IO
+```
+
 ## Type class instances
 
 | Type              | Functor | Apply    | Applicative | Monad      | Monoid     | Semigroup  | Foldable | FlatMap |
@@ -185,5 +191,5 @@ flowchart BT
 | Id[A]             | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
 | Eval[A]           | ✔       | ✔        | ✔           | ✔          | ?          | ?          | ?        | ✔       |
 | State[A]          | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
-| IO[A]             | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
+| IO[A]             | ?       | ?        | ?           | ✔          | ?          | ?          | ?        | ?       |
 | NonEmptyList[A]   | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
