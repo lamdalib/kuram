@@ -21,3 +21,29 @@
 
 package kuram
 package transformers
+
+opaque type StateT[F[_], S, A] = S => F[(S, A)]
+object StateT {
+  def apply[F[_], S, A](instance: S => F[(S, A)]): StateT[F, S, A] =
+    instance
+
+  def lift[F[_], S, A](a: A)(using F: Applicative[F]): StateT[F, S, A] = StateT { s =>
+    F.pure((s, a))
+  }
+
+  extension [F[_], S, A](runF: StateT[F, S, A]) {
+    def run(initialState: S): F[(S, A)] =
+      runF(initialState)
+
+    def map[B](f: A => B)(using F: Monad[F]): StateT[F, S, B] = {
+      flatMap(a => lift(f(a)))
+    }
+
+    def flatMap[B](f: A => StateT[F, S, B])(using F: Monad[F]): StateT[F, S, B] = StateT { (s0: S) =>
+      F.flatMap(run(s0)) { case (s1, a) =>
+        f(a).run(s1)
+      }
+    }
+  }
+
+}
