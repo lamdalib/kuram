@@ -29,7 +29,7 @@ trait Semigroup[T] {
     * {{{
     * scala> import kuram.Semigroup
     * scala> import kuram.instances.int.given
-    * scala> import kuram.SemigroupOps.*
+    * scala> import kuram.syntax.semigroup.*
     *
     * scala> Semigroup[Int].combine(1, 2)
     * val res0: Int = 3
@@ -39,15 +39,6 @@ trait Semigroup[T] {
     * }}}
     */
   def combine(a: T, b: T): T
-}
-
-object SemigroupOps {
-
-  /** @see Alias of [[kuram.Semigroup.combine]]
-    */
-  extension [T](a: T) {
-    def |+|(b: T)(using semigroup: Semigroup[T]): T = semigroup.combine(a, b)
-  }
 }
 
 object Semigroup {

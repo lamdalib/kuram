@@ -23,7 +23,7 @@ package example
 
 import kuram.Monoid
 import kuram.instances.all.given
-import kuram.SemigroupOps.*
+import kuram.syntax.monoid.*
 
 object MonoidExample {
   @main def sumOfIntegers: Unit = {
