@@ -79,6 +79,16 @@ lazy val tests = project
   )
   .enablePlugins(ScalafixPlugin, AutomateHeaderPlugin)
 
+lazy val laws = project
+  .in(file("laws"))
+  .dependsOn(core)
+  .settings(commonSettings)
+  .settings(
+    name := "laws",
+    publish / skip := true,
+  )
+  .enablePlugins(ScalafixPlugin, AutomateHeaderPlugin)
+
 lazy val core = project
   .in(file("core"))
   .settings(commonSettings)
@@ -90,4 +100,4 @@ lazy val core = project
 
 lazy val kuram = project
   .in(file("."))
-  .aggregate(core, tests, example)
+  .aggregate(core, laws, tests, example)
