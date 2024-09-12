@@ -22,12 +22,14 @@
 package kuram
 
 trait FlatMap[F[_]] extends Apply[F] {
-  extension [A](fa: F[A]) {
-    def flatMap[B](f: A => F[B]): F[B]
+  def flatMap[A, B](fa: F[A])(f: A => F[B]): F[B]
 
-    override def ap[B](ff: F[A => B]): F[B] = for {
-      a <- fa
-      f <- ff
-    } yield f(a)
-  }
+  override def ap[A, B](ff: F[A => B])(fa: F[A]): F[B] =
+    flatMap(fa)(a => {
+      map(ff)(f => f(a))
+    })
+}
+
+object FlatMap {
+  def apply[F[_]](using instance: FlatMap[F]): FlatMap[F] = instance
 }

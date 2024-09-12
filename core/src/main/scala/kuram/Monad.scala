@@ -33,10 +33,8 @@ package kuram
   * }}}
   */
 trait Monad[F[_]] extends Applicative[F] with FlatMap[F] {
-  extension [A](fa: F[A]) {
-    override def map[B](f: A => B): F[B] =
-      fa.flatMap(a => pure(f(a)))
-  }
+  override def map[A, B](fa: F[A])(f: A => B): F[B] =
+    flatMap(fa)(a => pure(f(a)))
 }
 
 object Monad {

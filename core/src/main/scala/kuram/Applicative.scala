@@ -36,40 +36,38 @@ trait Applicative[F[_]] extends Apply[F] {
     */
   def pure[A](a: => A): F[A]
 
-  extension [A](fa: F[A]) {
-    override def map[B](f: A => B): F[B] =
-      fa.ap(pure(f))
+  override def map[A, B](fa: F[A])(f: A => B): F[B] =
+    ap(pure(f))(fa)
 
-    def map2[B, Z](fb: F[B])(f: (A, B) => Z): F[Z] =
-      fa.ap(
-        fb.map(b => a => f(a, b))
-      )
+  def map2[A, B, Z](fa: F[A], fb: F[B])(f: (A, B) => Z): F[Z] =
+    ap(map(fb)(b => a => f(a, b)))(fa)
 
-    def map3[B, C, Z](fb: F[B], fc: F[C])(f: (A, B, C) => Z): F[Z] =
-      fa.ap(
-        fb.map2(fc) { (b, c) =>
-          f(_, b, c)
-        }
-      )
-
-    def map4[B, C, D, Z](fb: F[B], fc: F[C], fd: F[D])(f: (A, B, C, D) => Z): F[Z] =
-      fa.product(fb).map2(fc.product(fd)) { case ((a, b), (c, d)) =>
-        f(a, b, c, d)
+  def map3[A, B, C, Z](fa: F[A], fb: F[B], fc: F[C])(f: (A, B, C) => Z): F[Z] =
+    ap(
+      map2(fb, fc) { (b, c) =>
+        f(_, b, c)
       }
+    )(fa)
 
-    def map5[B, C, D, E, Z](fb: F[B], fc: F[C], fd: F[D], fe: F[E])(f: (A, B, C, D, E) => Z): F[Z] =
-      fa.product(fb).map3(fc.product(fd), fe) { case ((a, b), (c, d), e) =>
-        f(a, b, c, d, e)
-      }
+  def map4[A, B, C, D, Z](fa: F[A], fb: F[B], fc: F[C], fd: F[D])(f: (A, B, C, D) => Z): F[Z] =
+    map2(product(fa, fb), product(fc, fd)) { case ((a, b), (c, d)) =>
+      f(a, b, c, d)
+    }
 
-    def map6[B, C, D, E, G, Z](fb: F[B], fc: F[C], fd: F[D], fe: F[E], fg: F[G])(f: (A, B, C, D, E, G) => Z): F[Z] =
-      fa.product(fb)
-        .map3(
-          fc.product(fd),
-          fe.product(fg)
-        ) { case ((a, b), (c, d), (e, g)) => f(a, b, c, d, e, g) }
+  def map5[A, B, C, D, E, Z](fa: F[A], fb: F[B], fc: F[C], fd: F[D], fe: F[E])(f: (A, B, C, D, E) => Z): F[Z] =
+    map3(product(fa, fb), product(fc, fd), fe) { case ((a, b), (c, d), e) =>
+      f(a, b, c, d, e)
+    }
 
-  }
+  def map6[A, B, C, D, E, G, Z](fa: F[A], fb: F[B], fc: F[C], fd: F[D], fe: F[E], fg: F[G])(
+    f: (A, B, C, D, E, G) => Z
+  ): F[Z] =
+    map3(
+      product(fa, fb),
+      product(fc, fd),
+      product(fe, fg)
+    ) { case ((a, b), (c, d), (e, g)) => f(a, b, c, d, e, g) }
+
 }
 
 object Applicative {

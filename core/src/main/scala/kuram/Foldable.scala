@@ -26,9 +26,8 @@ package kuram
   * Type class for foldable data structures.
   */
 trait Foldable[F[_]] {
-  extension [A](as: F[A]) {
 
-    /** Folds the elements of the structure using a binary operation from right.
+  /** Folds the elements of the structure using a binary operation from right.
       *
       * Example:
       * {{{
@@ -47,9 +46,9 @@ trait Foldable[F[_]] {
       * val res0: String = abc
       * }}}
       */
-    def foldRight[B](acc: B)(f: (A, B) => B): B
+  def foldRight[A, B](as: F[A], acc: B)(f: (A, B) => B): B
 
-    /** Folds the elements of the structure using a binary operation from left.
+  /** Folds the elements of the structure using a binary operation from left.
       *
       * Example:
       * {{{
@@ -68,10 +67,10 @@ trait Foldable[F[_]] {
       * val res0: String = abc
       * }}}
       */
-    def foldLeft[B](acc: B)(f: (B, A) => B): B =
-      foldRight(acc)((b, a) => f(a, b))
+  def foldLeft[A, B](fa: F[A], acc: B)(f: (B, A) => B): B =
+    foldRight(fa, acc)((b, a) => f(a, b))
 
-    /** Maps each element of the structure to a [[kuram.Monoid]] and combines the results.
+  /** Maps each element of the structure to a [[kuram.Monoid]] and combines the results.
       *
       * Example:
       * {{{
@@ -86,9 +85,8 @@ trait Foldable[F[_]] {
       * val res0: Int = 12
       * }}}
       */
-    def foldMap[B](f: A => B)(using m: Monoid[B]): B =
-      foldRight(m.empty)((a, b) => m.combine(f(a), b))
-  }
+  def foldMap[A, B](fa: F[A])(f: A => B)(using M: Monoid[B]): B =
+    foldRight(fa, M.empty)((a, b) => M.combine(f(a), b))
 }
 
 object Foldable {

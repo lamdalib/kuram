@@ -22,9 +22,8 @@
 package kuram
 
 trait Functor[F[_]] {
-  extension [A](fa: F[A]) {
 
-    /** Mapping given function over instance.
+  /** Mapping given function over instance.
       *
       * Example:
       * {{{
@@ -43,9 +42,9 @@ trait Functor[F[_]] {
       * val res0: List[Int] = List(2, 4, 6)
       * }}}
       */
-    def map[B](f: A => B): F[B]
+  def map[A, B](fa: F[A])(f: A => B): F[B]
 
-    /** All elements will be converted to B.
+  /** All elements will be converted to B.
       * 
       * Example:
       * {{{
@@ -56,9 +55,9 @@ trait Functor[F[_]] {
       * res0: List[Int] = List(5, 5, 5)
       * }}}
       */
-    def as[B](b: => B): F[B] = fa.map(_ => b)
+  def as[A, B](fa: F[A])(b: => B): F[B] = map(fa)(_ => b)
 
-    /** All elements will be converted to Unit.
+  /** All elements will be converted to Unit.
       *
       * Example:
       * {{{
@@ -69,18 +68,17 @@ trait Functor[F[_]] {
       * res0: List[Unit] = List((), (), ())
       * }}}
       */
-    def void: F[Unit] = as(())
+  def void[A](fa: F[A]): F[Unit] = as(fa)(())
 
-    /** Alias of [[map]]. 
+  /** Alias of [[map]]. 
       * Sometimes we can't use [[map]] because the type 
       * already had a built-in .map combinator.
       */
-    final def fmap[B](f: A => B): F[B] = fa.map(f)
-  }
+  final def fmap[A, B](fa: F[A])(f: A => B): F[B] = map(fa)(f)
 
   /** Lifting given function to function of [[Functor]] of given types.
     */
-  def lift[A, B](f: A => B): F[A] => F[B] = _.map(f)
+  def lift[A, B](f: A => B): F[A] => F[B] = map(_)(f)
 }
 
 object Functor {

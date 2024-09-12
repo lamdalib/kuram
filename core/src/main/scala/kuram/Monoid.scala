@@ -21,12 +21,12 @@
 
 package kuram
 
-
 trait Monoid[T] extends Semigroup[T] {
   def empty: T
 }
 
 object Monoid {
+
   /** Creating instance of [[kuram.Monoid]] with given T.
     *
     * Example:

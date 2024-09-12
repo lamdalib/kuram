@@ -22,9 +22,7 @@
 package kuram
 
 trait Semigroupal[F[_]] {
-  extension [A](fa: F[A]) {
-    def product[B](fb: F[B]): F[(A, B)]
-  }
+  def product[A, B](fa: F[A], fb: F[B]): F[(A, B)]
 }
 
 object Semigroupal {
