@@ -82,7 +82,7 @@ Let's create matrix addition Monoid and use it our matrix operations.
 ```scala
 import kuram.Monoid
 // you can access combine alias (|+|) under syntax.
-import kuram.SemigroupOps.*
+import kuram.syntax.monoid.*
 
 // you can access int monoid
 import kuram.instances.int.given
