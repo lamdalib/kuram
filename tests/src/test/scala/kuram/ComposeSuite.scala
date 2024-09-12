@@ -20,7 +20,7 @@
  */
 
 import kuram.instances.all.given
-import kuram.ComposeOps.*
+import kuram.syntax.compose.*
 
 class ComposeSuite extends munit.FunSuite {
   test("Should satisfy associativity") {

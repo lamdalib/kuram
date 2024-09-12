@@ -20,10 +20,16 @@
  */
 
 package kuram
+package syntax
 
-package object syntax {
-  object semigroup extends SemigroupSyntax
-  object monoid extends MonoidSyntax
+private[syntax] trait ComposeSyntax {
+  extension [F[_, _], A, B, C](f: F[B, C])(using Compose[F]) {
+    final def <<<(g: F[A, B]): F[A, C] = Compose[F].compose(f, g)
+    final def compose(g: F[A, B]): F[A, C] = Compose[F].compose(f, g)
+  }
 
-  object compose extends ComposeSyntax
+  extension [F[_, _], A, B, C](f: F[A, B])(using Compose[F]) {
+    final def >>>(g: F[B, C]): F[A, C] = Compose[F].andThen(f, g)
+    final def andThen(g: F[B, C]): F[A, C] = Compose[F].andThen(f, g)
+  }
 }

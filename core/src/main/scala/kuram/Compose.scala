@@ -76,16 +76,6 @@ trait Compose[F[_, _]] {
   def andThen[A, B, C](f: F[A, B], g: F[B, C]): F[A, C] = compose(g, f)
 }
 
-object ComposeOps {
-  extension [F[_, _], A, B, C](f: F[B, C]) {
-    def <<<(g: F[A, B])(using c: Compose[F]): F[A, C] = c.compose(f, g)
-  }
-
-  extension [F[_, _], A, B, C](f: F[A, B]) {
-    def >>>(g: F[B, C])(using c: Compose[F]): F[A, C] = c.andThen(f, g)
-  }
-}
-
 object Compose {
   def apply[F[_, _]](using instance: Compose[F]): Compose[F] = instance
 }
