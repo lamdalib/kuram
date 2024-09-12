@@ -22,12 +22,12 @@
 package kuram
 package laws
 
-trait MonadLaws[F[_]] extends ApplicativeLaws[F] with FlatMapLaws[F] {
-  implicit override def F: Monad[F]
+trait SemigroupalLaws[F[_]] {
+  implicit def F: Semigroupal[F]
 }
 
-object MonadLaws {
-  def apply[F[_]](using monad: Monad[F]): MonadLaws[F] = new {
-    implicit def F: Monad[F] = monad
+object SemigroupalLaws {
+  def apply[F[_]](using semigroupal: Semigroupal[F]): SemigroupalLaws[F] = new {
+    implicit def F: Semigroupal[F] = semigroupal
   }
 }

@@ -22,12 +22,12 @@
 package kuram
 package laws
 
-trait ApplyLaws[F[_]] {
-    implicit def F: Apply[F]
+trait ApplyLaws[F[_]] extends FunctorLaws[F] with SemigroupalLaws[F] {
+  implicit override def F: Apply[F]
 }
 
 object ApplyLaws {
-    def apply[F[_]](using apply: Apply[F]): ApplyLaws[F] = new {
-        implicit def F: Apply[F] = apply
-    }
+  def apply[F[_]](using apply: Apply[F]): ApplyLaws[F] = new {
+    implicit def F: Apply[F] = apply
+  }
 }

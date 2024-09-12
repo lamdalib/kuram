@@ -22,12 +22,12 @@
 package kuram
 package laws
 
-trait MonadLaws[F[_]] extends ApplicativeLaws[F] with FlatMapLaws[F] {
-  implicit override def F: Monad[F]
+trait FlatMapLaws[F[_]] extends ApplyLaws[F] {
+  implicit override def F: FlatMap[F]
 }
 
-object MonadLaws {
-  def apply[F[_]](using monad: Monad[F]): MonadLaws[F] = new {
-    implicit def F: Monad[F] = monad
+object FlatMapLaws {
+  def apply[F[_]](using apply: FlatMap[F]): FlatMapLaws[F] = new {
+    implicit def F: FlatMap[F] = apply
   }
 }

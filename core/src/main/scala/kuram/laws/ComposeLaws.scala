@@ -23,15 +23,11 @@ package kuram
 package laws
 
 trait ComposeLaws[F[_, _]] {
-    implicit def F: Compose[F]
-
-    /** must obey `andThen(f, andThen(g, h)) == andThen(andThen(f, g), h)` */
-    def composeAssociativity[A, B, C, Z](f: F[A, B], g: F[B, C], h: F[C, Z]): Boolean =
-        F.andThen(f, F.andThen(g, h)) == F.andThen(F.andThen(f, g), h)
+  implicit def F: Compose[F]
 }
 
 object ComposeLaws {
-    def apply[F[_, _]](using compose: Compose[F]): ComposeLaws[F] = new {
-        implicit def F: Compose[F] = compose
-    }
+  def apply[F[_, _]](using compose: Compose[F]): ComposeLaws[F] = new {
+    implicit def F: Compose[F] = compose
+  }
 }
