@@ -19,15 +19,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-package laws
+package kuram.laws
 
-trait ComposeLaws[F[_, _]] {
-  implicit def F: Compose[F]
+import kuram.FlatMap
+
+trait FlatMapLaws[F[_]] extends ApplyLaws[F] {
+  implicit override def F: FlatMap[F]
 }
 
-object ComposeLaws {
-  def apply[F[_, _]](using compose: Compose[F]): ComposeLaws[F] = new {
-    implicit def F: Compose[F] = compose
+object FlatMapLaws {
+  def apply[F[_]](using apply: FlatMap[F]): FlatMapLaws[F] = new {
+    implicit def F: FlatMap[F] = apply
   }
 }

@@ -19,15 +19,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-package laws
+package kuram.laws
 
-trait MonadLaws[F[_]] extends ApplicativeLaws[F] with FlatMapLaws[F] {
-  implicit override def F: Monad[F]
+import kuram.Monoid
+
+trait MonoidLaws[T] extends SemigroupLaws[T] {
+  implicit def F: Monoid[T]
 }
 
-object MonadLaws {
-  def apply[F[_]](using monad: Monad[F]): MonadLaws[F] = new {
-    implicit def F: Monad[F] = monad
+object MonoidLaws {
+  def apply[T](using monoid: Monoid[T]): MonoidLaws[T] = new {
+    implicit def F: Monoid[T] = monoid
   }
 }

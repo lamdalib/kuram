@@ -19,15 +19,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-package laws
+package kuram.laws
 
-trait FlatMapLaws[F[_]] extends ApplyLaws[F] {
-  implicit override def F: FlatMap[F]
+import kuram.Semigroup
+
+trait SemigroupLaws[T] {
+  implicit def F: Semigroup[T]
 }
 
-object FlatMapLaws {
-  def apply[F[_]](using apply: FlatMap[F]): FlatMapLaws[F] = new {
-    implicit def F: FlatMap[F] = apply
+object SemigroupLaws {
+  def apply[T](using semigroup: Semigroup[T]): SemigroupLaws[T] = new {
+    implicit def F: Semigroup[T] = semigroup
   }
 }

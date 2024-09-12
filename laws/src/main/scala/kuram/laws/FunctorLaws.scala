@@ -19,15 +19,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-package laws
+package kuram.laws
 
-trait SemigroupLaws[T] {
-  implicit def F: Semigroup[T]
+import kuram.Functor
+
+trait FunctorLaws[F[_]] {
+  implicit def F: Functor[F]
 }
 
-object SemigroupLaws {
-  def apply[T](using semigroup: Semigroup[T]): SemigroupLaws[T] = new {
-    implicit def F: Semigroup[T] = semigroup
+object FunctorLaws {
+  def apply[F[_]](using functor: Functor[F]): FunctorLaws[F] = new {
+    implicit def F: Functor[F] = functor
   }
 }

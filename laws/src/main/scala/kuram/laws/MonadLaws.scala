@@ -19,15 +19,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-package laws
+package kuram.laws
 
-trait FunctorLaws[F[_]] {
-  implicit def F: Functor[F]
+import kuram.Monad
+
+trait MonadLaws[F[_]] extends ApplicativeLaws[F] with FlatMapLaws[F] {
+  implicit override def F: Monad[F]
 }
 
-object FunctorLaws {
-  def apply[F[_]](using functor: Functor[F]): FunctorLaws[F] = new {
-    implicit def F: Functor[F] = functor
+object MonadLaws {
+  def apply[F[_]](using monad: Monad[F]): MonadLaws[F] = new {
+    implicit def F: Monad[F] = monad
   }
 }

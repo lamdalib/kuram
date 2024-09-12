@@ -19,15 +19,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-package laws
+package kuram.laws
 
-trait ApplicativeLaws[F[_]] extends ApplyLaws[F] {
-  implicit override def F: Applicative[F]
+import kuram.Apply
+
+trait ApplyLaws[F[_]] extends FunctorLaws[F] with SemigroupalLaws[F] {
+  implicit override def F: Apply[F]
 }
 
-object ApplicativeLaws {
-  def apply[F[_]](using applicative: Applicative[F]): ApplicativeLaws[F] = new {
-    def F: Applicative[F] = applicative
+object ApplyLaws {
+  def apply[F[_]](using apply: Apply[F]): ApplyLaws[F] = new {
+    implicit def F: Apply[F] = apply
   }
 }

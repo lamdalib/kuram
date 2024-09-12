@@ -19,15 +19,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-package laws
+package kuram.laws
 
-trait ApplyLaws[F[_]] extends FunctorLaws[F] with SemigroupalLaws[F] {
-  implicit override def F: Apply[F]
+import kuram.Semigroupal
+
+trait SemigroupalLaws[F[_]] {
+  implicit def F: Semigroupal[F]
 }
 
-object ApplyLaws {
-  def apply[F[_]](using apply: Apply[F]): ApplyLaws[F] = new {
-    implicit def F: Apply[F] = apply
+object SemigroupalLaws {
+  def apply[F[_]](using semigroupal: Semigroupal[F]): SemigroupalLaws[F] = new {
+    implicit def F: Semigroupal[F] = semigroupal
   }
 }

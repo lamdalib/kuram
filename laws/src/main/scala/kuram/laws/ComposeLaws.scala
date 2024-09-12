@@ -19,15 +19,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-package laws
+package kuram.laws
 
-trait FoldableLaws[F[_]] {
-  implicit def F: Foldable[F]
+import kuram.Compose
+
+trait ComposeLaws[F[_, _]] {
+  implicit def F: Compose[F]
 }
 
-object FoldableLaws {
-  def apply[F[_]](using foldable: Foldable[F]): FoldableLaws[F] = new {
-    implicit def F: Foldable[F] = foldable
+object ComposeLaws {
+  def apply[F[_, _]](using compose: Compose[F]): ComposeLaws[F] = new {
+    implicit def F: Compose[F] = compose
   }
 }

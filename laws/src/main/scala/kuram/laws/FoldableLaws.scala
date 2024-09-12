@@ -19,15 +19,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram
-package laws
+package kuram.laws
 
-trait SemigroupalLaws[F[_]] {
-  implicit def F: Semigroupal[F]
+import kuram.Foldable
+
+trait FoldableLaws[F[_]] {
+  implicit def F: Foldable[F]
 }
 
-object SemigroupalLaws {
-  def apply[F[_]](using semigroupal: Semigroupal[F]): SemigroupalLaws[F] = new {
-    implicit def F: Semigroupal[F] = semigroupal
+object FoldableLaws {
+  def apply[F[_]](using foldable: Foldable[F]): FoldableLaws[F] = new {
+    implicit def F: Foldable[F] = foldable
   }
 }
