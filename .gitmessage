@@ -1,55 +1,53 @@
+# <type>[optional scope][!]: <description>
 # 
-#########################
-# Start of Commit Message
-#########################
-#
-#
-# Title
-
-# Body
-
-
-# Footer
-
-#
-#
-#######################
-# End of Commit Message
-#######################
-#
-#
-# Keep each commit line under 50 characters
-# Following conventional commits 1.0.0 
-#
-# Use the prefix naming convention:
-# FIX: patches a bug in the codebase
-# FEAT: introduces a new feature to the codebase
-# REFACTOR: only used when refactoring code
-# DOCS: used when modifying/creating docs
-# BUILD: when preparing for a build
-#
-# Commits should follow the format below:
-#
-# [Title]
-# [<type>]: In under 50 characters, description of the commit
-#
-# [Body]
-# Explain in detail what was done in this commit and 
-# what this is supposed to achieve. Keep this section
-# under 72 characters per line. 
+# [optional body]
 # 
-# [Footer]
-# Use this section to add any PR/Ticket numbers that this
-# commit is solving or any co-authors. If none of these apply, # leave it empty.
+# [optional footer(s)]
 # 
+# Types:
+# - feat: A new feature
+# - fix: A bug fix
+# - docs: Documentation only changes
+# - style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+# - refactor: A code change that neither fixes a bug nor adds a feature
+# - perf: A code change that improves performance
+# - test: Adding missing tests or correcting existing tests
+# - build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+# - ci: Changes to our CI configuration files and scripts (example scopes: Circle, BrowserStack, SauceLabs)
+# - chore: Other changes that don't modify src or test files
+# - revert: Reverts a previous commit
+# 
+# Example commit messages:
+# 
+# 1.
+# feat(parser)!: add ability to parse arrays
+# 
+# A body is optional, but it's a good idea to provide more context.
+# 
+# BREAKING CHANGE:
+# Describe the breaking change and what needs to be changed by consumers of this code.
 #
-# Example:
+# 2.
+# feat: add email notifications on new direct messages
 #
-# [FEAT]: add ability to parse arrays
+# 3.
+# feat(shopping cart): add the amazing button
 #
-# - Add `parseArray` method to parser
-# - Update tests to include array parsing
+# 4.
+# feat!: remove ticket list endpoint
 #
-# PR#: 000
+# refers to JIRA-1337
 #
+# BREAKING CHANGES: ticket enpoints no longer supports list all entites.
 #
+# 5.
+# build: update dependencies
+#
+# 6.
+# build(release): bump version to 1.0.0
+#
+# 7.
+# refactor: implement fibonacci number calculation as recursion
+#
+# 8.
+# style: remove empty line
