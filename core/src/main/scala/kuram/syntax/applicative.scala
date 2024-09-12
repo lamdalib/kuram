@@ -20,18 +20,10 @@
  */
 
 package kuram
+package syntax
 
-package object syntax {
-  object semigroup extends SemigroupSyntax
-  object monoid extends MonoidSyntax
-
-  object compose extends ComposeSyntax
-  object foldable extends FoldableSyntax
-
-  object semigroupal extends SemigroupalSyntax
-  object functor extends FunctorSyntax
-  object apply extends ApplySyntax
-  object applicative extends ApplicativeSyntax
-  object flatmap extends FlatMapSyntax
-  object monad extends MonadSyntax
+private[syntax] trait ApplicativeSyntax extends ApplySyntax {
+  extension [F[_], A](a: => A)(using Applicative[F]) {
+    def pure: F[A] = Applicative[F].pure(a)
+  }
 }

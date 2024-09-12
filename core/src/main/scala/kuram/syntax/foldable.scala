@@ -20,18 +20,17 @@
  */
 
 package kuram
+package syntax
 
-package object syntax {
-  object semigroup extends SemigroupSyntax
-  object monoid extends MonoidSyntax
+private[syntax] trait FoldableSyntax {
+  extension [F[_], A](fa: F[A])(using Foldable[F]) {
+    def foldRight[B](acc: B)(f: (A, B) => B): B =
+      Foldable[F].foldRight(fa, acc)(f)
 
-  object compose extends ComposeSyntax
-  object foldable extends FoldableSyntax
+    def foldLeft[B](acc: B)(f: (B, A) => B): B =
+      Foldable[F].foldLeft(fa, acc)(f)
 
-  object semigroupal extends SemigroupalSyntax
-  object functor extends FunctorSyntax
-  object apply extends ApplySyntax
-  object applicative extends ApplicativeSyntax
-  object flatmap extends FlatMapSyntax
-  object monad extends MonadSyntax
+    def foldMap[B](f: A => B)(using Monoid[B]): B =
+      Foldable[F].foldMap(fa)(f)
+  }
 }
