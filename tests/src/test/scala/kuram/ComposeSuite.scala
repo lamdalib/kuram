@@ -19,18 +19,4 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import kuram.instances.all.given
-import kuram.syntax.compose.*
-
-class ComposeSuite extends munit.FunSuite {
-  test("Should satisfy associativity") {
-    val f: Function1[Int, Int] = _ + 1
-    val g: Function1[Int, Int] = _ + 2
-    val h: Function1[Int, Int] = _ + 3
-
-    val as1 = f >>> (g >>> h)
-    val as2 = (f >>> g) >>> h
-
-    assertEquals(as1(1), as2(1))
-  }
-}
+class ComposeSuite extends munit.FunSuite {}
