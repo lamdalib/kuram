@@ -23,9 +23,9 @@ package kuram
 package instances
 
 object function {
-    // Compose
-    given function1Compose: Compose[Function1] with {
-      def compose[A, B, C](f: B => C, g: A => B): A => C =
-        f.compose(g)
-    }
+  // Compose
+  given function1Compose: Compose[Function1] with {
+    def compose[A, B, C](f: B => C, g: A => B): A => C =
+      f.compose(g)
+  }
 }

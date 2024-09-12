@@ -23,14 +23,12 @@ package kuram
 package instances
 
 object seq {
-    // Foldable
-    given seqFoldable: Foldable[Seq] with {
-      extension [A](as: Seq[A]) {
-        override def foldRight[B](acc: B)(f: (A, B) => B): B =
-          as.foldRight(acc)(f)
+  // Foldable
+  given seqFoldable: Foldable[Seq] with {
+    override def foldRight[A, B](as: Seq[A], acc: B)(f: (A, B) => B): B =
+      as.foldRight(acc)(f)
 
-        override def foldLeft[B](acc: B)(f: (B, A) => B): B =
-          as.foldLeft(acc)(f)
-      }
-    }
+    override def foldLeft[A, B](as: Seq[A], acc: B)(f: (B, A) => B): B =
+      as.foldLeft(acc)(f)
+  }
 }

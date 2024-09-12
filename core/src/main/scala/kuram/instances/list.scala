@@ -27,41 +27,33 @@ object list {
   given listApplicative: Applicative[List] with {
     def pure[A](a: => A): List[A] = List(a)
 
-    extension [A](as: List[A]) {
-      def ap[B](ff: List[A => B]): List[B] = for {
-        f <- ff
-        a <- as
-      } yield f(a)
-    }
+    def ap[A, B](ff: List[A => B])(as: List[A]): List[B] = for {
+      f <- ff
+      a <- as
+    } yield f(a)
   }
 
   // Foldable
   given listFoldable: Foldable[List] with {
-    extension [A](as: List[A]) {
-      override def foldRight[B](acc: B)(f: (A, B) => B): B =
-        as.foldRight(acc)(f)
+    override def foldRight[A, B](as: List[A], acc: B)(f: (A, B) => B): B =
+      as.foldRight(acc)(f)
 
-      override def foldLeft[B](acc: B)(f: (B, A) => B): B =
-        as.foldLeft(acc)(f)
-    }
+    override def foldLeft[A, B](as: List[A], acc: B)(f: (B, A) => B): B =
+      as.foldLeft(acc)(f)
   }
 
   // Functor
   given listFunctor: Functor[List] with {
-    extension [A](as: List[A]) {
-      def map[B](f: A => B): List[B] =
-        as.map(f)
-    }
+    def map[A, B](as: List[A])(f: A => B): List[B] =
+      as.map(f)
   }
 
   // Monad
   given listMonad: Monad[List] with {
     def pure[A](a: => A): List[A] = List(a)
 
-    extension [A](as: List[A]) {
-      def flatMap[B](f: A => List[B]): List[B] =
-        as.flatMap(f)
-    }
+    def flatMap[A, B](as: List[A])(f: A => List[B]): List[B] =
+      as.flatMap(f)
   }
 
   // Monoid

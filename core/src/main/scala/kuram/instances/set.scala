@@ -23,15 +23,15 @@ package kuram
 package instances
 
 object set {
-    // Monoid - union
-    given unionSetMonoid[A]: Monoid[Set[A]] with {
-      def empty: Set[A] = Set.empty[A]
-      def combine(a: Set[A], b: Set[A]): Set[A] = a | b
-    }
+  // Monoid - union
+  given unionSetMonoid[A]: Monoid[Set[A]] with {
+    def empty: Set[A] = Set.empty[A]
+    def combine(a: Set[A], b: Set[A]): Set[A] = a | b
+  }
 
-    // Monoid - intersect
-    given intersectSetMonoid[A]: Monoid[Set[A]] with {
-      def empty: Set[A] = Set.empty[A]
-      def combine(a: Set[A], b: Set[A]): Set[A] = a & b
-    }
+  // Monoid - intersect
+  given intersectSetMonoid[A]: Monoid[Set[A]] with {
+    def empty: Set[A] = Set.empty[A]
+    def combine(a: Set[A], b: Set[A]): Set[A] = a & b
+  }
 }

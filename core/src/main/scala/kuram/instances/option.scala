@@ -27,42 +27,34 @@ object option {
   given optionApplicative: Applicative[Option] with {
     def pure[A](a: => A): Option[A] = Option(a)
 
-    extension [A](fa: Option[A]) {
-      def ap[B](ff: Option[A => B]): Option[B] = for {
-        f <- ff
-        a <- fa
-      } yield f(a)
-    }
+    def ap[A, B](ff: Option[A => B])(fa: Option[A]): Option[B] = for {
+      f <- ff
+      a <- fa
+    } yield f(a)
   }
 
   // Apply
   given optionApply: Apply[Option] with {
-    extension [A](fa: Option[A]) {
-      def map[B](f: A => B): Option[B] = fa.map(f)
+    def map[A, B](fa: Option[A])(f: A => B): Option[B] = fa.map(f)
 
-      def ap[B](ff: Option[A => B]): Option[B] = for {
-        f <- ff
-        a <- fa
-      } yield f(a)
-    }
+    def ap[A, B](ff: Option[A => B])(fa: Option[A]): Option[B] = for {
+      f <- ff
+      a <- fa
+    } yield f(a)
   }
 
   // Functor
   given optionFunctor: Functor[Option] with {
-    extension [A](fa: Option[A]) {
-      def map[B](f: A => B): Option[B] =
-        fa.map(f)
-    }
+    def map[A, B](fa: Option[A])(f: A => B): Option[B] =
+      fa.map(f)
   }
 
   // Monad
   given optionMonad: Monad[Option] with {
     def pure[A](a: => A): Option[A] = Option(a)
 
-    extension [A](fa: Option[A]) {
-      def flatMap[B](f: A => Option[B]): Option[B] =
-        fa.flatMap(f)
-    }
+    def flatMap[A, B](fa: Option[A])(f: A => Option[B]): Option[B] =
+      fa.flatMap(f)
   }
 
   // Monoid

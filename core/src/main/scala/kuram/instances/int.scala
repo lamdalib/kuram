@@ -23,15 +23,14 @@ package kuram
 package instances
 
 object int {
-    // Semigroup
-    given intSemigroup: Semigroup[Int] with {
-      def combine(a: Int, b: Int): Int = a + b
-    }
+  // Semigroup
+  given intSemigroup: Semigroup[Int] with {
+    def combine(a: Int, b: Int): Int = a + b
+  }
 
-    // Monoid
-    given intMonoid: Monoid[Int] with {
-      def empty: Int = 0
-      def combine(a: Int, b: Int): Int = a + b
-    }
+  // Monoid
+  given intMonoid: Monoid[Int] with {
+    def empty: Int = 0
+    def combine(a: Int, b: Int): Int = a + b
+  }
 }
-

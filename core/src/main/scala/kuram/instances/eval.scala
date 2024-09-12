@@ -28,31 +28,25 @@ object eval {
 
   // Functor
   given evalFunctor: Functor[Eval] with {
-    extension [A](fa: Eval[A]) {
-      def map[B](f: A => B): Eval[B] =
-        fa.map(f)
-    }
+    def map[A, B](fa: Eval[A])(f: A => B): Eval[B] =
+      fa.map(f)
   }
 
   // Applicative
   given evalApplicative: Applicative[Eval] with {
     def pure[A](a: => A): Eval[A] = Eval.now(a)
 
-    extension [A](fa: Eval[A]) {
-      def ap[B](ff: Eval[A => B]): Eval[B] = for {
-        a <- fa
-        f <- ff
-      } yield f(a)
-    }
+    def ap[A, B](ff: Eval[A => B])(fa: Eval[A]): Eval[B] = for {
+      a <- fa
+      f <- ff
+    } yield f(a)
   }
 
   // Monad
   given evalMonad: Monad[Eval] with {
     def pure[A](a: => A): Eval[A] = Eval.now(a)
 
-    extension [A](fa: Eval[A]) {
-      def flatMap[B](f: A => Eval[B]): Eval[B] =
-        fa.flatMap(f)
-    }
+    def flatMap[A, B](fa: Eval[A])(f: A => Eval[B]): Eval[B] =
+      fa.flatMap(f)
   }
 }
