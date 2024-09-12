@@ -19,4 +19,6 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-class ComposeSuite extends munit.FunSuite {}
+package kuram.tests
+
+class MonadSuite extends munit.FunSuite {}

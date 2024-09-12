@@ -19,4 +19,6 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+package kuram.tests
+
 class FunctorSuite extends munit.FunSuite {}

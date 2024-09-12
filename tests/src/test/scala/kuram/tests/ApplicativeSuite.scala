@@ -19,4 +19,6 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-class EvalSuite extends munit.FunSuite {}
+package kuram.tests
+
+class ApplicativeSuite extends munit.FunSuite {}
