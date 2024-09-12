@@ -24,6 +24,7 @@ package example
 import kuram.Monoid
 import kuram.instances.all.given
 import kuram.syntax.monoid.*
+import kuram.syntax.foldable.*
 
 object MonoidExample {
   @main def sumOfIntegers: Unit = {
@@ -137,7 +138,7 @@ object MonoidExample {
 
   @main def bag: Unit = {
     def solve[A](as: IndexedSeq[A]): Map[A, Int] =
-      as.foldMap(a => Map(a -> 1))
+      as.toList.foldMap(a => Map(a -> 1))
 
     val inputs = List(
       (Vector("a", "rose", "is", "a", "rose"), Map("a" -> 2, "rose" -> 2, "is" -> 1)),
