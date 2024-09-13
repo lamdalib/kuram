@@ -29,7 +29,7 @@ trait SemigroupLaws[T] {
   /** Associativity
     * a + (b + c) == (a + b) + c
     */
-  def semigroupAssociativity(a: T, b: T, c: T): IsEq[T] = {
+  def associativity(a: T, b: T, c: T): IsEq[T] = {
     F.combine(a, F.combine(b, c)) <-> F.combine(F.combine(a, b), c)
   }
 }

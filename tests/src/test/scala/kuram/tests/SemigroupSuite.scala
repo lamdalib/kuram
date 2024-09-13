@@ -27,8 +27,10 @@ import kuram.syntax.eq.*
 
 // TODO use property testing instead
 class SemigroupSuite extends munit.FunSuite {
-  test("semigroup associativity") {
-    val isEq = SemigroupLaws[Int].semigroupAssociativity(0, 1, 2)
+  private val laws = SemigroupLaws[Int]
+
+  test("associativity") {
+    val isEq = laws.associativity(0, 1, 2)
     assert(isEq.a === isEq.b)
   }
 }
