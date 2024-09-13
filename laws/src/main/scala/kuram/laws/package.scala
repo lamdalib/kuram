@@ -19,23 +19,13 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package kuram.laws
+package kuram
 
-import kuram.Semigroup
+package object laws {
+  final case class IsEq[T](a: T, b: T)
 
-trait SemigroupLaws[T] {
-  implicit def F: Semigroup[T]
-
-  /** Associativity
-    * a + (b + c) == (a + b) + c
-    */
-  def semigroupAssociativity(a: T, b: T, c: T): IsEq[T] = {
-    F.combine(a, F.combine(b, c)) <-> F.combine(F.combine(a, b), c)
+  extension [T](a: T) {
+    def <->(b: T): IsEq[T] = IsEq(a, b)
   }
 }
 
-object SemigroupLaws {
-  def apply[T](using semigroup: Semigroup[T]): SemigroupLaws[T] = new {
-    implicit def F: Semigroup[T] = semigroup
-  }
-}
