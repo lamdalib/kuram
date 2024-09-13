@@ -25,6 +25,20 @@ import kuram.Monoid
 
 trait MonoidLaws[T] extends SemigroupLaws[T] {
   implicit def F: Monoid[T]
+
+  /** Left Identity
+    * id + a == a
+    */
+  def leftIdentity(a: T): IsEq[T] = {
+    F.combine(F.empty, a) <-> a
+  }
+
+  /** Right Identity
+    * a + id == a
+    */
+  def rightIdentity(a: T): IsEq[T] = {
+    F.combine(a, F.empty) <-> a
+  }
 }
 
 object MonoidLaws {
