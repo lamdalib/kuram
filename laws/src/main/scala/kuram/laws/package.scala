@@ -28,4 +28,3 @@ package object laws {
     def <->(b: T): IsEq[T] = IsEq(a, b)
   }
 }
-
