@@ -66,14 +66,14 @@ lazy val example = project
 
 lazy val tests = project
   .in(file("tests"))
-  .dependsOn(core)
+  .dependsOn(core, laws)
   .settings(commonSettings)
   .settings(
     name := "tests",
     publish / skip := true,
     libraryDependencies ++= {
       Seq(
-        munit.value % Test
+        munit.value % Test,
       )
     }
   )
