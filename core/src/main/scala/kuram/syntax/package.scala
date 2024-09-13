@@ -22,14 +22,12 @@
 package kuram
 
 package object syntax {
+  object all extends AllSyntax
   object semigroup extends SemigroupSyntax
   object monoid extends MonoidSyntax
-
   object compose extends ComposeSyntax
   object foldable extends FoldableSyntax
-
   object eq extends EqSyntax
-
   object semigroupal extends SemigroupalSyntax
   object functor extends FunctorSyntax
   object apply extends ApplySyntax
