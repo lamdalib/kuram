@@ -22,19 +22,24 @@
 package kuram
 package instances
 
-private[instances] trait AllInstances
-    extends BooleanInstances
-    with EitherInstances
-    with EvalInstances
-    with FunctionInstances
-    with IntInstances
-    with IOInstances
-    with ListInstances
-    with MapInstances
-    with OptionInstances
-    with SeqInstances
-    with SetInstances
-    with StateInstances
-    with StringInstances
-    with IdInstances
-    with TupleInstances
+import data.Id
+
+private[instances] trait IdInstances {
+  // Functor
+  given idFunctor: Functor[Id] with {
+    def map[A, B](a: Id[A])(f: A => B): Id[B] = Id(f(a))
+  }
+
+  // Applicative
+  given idApplicative: Applicative[Id] with {
+    def pure[A](a: => A): Id[A] = Id(a)
+    def ap[A, B](f: Id[A => B])(a: Id[A]): Id[B] = f(a)
+  }
+
+  // Monad
+  given idMonad: Monad[Id] with {
+    def pure[A](a: => A): Id[A] = Id(a)
+    def flatMap[A, B](a: Id[A])(f: A => Id[B]): Id[B] = f(a)
+  }
+
+}

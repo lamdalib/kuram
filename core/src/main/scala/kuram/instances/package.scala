@@ -36,4 +36,6 @@ package object instances {
   object set extends SetInstances
   object state extends StateInstances
   object string extends StringInstances
+  object id extends IdInstances
+  object tuple extends TupleInstances
 }
