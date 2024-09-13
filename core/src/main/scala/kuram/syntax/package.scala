@@ -28,6 +28,8 @@ package object syntax {
   object compose extends ComposeSyntax
   object foldable extends FoldableSyntax
 
+  object eq extends EqSyntax
+
   object semigroupal extends SemigroupalSyntax
   object functor extends FunctorSyntax
   object apply extends ApplySyntax
