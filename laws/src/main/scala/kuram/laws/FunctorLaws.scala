@@ -24,11 +24,11 @@ package kuram.laws
 import kuram.Functor
 
 trait FunctorLaws[F[_]] {
-  implicit def F: Functor[F]
+  given F: Functor[F]
 }
 
 object FunctorLaws {
   def apply[F[_]](using functor: Functor[F]): FunctorLaws[F] = new {
-    implicit def F: Functor[F] = functor
+    given F: Functor[F] = functor
   }
 }

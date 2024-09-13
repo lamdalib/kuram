@@ -24,7 +24,7 @@ package kuram.laws
 import kuram.Monoid
 
 trait MonoidLaws[T] extends SemigroupLaws[T] {
-  implicit def F: Monoid[T]
+  given F: Monoid[T]
 
   /** Left Identity
     * id + a == a
@@ -43,6 +43,6 @@ trait MonoidLaws[T] extends SemigroupLaws[T] {
 
 object MonoidLaws {
   def apply[T](using monoid: Monoid[T]): MonoidLaws[T] = new {
-    implicit def F: Monoid[T] = monoid
+    given F: Monoid[T] = monoid
   }
 }

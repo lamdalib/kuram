@@ -24,7 +24,7 @@ package kuram.laws
 import kuram.Semigroupal
 
 trait SemigroupalLaws[F[_]] {
-  implicit def F: Semigroupal[F]
+  given F: Semigroupal[F]
 
   /** Associativity
     * product(a, product(b, c)) == product(product(a, b), c)
@@ -36,6 +36,6 @@ trait SemigroupalLaws[F[_]] {
 
 object SemigroupalLaws {
   def apply[F[_]](using semigroupal: Semigroupal[F]): SemigroupalLaws[F] = new {
-    implicit def F: Semigroupal[F] = semigroupal
+    given F: Semigroupal[F] = semigroupal
   }
 }

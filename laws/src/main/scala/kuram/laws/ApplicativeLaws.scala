@@ -24,11 +24,11 @@ package kuram.laws
 import kuram.Applicative
 
 trait ApplicativeLaws[F[_]] extends ApplyLaws[F] {
-  implicit override def F: Applicative[F]
+  given F: Applicative[F]
 }
 
 object ApplicativeLaws {
   def apply[F[_]](using applicative: Applicative[F]): ApplicativeLaws[F] = new {
-    def F: Applicative[F] = applicative
+    given F: Applicative[F] = applicative
   }
 }

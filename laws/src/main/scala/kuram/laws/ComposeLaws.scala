@@ -24,11 +24,11 @@ package kuram.laws
 import kuram.Compose
 
 trait ComposeLaws[F[_, _]] {
-  implicit def F: Compose[F]
+  given F: Compose[F]
 }
 
 object ComposeLaws {
   def apply[F[_, _]](using compose: Compose[F]): ComposeLaws[F] = new {
-    implicit def F: Compose[F] = compose
+    given F: Compose[F] = compose
   }
 }

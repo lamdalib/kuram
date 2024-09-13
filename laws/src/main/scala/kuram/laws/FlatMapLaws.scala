@@ -24,11 +24,11 @@ package kuram.laws
 import kuram.FlatMap
 
 trait FlatMapLaws[F[_]] extends ApplyLaws[F] {
-  implicit override def F: FlatMap[F]
+  given F: FlatMap[F]
 }
 
 object FlatMapLaws {
   def apply[F[_]](using apply: FlatMap[F]): FlatMapLaws[F] = new {
-    implicit def F: FlatMap[F] = apply
+    given F: FlatMap[F] = apply
   }
 }

@@ -24,11 +24,11 @@ package kuram.laws
 import kuram.Foldable
 
 trait FoldableLaws[F[_]] {
-  implicit def F: Foldable[F]
+  given F: Foldable[F]
 }
 
 object FoldableLaws {
   def apply[F[_]](using foldable: Foldable[F]): FoldableLaws[F] = new {
-    implicit def F: Foldable[F] = foldable
+    given F: Foldable[F] = foldable
   }
 }

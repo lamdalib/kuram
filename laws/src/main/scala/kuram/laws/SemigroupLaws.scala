@@ -24,7 +24,7 @@ package kuram.laws
 import kuram.Semigroup
 
 trait SemigroupLaws[T] {
-  implicit def F: Semigroup[T]
+  given F: Semigroup[T]
 
   /** Associativity
     * a + (b + c) == (a + b) + c
@@ -36,6 +36,6 @@ trait SemigroupLaws[T] {
 
 object SemigroupLaws {
   def apply[T](using semigroup: Semigroup[T]): SemigroupLaws[T] = new {
-    implicit def F: Semigroup[T] = semigroup
+    given F: Semigroup[T] = semigroup
   }
 }

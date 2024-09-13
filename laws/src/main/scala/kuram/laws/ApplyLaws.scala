@@ -24,11 +24,11 @@ package kuram.laws
 import kuram.Apply
 
 trait ApplyLaws[F[_]] extends FunctorLaws[F] with SemigroupalLaws[F] {
-  implicit override def F: Apply[F]
+  given F: Apply[F]
 }
 
 object ApplyLaws {
   def apply[F[_]](using apply: Apply[F]): ApplyLaws[F] = new {
-    implicit def F: Apply[F] = apply
+    given F: Apply[F] = apply
   }
 }

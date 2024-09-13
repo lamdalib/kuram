@@ -24,11 +24,11 @@ package kuram.laws
 import kuram.Monad
 
 trait MonadLaws[F[_]] extends ApplicativeLaws[F] with FlatMapLaws[F] {
-  implicit override def F: Monad[F]
+  given F: Monad[F]
 }
 
 object MonadLaws {
   def apply[F[_]](using monad: Monad[F]): MonadLaws[F] = new {
-    implicit def F: Monad[F] = monad
+    given F: Monad[F] = monad
   }
 }
