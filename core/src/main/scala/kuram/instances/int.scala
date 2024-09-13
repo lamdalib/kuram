@@ -33,4 +33,9 @@ private[instances] trait IntInstances {
     def empty: Int = 0
     def combine(a: Int, b: Int): Int = a + b
   }
+
+  // Eq
+  given intEq: Eq[Int] with {
+    def eqv(a: Int, b: Int): Boolean = a == b
+  }
 }
