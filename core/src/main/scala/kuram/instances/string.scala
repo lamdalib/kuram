@@ -22,7 +22,7 @@
 package kuram
 package instances
 
-object string {
+private[instances] trait StringInstances {
   // Semigroup
   given stringSemigroup: Semigroup[String] with {
     def combine(a: String, b: String): String = a + b

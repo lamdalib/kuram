@@ -22,7 +22,7 @@
 package kuram
 package instances
 
-object map {
+private[instances] trait MapInstances {
   // Apply
   given mapApply[K]: Apply[[V] =>> Map[K, V]] with {
     def map[A, B](fa: Map[K, A])(f: A => B): Map[K, B] = fa.map((k, v) => (k, f(v)))

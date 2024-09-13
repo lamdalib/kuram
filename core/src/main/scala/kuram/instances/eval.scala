@@ -24,7 +24,7 @@ package instances
 
 import data.Eval
 
-object eval {
+private[instances] trait EvalInstances {
 
   // Functor
   given evalFunctor: Functor[Eval] with {

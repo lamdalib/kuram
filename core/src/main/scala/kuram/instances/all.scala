@@ -22,18 +22,17 @@
 package kuram
 package instances
 
-package object all {
-  export boolean.given
-  export either.given
-  export eval.given
-  export function.given
-  export int.given
-  export list.given
-  export map.given
-  export option.given
-  export seq.given
-  export set.given
-  export string.given
-  export state.given
-  export io.given
-}
+private[instances] trait AllInstances
+    extends BooleanInstances
+    with EitherInstances
+    with EvalInstances
+    with FunctionInstances
+    with IntInstances
+    with IOInstances
+    with ListInstances
+    with MapInstances
+    with OptionInstances
+    with SeqInstances
+    with SetInstances
+    with StateInstances
+    with StringInstances

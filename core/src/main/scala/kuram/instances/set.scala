@@ -22,7 +22,7 @@
 package kuram
 package instances
 
-object set {
+private[instances] trait SetInstances {
   // Monoid - union
   given unionSetMonoid[A]: Monoid[Set[A]] with {
     def empty: Set[A] = Set.empty[A]

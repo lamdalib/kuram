@@ -22,7 +22,7 @@
 package kuram
 package instances
 
-object boolean {
+private[instances] trait BooleanInstances {
   // Monoid - disjunction
   given disjunctionBooleanMonoid: Monoid[Boolean] with {
     def empty: Boolean = true

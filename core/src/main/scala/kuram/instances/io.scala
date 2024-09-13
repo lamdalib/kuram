@@ -24,7 +24,7 @@ package instances
 
 import effects.IO
 
-object io {
+private[instances] trait IOInstances {
   // Applicative
   given ioApplicative: Applicative[IO] with {
     def pure[A](a: => A): IO[A] = IO(a)

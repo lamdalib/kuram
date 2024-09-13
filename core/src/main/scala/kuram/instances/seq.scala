@@ -22,7 +22,7 @@
 package kuram
 package instances
 
-object seq {
+private[instances] trait SeqInstances {
   // Foldable
   given seqFoldable: Foldable[Seq] with {
     override def foldRight[A, B](as: Seq[A], acc: B)(f: (A, B) => B): B =

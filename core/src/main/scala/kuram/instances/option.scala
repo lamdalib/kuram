@@ -22,7 +22,7 @@
 package kuram
 package instances
 
-object option {
+private[instances] trait OptionInstances {
   // Applicative
   given optionApplicative: Applicative[Option] with {
     def pure[A](a: => A): Option[A] = Option(a)

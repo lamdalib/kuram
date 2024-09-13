@@ -22,7 +22,7 @@
 package kuram
 package instances
 
-object function {
+private[instances] trait FunctionInstances {
   // Compose
   given function1Compose: Compose[Function1] with {
     def compose[A, B, C](f: B => C, g: A => B): A => C =

@@ -22,7 +22,7 @@
 package kuram
 package instances
 
-object list {
+private[instances] trait ListInstances {
   // Applicative
   given listApplicative: Applicative[List] with {
     def pure[A](a: => A): List[A] = List(a)

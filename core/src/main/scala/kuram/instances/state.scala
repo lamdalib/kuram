@@ -22,4 +22,4 @@
 package kuram
 package instances
 
-object state {}
+private[instances] trait StateInstances
