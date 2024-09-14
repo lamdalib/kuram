@@ -22,9 +22,9 @@
 package example
 
 import kuram.Monoid
-import kuram.instances.all.given
-import kuram.syntax.monoid.*
+import kuram.syntax.semigroup.*
 import kuram.syntax.foldable.*
+import kuram.instances.all.given
 
 object MonoidExample {
   @main def sumOfIntegers: Unit = {
