@@ -21,4 +21,22 @@
 
 package kuram.tests
 
-class MonadSuite extends munit.FunSuite {}
+import kuram.data.Id
+import kuram.instances.id.given
+import kuram.syntax.eq.*
+import kuram.laws.MonadLaws
+
+class MonadSuite extends munit.FunSuite {
+  private val laws = MonadLaws[Id]
+
+  test("leftIdentity") {
+    val f: String => Id[Int] = Id(_.length)
+    val isEq = laws.leftIdentity(Id("test"))(f)
+    assert(isEq.a === isEq.b)
+  }
+
+  test("rightIdentity") {
+    val isEq = laws.rightIdentity(Id(1))
+    assert(isEq.a === isEq.b)
+  }
+}
