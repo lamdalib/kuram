@@ -22,6 +22,7 @@
 package kuram.laws
 
 import kuram.Monoid
+import kuram.syntax.semigroup.*
 
 trait MonoidLaws[T] extends SemigroupLaws[T] {
   given F: Monoid[T]
@@ -30,14 +31,16 @@ trait MonoidLaws[T] extends SemigroupLaws[T] {
     * id + a == a
     */
   def leftIdentity(a: T): IsEq[T] = {
-    F.combine(F.empty, a) <-> a
+    // F.combine(F.empty, a) <-> a
+    (F.empty |+| a) <-> a
   }
 
   /** Right Identity
     * a + id == a
     */
   def rightIdentity(a: T): IsEq[T] = {
-    F.combine(a, F.empty) <-> a
+    // F.combine(a, F.empty) <-> a
+    (a |+| F.empty) <-> a
   }
 }
 
