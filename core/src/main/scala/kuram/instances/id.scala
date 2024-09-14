@@ -42,4 +42,9 @@ private[instances] trait IdInstances {
     def flatMap[A, B](a: Id[A])(f: A => Id[B]): Id[B] = f(a)
   }
 
+  // Eq
+  given idEq[A]: Eq[Id[A]] with {
+    def eqv(a: Id[A], b: Id[A]): Boolean = a == b
+  }
+
 }
