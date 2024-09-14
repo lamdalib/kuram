@@ -22,7 +22,7 @@
 package kuram
 package syntax
 
-private[syntax] trait ApplicativeSyntax extends ApplySyntax {
+private[syntax] trait ApplicativeSyntax {
   extension [F[_], A](a: => A)(using Applicative[F]) {
     def pure: F[A] = Applicative[F].pure(a)
   }

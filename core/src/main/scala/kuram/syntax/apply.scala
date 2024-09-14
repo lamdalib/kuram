@@ -22,9 +22,9 @@
 package kuram
 package syntax
 
-private[syntax] trait ApplySyntax extends SemigroupalSyntax with FunctorSyntax {
-  extension [F[_], A](fa: F[A])(using Apply[F]) {
-    def ap[B](ff: F[A => B]): F[B] = {
+private[syntax] trait ApplySyntax {
+  extension [F[_], A, B](ff: F[A => B])(using Apply[F]) {
+    def ap(fa: F[A]): F[B] = {
       Apply[F].ap(ff)(fa)
     }
   }

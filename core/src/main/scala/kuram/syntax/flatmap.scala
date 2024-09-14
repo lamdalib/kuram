@@ -22,7 +22,7 @@
 package kuram
 package syntax
 
-private[syntax] trait FlatMapSyntax extends ApplySyntax {
+private[syntax] trait FlatMapSyntax {
   extension [F[_], A](fa: F[A])(using FlatMap[F]) {
     def flatMap[B](f: A => F[B]): F[B] = FlatMap[F].flatMap(fa)(f)
   }

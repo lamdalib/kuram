@@ -22,8 +22,4 @@
 package kuram
 package syntax
 
-private[syntax] trait MonadSyntax extends ApplicativeSyntax with FlatMapSyntax {
-  extension [F[_], A](fa: F[A])(using Monad[F]) {
-    def flatMap[B](f: A => F[B]): F[B] = Monad[F].flatMap(fa)(f)
-  }
-}
+private[syntax] trait MonadSyntax

@@ -22,4 +22,4 @@
 package kuram
 package syntax
 
-private[syntax] trait MonoidSyntax extends SemigroupSyntax
+private[syntax] trait MonoidSyntax
