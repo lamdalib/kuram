@@ -22,9 +22,17 @@
 package kuram.laws
 
 import kuram.FlatMap
+import kuram.syntax.flatmap.*
 
 trait FlatMapLaws[F[_]] extends ApplyLaws[F] {
   given F: FlatMap[F]
+
+  /** Associativity
+    * x.flatMap(f).flatMap(g) <-> x.flatMap(a => f(a).flatMap(g))
+    */
+  def associativity[A, B, C](x: F[A])(f: A => F[B], g: B => F[C]): IsEq[F[C]] = {
+    x.flatMap(f).flatMap(g) <-> x.flatMap(a => f(a).flatMap(g))
+  }
 }
 
 object FlatMapLaws {
