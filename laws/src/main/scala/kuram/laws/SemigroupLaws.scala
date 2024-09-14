@@ -22,6 +22,7 @@
 package kuram.laws
 
 import kuram.Semigroup
+import kuram.syntax.semigroup.*
 
 trait SemigroupLaws[T] {
   given F: Semigroup[T]
@@ -30,7 +31,8 @@ trait SemigroupLaws[T] {
     * a + (b + c) == (a + b) + c
     */
   def associativity(a: T, b: T, c: T): IsEq[T] = {
-    F.combine(a, F.combine(b, c)) <-> F.combine(F.combine(a, b), c)
+    // F.combine(a, F.combine(b, c)) <-> F.combine(F.combine(a, b), c)
+    (a |+| (b |+| c)) <-> ((a |+| b) |+| c)
   }
 }
 
