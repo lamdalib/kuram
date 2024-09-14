@@ -24,6 +24,14 @@ package syntax
 
 private[syntax] trait ApplicativeSyntax {
   extension [F[_], A](a: => A)(using Applicative[F]) {
-    def pure: F[A] = Applicative[F].pure(a)
+    def pure: F[A] = {
+      Applicative[F].pure(a)
+    }
+  }
+
+  extension [F[_], A](fa: F[A])(using Applicative[F]) {
+    def map2[B, Z](fb: F[B])(f: (A, B) => Z): F[Z] = {
+      Applicative[F].map2(fa, fb)(f)
+    }
   }
 }
