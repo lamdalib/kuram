@@ -25,6 +25,20 @@ import kuram.Functor
 
 trait FunctorLaws[F[_]] {
   given F: Functor[F]
+
+  /** Identity
+    * x.map(a => a) == x
+    */
+  def identity[A](x: F[A]): IsEq[F[A]] = {
+    F.map(x)(a => a) <-> x
+  }
+
+  /** Composition
+    * x.map(f).map(g) == x.map(g compose f)
+    */
+  def composition[A, B, C](x: F[A], f: A => B, g: B => C): IsEq[F[C]] = {
+    F.map(F.map(x)(f))(g) <-> F.map(x)(g compose f)
+  }
 }
 
 object FunctorLaws {
