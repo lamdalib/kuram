@@ -22,9 +22,46 @@
 package kuram.laws
 
 import kuram.Applicative
+import kuram.syntax.apply.*
+import kuram.syntax.applicative.*
 
 trait ApplicativeLaws[F[_]] extends ApplyLaws[F] {
   given F: Applicative[F]
+
+  /** Identity
+    * pure(a => a).ap(x) == x
+    */
+  override def identity[A](x: F[A]): IsEq[F[A]] = {
+    F.pure((a: A) => a).ap(x) <-> x
+  }
+
+  /** Left Identity
+    * pure(()).map2(x)((_, a) => a) == x
+    */
+  def leftIdentity[A](x: F[A]): IsEq[F[A]] = {
+    F.pure(()).map2(x)((_, a) => a) <-> x
+  }
+
+  /** Right Identity
+    * x.map2(pure(()))((a, _) => a) == x
+    */
+  def rightIdentity[A](x: F[A]): IsEq[F[A]] = {
+    x.map2(F.pure(()))((a, _) => a) <-> x
+  }
+
+  /** Homomorphism
+    * pure(a).ap(pure(f)) == pure(f(a))
+    */
+  def homomorphism[A, B](a: A)(f: A => B): IsEq[F[B]] = {
+    F.pure(f).ap(F.pure(a)) <-> F.pure(f(a))
+  }
+
+  /** Interchange
+    * ff.ap(pure(a)) == pure(f => f(a)).ap(ff)
+    */
+  def interchange[A, B](a: A)(ff: F[A => B]): IsEq[F[B]] = {
+    ff.ap(F.pure(a)) <-> F.pure((f: A => B) => f(a)).ap(ff)
+  }
 }
 
 object ApplicativeLaws {
