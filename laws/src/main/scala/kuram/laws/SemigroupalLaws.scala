@@ -22,15 +22,17 @@
 package kuram.laws
 
 import kuram.Semigroupal
+import kuram.syntax.semigroupal.*
 
 trait SemigroupalLaws[F[_]] {
   given F: Semigroupal[F]
 
   /** Associativity
-    * product(a, product(b, c)) == product(product(a, b), c)
+    * a.product(b.product(c)) == a.product(b).product(c)
     */
   def associativity[A, B, C](fa: F[A], fb: F[B], fc: F[C]): (F[(A, (B, C))], F[((A, B), C)]) = {
-    (F.product(fa, F.product(fb, fc)), F.product(F.product(fa, fb), fc))
+    // (F.product(fa, F.product(fb, fc)), F.product(F.product(fa, fb), fc))
+    (fa.product(fb.product(fc)), fa.product(fb).product(fc))
   }
 }
 
