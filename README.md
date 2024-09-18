@@ -82,7 +82,7 @@ Let's create matrix addition Monoid and use it our matrix operations.
 ```scala
 import kuram.Monoid
 // you can access combine alias (|+|) under syntax.
-import kuram.syntax.monoid.*
+import kuram.syntax.*
 
 // you can access int monoid
 import kuram.instances.int.given
@@ -188,7 +188,7 @@ flowchart BT
 | Map[K, A]         | ✔       | ✔        | ✗           | ✗          | ✔          | ✗          | ?        | ✔       |
 | Option[A]         | ✔       | ✔        | ✔           | ✔          | ✔          | ✔          | ?        | ✔       |
 | Either[A]         | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
-| Id[A]             | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
+| Id[A]             | ✔       | ✔        | ✔           | ✔          | ✗          | ✗          | ?        | ✔       |
 | Eval[A]           | ✔       | ✔        | ✔           | ✔          | ?          | ?          | ?        | ✔       |
 | State[A]          | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
 | IO[A]             | ?       | ?        | ?           | ✔          | ?          | ?          | ?        | ?       |
