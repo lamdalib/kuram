@@ -36,8 +36,6 @@ trait Functor[F[_]] {
       * scala> val f: (Int) => Int = _ * 2
       * val f: (Int) => Int = Lambda$XXXX
       *
-      * scala> list |> f
-      * // or
       * scala> list.map(f)
       * val res0: List[Int] = List(2, 4, 6)
       * }}}
