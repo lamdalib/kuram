@@ -22,7 +22,7 @@
 package kuram
 package data
 
-opaque type State[S, A] = S => (S, A)
+opaque type State[S, +A] = S => (S, A)
 object State {
   def apply[S, A](instance: S => (S, A)): State[S, A] = instance
 
