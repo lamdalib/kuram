@@ -4,16 +4,16 @@ import Dependencies._
 ThisBuild / scalaVersion := "3.4.2"
 ThisBuild / name := "kuram"
 ThisBuild / version := "0.1.0-SNAPSHOT"
-ThisBuild / organization := "io.github.kattulib"
-ThisBuild / organizationName := "kattulib"
+ThisBuild / organization := "io.github.lamdalib"
+ThisBuild / organizationName := "lamdalib"
 ThisBuild / description := "Minimal Scala library for functional programming"
 ThisBuild / licenses := List(("MIT", url("https://opensource.org/license/mit")))
 ThisBuild / startYear := Some(2024)
-ThisBuild / homepage := Some(url("https://github.com/kattulib/kuram"))
+ThisBuild / homepage := Some(url("https://github.com/lamdalib/kuram"))
 ThisBuild / scmInfo := Some(
   ScmInfo(
-    url("https://github.com/kattulib/kuram"),
-    "git@github.com:kattulib/kuram.git"
+    url("https://github.com/lamdalib/kuram"),
+    "git@github.com:lamdalib/kuram.git"
   )
 )
 ThisBuild / developers ++= List(

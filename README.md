@@ -18,17 +18,17 @@ you should clone the project and publish it locally as on the following command:
 # on interactive sbt shell
 sbt:kuram> publishLocal
 ...
-[info]  published ivy to /home/USER/.ivy2/local/io.github.kattulib/kuram_3/0.1.0-SNAPSHOT
+[info]  published ivy to /home/USER/.ivy2/local/io.github.lamdalib/kuram_3/0.1.0-SNAPSHOT
 
 # on bash
 $ sbt publishLocal
 ...
-[info]  published ivy to /home/USER/.ivy2/local/io.github.kattulib/kuram_3/0.1.0-SNAPSHOT
+[info]  published ivy to /home/USER/.ivy2/local/io.github.lamdalib/kuram_3/0.1.0-SNAPSHOT
 ```
 
 Then you can add the library in the library dependencies as others.
 ```scala
-libraryDependencies += "io.github.kattulib" %% "kuram" % "0.1.0-SNAPSHOT"
+libraryDependencies += "io.github.lamdalib" %% "kuram" % "0.1.0-SNAPSHOT"
 ```
 
 ## Run Tests

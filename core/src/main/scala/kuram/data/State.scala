@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 kattulib
+ * Copyright (c) 2024 lamdalib
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -43,5 +43,6 @@ object State {
     def map[B](f: A => B): State[S, B] = {
       flatMap(a => State.lift(f(a)))
     }
+
   }
 }
