@@ -40,7 +40,7 @@ Compile / doc / scalacOptions ++= Seq(
   "-project-version",
   (ThisBuild / version).value,
   "-project-logo",
-  "docs/icon.jpeg"
+  "docs/icon.png"
 )
 
 /* publish settings */
