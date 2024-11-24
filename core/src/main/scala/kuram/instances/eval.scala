@@ -25,28 +25,9 @@ package instances
 import data.Eval
 
 private[instances] trait EvalInstances {
-
-  // Functor
-  given evalFunctor: Functor[Eval] with {
-    def map[A, B](fa: Eval[A])(f: A => B): Eval[B] =
-      fa.map(f)
-  }
-
-  // Applicative
-  given evalApplicative: Applicative[Eval] with {
-    def pure[A](a: => A): Eval[A] = Eval.now(a)
-
-    def ap[A, B](ff: Eval[A => B])(fa: Eval[A]): Eval[B] = for {
-      a <- fa
-      f <- ff
-    } yield f(a)
-  }
-
-  // Monad
   given evalMonad: Monad[Eval] with {
+    override def map[A, B](fa: Eval[A])(f: A => B): Eval[B] = fa.map(f)
     def pure[A](a: => A): Eval[A] = Eval.now(a)
-
-    def flatMap[A, B](fa: Eval[A])(f: A => Eval[B]): Eval[B] =
-      fa.flatMap(f)
+    def flatMap[A, B](fa: Eval[A])(f: A => Eval[B]): Eval[B] = fa.flatMap(f)
   }
 }

@@ -23,19 +23,9 @@ package kuram
 package instances
 
 private[instances] trait IntInstances {
-  // Semigroup
-  given intSemigroup: Semigroup[Int] with {
+  given intInstances: Monoid[Int] with Eq[Int] with {
     def combine(a: Int, b: Int): Int = a + b
-  }
-
-  // Monoid
-  given intMonoid: Monoid[Int] with {
     def empty: Int = 0
-    def combine(a: Int, b: Int): Int = a + b
-  }
-
-  // Eq
-  given intEq: Eq[Int] with {
     def eqv(a: Int, b: Int): Boolean = a == b
   }
 }

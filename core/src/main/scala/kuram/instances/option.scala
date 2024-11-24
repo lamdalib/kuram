@@ -23,56 +23,18 @@ package kuram
 package instances
 
 private[instances] trait OptionInstances {
-  // Applicative
-  given optionApplicative: Applicative[Option] with {
+  given optionMonad[A]: Monad[Option] with {
+    override def map[A, B](fa: Option[A])(f: A => B): Option[B] = fa.map(f)
     def pure[A](a: => A): Option[A] = Option(a)
-
-    def ap[A, B](ff: Option[A => B])(fa: Option[A]): Option[B] = for {
-      f <- ff
-      a <- fa
-    } yield f(a)
+    def flatMap[A, B](fa: Option[A])(f: A => Option[B]): Option[B] = fa.flatMap(f)
   }
 
-  // Apply
-  given optionApply: Apply[Option] with {
-    def map[A, B](fa: Option[A])(f: A => B): Option[B] = fa.map(f)
-
-    def ap[A, B](ff: Option[A => B])(fa: Option[A]): Option[B] = for {
-      f <- ff
-      a <- fa
-    } yield f(a)
-  }
-
-  // Functor
-  given optionFunctor: Functor[Option] with {
-    def map[A, B](fa: Option[A])(f: A => B): Option[B] =
-      fa.map(f)
-  }
-
-  // Monad
-  given optionMonad: Monad[Option] with {
-    def pure[A](a: => A): Option[A] = Option(a)
-
-    def flatMap[A, B](fa: Option[A])(f: A => Option[B]): Option[B] =
-      fa.flatMap(f)
-  }
-
-  // Monoid
   given optionMonoid[A: Monoid]: Monoid[Option[A]] with {
     def empty: Option[A] = None
     def combine(a: Option[A], b: Option[A]): Option[A] = (a, b) match {
-      case (Some(a1), Some(b1)) => Some(Monoid[A].combine(a1, b1))
       case (a1, None)           => a1
       case (None, b1)           => b1
-    }
-  }
-
-  // Semigroup
-  given optionSemigroup[A: Semigroup]: Semigroup[Option[A]] with {
-    def combine(a: Option[A], b: Option[A]): Option[A] = (a, b) match {
-      case (Some(aa), Some(bb)) => Some(Semigroup[A].combine(aa, bb))
-      case (aa @ _, None)       => aa
-      case (None, bb @ _)       => bb
+      case (Some(a1), Some(b1)) => Some(Monoid[A].combine(a1, b1))
     }
   }
 }

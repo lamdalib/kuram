@@ -23,7 +23,6 @@ package kuram
 package instances
 
 private[instances] trait MapInstances {
-  // Apply
   given mapApply[K]: Apply[[V] =>> Map[K, V]] with {
     def map[A, B](fa: Map[K, A])(f: A => B): Map[K, B] = fa.map((k, v) => (k, f(v)))
 
@@ -33,13 +32,6 @@ private[instances] trait MapInstances {
     } yield (k, f(a))
   }
 
-  // Functor
-  given mapFunctor[K]: Functor[[V] =>> Map[K, V]] with {
-    def map[A, B](fa: Map[K, A])(f: A => B): Map[K, B] =
-      fa.map((k, v) => (k, f(v)))
-  }
-
-  // Monoid
   given mapMonoid[K, V: Monoid]: Monoid[Map[K, V]] with {
     def empty: Map[K, V] = Map.empty[K, V]
     def combine(a: Map[K, V], b: Map[K, V]): Map[K, V] =

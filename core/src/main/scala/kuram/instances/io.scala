@@ -25,21 +25,8 @@ package instances
 import effects.IO
 
 private[instances] trait IOInstances {
-  // Applicative
-  given ioApplicative: Applicative[IO] with {
-    def pure[A](a: => A): IO[A] = IO(a)
-
-    def ap[A, B](ff: IO[A => B])(fa: IO[A]): IO[B] = for {
-      a <- fa
-      f <- ff
-    } yield f(a)
-  }
-
-  // Monad
   given ioMonad: Monad[IO] with {
     def pure[A](a: => A): IO[A] = IO(a)
-
-    def flatMap[A, B](fa: IO[A])(f: A => IO[B]): IO[B] =
-      fa.flatMap(f)
+    def flatMap[A, B](fa: IO[A])(f: A => IO[B]): IO[B] = fa.flatMap(f)
   }
 }

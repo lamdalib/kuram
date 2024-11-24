@@ -23,42 +23,17 @@ package kuram
 package instances
 
 private[instances] trait ListInstances {
-  // Applicative
-  given listApplicative: Applicative[List] with {
+  given listInstances[A]: Monad[List] with Traverse[List] with Monoid[List[A]] with {
+    override def map[A, B](as: List[A])(f: A => B): List[B] = as.map(f)
     def pure[A](a: => A): List[A] = List(a)
-
-    def ap[A, B](ff: List[A => B])(as: List[A]): List[B] = for {
-      f <- ff
-      a <- as
-    } yield f(a)
-  }
-
-  // Foldable
-  given listFoldable: Foldable[List] with {
-    override def foldRight[A, B](as: List[A], acc: B)(f: (A, B) => B): B =
-      as.foldRight(acc)(f)
-
-    override def foldLeft[A, B](as: List[A], acc: B)(f: (B, A) => B): B =
-      as.foldLeft(acc)(f)
-  }
-
-  // Functor
-  given listFunctor: Functor[List] with {
-    def map[A, B](as: List[A])(f: A => B): List[B] =
-      as.map(f)
-  }
-
-  // Monad
-  given listMonad: Monad[List] with {
-    def pure[A](a: => A): List[A] = List(a)
-
-    def flatMap[A, B](as: List[A])(f: A => List[B]): List[B] =
-      as.flatMap(f)
-  }
-
-  // Monoid
-  given listMonoid[A]: Monoid[List[A]] with {
+    def flatMap[A, B](as: List[A])(f: A => List[B]): List[B] = as.flatMap(f)
     def empty: List[A] = Nil
     def combine(a: List[A], b: List[A]): List[A] = a ++ b
+    override def foldRight[A, B](as: List[A], acc: B)(f: (A, B) => B): B = as.foldRight(acc)(f)
+    def traverse[G[_]: Applicative, A, B](fa: List[A])(f: A => G[B]): G[List[B]] = {
+      foldRight(fa, Applicative[G].pure(List.empty[B]))((a, acc) => {
+        Applicative[G].map2(acc, f(a))((x, y) => y +: x)
+      })
+    }
   }
 }

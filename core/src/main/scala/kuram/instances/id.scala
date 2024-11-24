@@ -25,26 +25,10 @@ package instances
 import data.Id
 
 private[instances] trait IdInstances {
-  // Functor
-  given idFunctor: Functor[Id] with {
-    def map[A, B](a: Id[A])(f: A => B): Id[B] = Id(f(a))
-  }
-
-  // Applicative
-  given idApplicative: Applicative[Id] with {
-    def pure[A](a: => A): Id[A] = Id(a)
-    def ap[A, B](f: Id[A => B])(a: Id[A]): Id[B] = f(a)
-  }
-
-  // Monad
-  given idMonad: Monad[Id] with {
+  given idInstances[A]: Monad[Id] with Eq[Id[A]] with {
+    override def map[A, B](a: Id[A])(f: A => B): Id[B] = Id(f(a))
     def pure[A](a: => A): Id[A] = Id(a)
     def flatMap[A, B](a: Id[A])(f: A => Id[B]): Id[B] = f(a)
-  }
-
-  // Eq
-  given idEq[A]: Eq[Id[A]] with {
     def eqv(a: Id[A], b: Id[A]): Boolean = a == b
   }
-
 }
