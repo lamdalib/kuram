@@ -29,6 +29,7 @@ private[syntax] trait AllSyntax
     with EqSyntax
     with FlatMapSyntax
     with FoldableSyntax
+    with TraverseSyntax
     with FunctorSyntax
     with MonadSyntax
     with MonoidSyntax

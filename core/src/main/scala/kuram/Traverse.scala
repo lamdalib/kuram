@@ -21,18 +21,13 @@
 
 package kuram
 
-package object syntax {
-  object all extends AllSyntax
-  object semigroup extends SemigroupSyntax
-  object monoid extends MonoidSyntax
-  object compose extends ComposeSyntax
-  object foldable extends FoldableSyntax
-  object traverse extends TraverseSyntax
-  object eq extends EqSyntax
-  object semigroupal extends SemigroupalSyntax
-  object functor extends FunctorSyntax
-  object apply extends ApplySyntax
-  object applicative extends ApplicativeSyntax
-  object flatmap extends FlatMapSyntax
-  object monad extends MonadSyntax
+trait Traverse[F[_]] extends Functor[F] with Foldable[F] {
+  def traverse[G[_]: Applicative, A, B](fa: F[A])(f: A => G[B]): G[F[B]]
+  def sequence[G[_]: Applicative, A](fga: F[G[A]]): G[F[A]] = {
+    traverse(fga)(identity)
+  }
+}
+
+object Traverse {
+  def apply[F[_]](using instance: Traverse[F]): Traverse[F] = instance
 }

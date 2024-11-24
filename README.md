@@ -149,8 +149,8 @@ flowchart BT
         Functor["Functor (map)"]
 
         Compose["Compose (compose)"]
-        Foldable["Foldable (fold)"]
-        Traverse["Traverse"]
+        Foldable["Foldable (foldRight)"]
+        Traverse["Traverse (traverse)"]
     %% %
 
 
@@ -159,10 +159,9 @@ flowchart BT
         Monoid --> Semigroup
 
         Monad --> Applicative & FlatMap --> Apply --> Semigroupal & Functor
+        Traverse --> Foldable & Functor
 
         Compose
-        Traverse
-        Foldable
     %% %
 ```
 
