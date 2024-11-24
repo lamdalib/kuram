@@ -20,19 +20,13 @@
  */
 
 package kuram
-package syntax
 
-private[syntax] trait AllSyntax
-    extends ApplicativeSyntax
-    with ApplySyntax
-    with ComposeSyntax
-    with EqSyntax
-    with FlatMapSyntax
-    with FoldableSyntax
-    with TraverseSyntax
-    with FunctorSyntax
-    with MonadSyntax
-    with MonoidSyntax
-    with SemigroupSyntax
-    with SemigroupalSyntax
-    with AlternativeSyntax
+import kuram.kinds.MonoidK
+
+trait Alternative[F[_]] extends Applicative[F] with MonoidK[F] {
+  def orElse[A](fa: F[A], fb: F[A]): F[A]
+}
+
+object Alternative {
+  def apply[F[_]](using instance: Alternative[F]): Alternative[F] = instance
+}

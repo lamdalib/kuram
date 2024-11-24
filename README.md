@@ -140,6 +140,8 @@ flowchart BT
 
         Monad["Monad"]
 
+        Alternative["Alternative (orElse)"]
+
         Applicative["Applicative (pure)"]
         FlatMap["FlatMap (flatMap)"]
 
@@ -159,6 +161,8 @@ flowchart BT
         Monoid --> Semigroup
 
         Monad --> Applicative & FlatMap --> Apply --> Semigroupal & Functor
+        Alternative --> Applicative
+
         Traverse --> Foldable & Functor
 
         Compose

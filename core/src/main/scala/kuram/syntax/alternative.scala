@@ -22,17 +22,14 @@
 package kuram
 package syntax
 
-private[syntax] trait AllSyntax
-    extends ApplicativeSyntax
-    with ApplySyntax
-    with ComposeSyntax
-    with EqSyntax
-    with FlatMapSyntax
-    with FoldableSyntax
-    with TraverseSyntax
-    with FunctorSyntax
-    with MonadSyntax
-    with MonoidSyntax
-    with SemigroupSyntax
-    with SemigroupalSyntax
-    with AlternativeSyntax
+private[syntax] trait AlternativeSyntax {
+  extension [F[_], A](fa: F[A])(using Alternative[F]) {
+    final def orElse(fb: F[A]): F[A] = {
+      Alternative[F].orElse(fa, fb)
+    }
+
+    final def <|>(fb: F[A]): F[A] = {
+      orElse(fb)
+    }
+  }
+}
