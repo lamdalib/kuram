@@ -54,6 +54,12 @@ trait Apply[F[_]] extends Functor[F] with Semigroupal[F] {
 
   override def product[A, B](fa: F[A], fb: F[B]): F[(A, B)] =
     ap(map(fa)(a => (b: B) => (a, b)))(fb)
+
+  def productR[A, B](fa: F[A])(fb: F[B]): F[B] =
+    ap(as(fa)((b: B) => b))(fb)
+
+  def productL[A, B](fa: F[A])(fb: F[B]): F[A] =
+    ap(map(fa)(a => (b: B) => a))(fb)
 }
 
 object Apply {

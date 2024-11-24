@@ -24,8 +24,24 @@ package syntax
 
 private[syntax] trait ApplySyntax {
   extension [F[_], A, B](ff: F[A => B])(using Apply[F]) {
-    def ap(fa: F[A]): F[B] = {
+    final def ap(fa: F[A]): F[B] =
       Apply[F].ap(ff)(fa)
-    }
+
+    /** Alias of [[kuram.Apply.ap]]
+      */
+    final infix def <*>(fa: F[A]): F[B] = ap(fa)
+  }
+
+  extension [F[_], A, B](fa: F[A])(using Apply[F]) {
+
+    /** Alias of [[kuram.Apply.productR]]
+        */
+    final infix def *>(fb: F[B]): F[B] =
+      Apply[F].productR(fa)(fb)
+
+    /** Alias of [[kuram.Apply.productL]]
+      */
+    final infix def <*(fb: F[B]): F[A] =
+      Apply[F].productL(fa)(fb)
   }
 }
