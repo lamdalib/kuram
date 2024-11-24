@@ -22,18 +22,16 @@
 package kuram
 package syntax
 
-private[syntax] trait AllSyntax
-    extends ApplicativeSyntax
-    with ApplySyntax
-    with ComposeSyntax
-    with EqSyntax
-    with FlatMapSyntax
-    with FoldableSyntax
-    with TraverseSyntax
-    with FunctorSyntax
-    with MonadSyntax
-    with MonoidSyntax
-    with SemigroupSyntax
-    with SemigroupalSyntax
-    with SemigroupKSyntax
-    with AlternativeSyntax
+import kuram.kinds.SemigroupK
+
+private[syntax] trait SemigroupKSyntax {
+  extension [F[_], A](a: F[A])(using SemigroupK[F]) {
+    final def combineK(b: F[A]): F[A] = {
+      SemigroupK[F].combineK(a, b)
+    }
+
+    final def <+>(b: F[A]): F[A] = {
+      combineK(b)
+    }
+  }
+}
