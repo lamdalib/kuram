@@ -24,6 +24,7 @@ package syntax
 
 private[syntax] trait FunctorSyntax {
   extension [F[_], A](fa: F[A])(using Functor[F]) {
-    def map[B](f: A => B): F[B] = Functor[F].map(fa)(f)
+    final def map[B](f: A => B): F[B] = Functor[F].map(fa)(f)
+    final def as[B](b: => B): F[B] = Functor[F].as(fa)(b)
   }
 }
