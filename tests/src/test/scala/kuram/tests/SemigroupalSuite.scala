@@ -24,7 +24,6 @@ package kuram.tests
 import kuram.data.Id
 import kuram.laws.SemigroupalLaws
 import kuram.instances.id.given
-import kuram.instances.tuple.given
 import kuram.syntax.eq.*
 
 class SemigroupalSuite extends munit.FunSuite {
