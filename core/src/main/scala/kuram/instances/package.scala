@@ -24,7 +24,6 @@ package kuram
 package object instances {
   object all extends AllInstances
   object boolean extends BooleanInstances
-  object either extends EitherInstances
   object eval extends EvalInstances
   object function extends FunctionInstances
   object int extends IntInstances
@@ -34,8 +33,6 @@ package object instances {
   object option extends OptionInstances
   object seq extends SeqInstances
   object set extends SetInstances
-  object state extends StateInstances
   object string extends StringInstances
   object id extends IdInstances
-  object tuple extends TupleInstances
 }

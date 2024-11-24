@@ -24,7 +24,6 @@ package instances
 
 private[instances] trait AllInstances
     extends BooleanInstances
-    with EitherInstances
     with EvalInstances
     with FunctionInstances
     with IntInstances
@@ -34,7 +33,5 @@ private[instances] trait AllInstances
     with OptionInstances
     with SeqInstances
     with SetInstances
-    with StateInstances
     with StringInstances
     with IdInstances
-    with TupleInstances
