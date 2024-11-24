@@ -24,54 +24,54 @@ package kuram
 trait Functor[F[_]] {
 
   /** Mapping given function over instance.
-      *
-      * Example:
-      * {{{
-      * scala> import kuram.instances.list.given
-      * scala> import kuram.syntax.*
-      *
-      * scala> val list = List(1, 2, 3)
-      * val list: List[Int] = List(1, 2, 3)
-      *
-      * scala> val f: (Int) => Int = _ * 2
-      * val f: (Int) => Int = Lambda$XXXX
-      *
-      * scala> list.map(f)
-      * val res0: List[Int] = List(2, 4, 6)
-      * }}}
-      */
+    *
+    * Example:
+    * {{{
+    * scala> import kuram.instances.list.given
+    * scala> import kuram.syntax.*
+    *
+    * scala> val list = List(1, 2, 3)
+    * val list: List[Int] = List(1, 2, 3)
+    *
+    * scala> val f: (Int) => Int = _ * 2
+    * val f: (Int) => Int = Lambda$XXXX
+    *
+    * scala> list.map(f)
+    * val res0: List[Int] = List(2, 4, 6)
+    * }}}
+    */
   def map[A, B](fa: F[A])(f: A => B): F[B]
 
   /** All elements will be converted to B.
-      * 
-      * Example:
-      * {{{
-      * scala> import kuram.Functor
-      * scala> import kuram.instances.list.given
-      *
-      * scala> List(1, 2, 3).as(5)
-      * res0: List[Int] = List(5, 5, 5)
-      * }}}
-      */
+    * 
+    * Example:
+    * {{{
+    * scala> import kuram.Functor
+    * scala> import kuram.instances.list.given
+    *
+    * scala> List(1, 2, 3).as(5)
+    * res0: List[Int] = List(5, 5, 5)
+    * }}}
+    */
   def as[A, B](fa: F[A])(b: => B): F[B] = map(fa)(_ => b)
 
   /** All elements will be converted to Unit.
-      *
-      * Example:
-      * {{{
-      * scala> import kuram.Functor
-      * scala> import kuram.instances.list.given
-      *
-      * scala> List(1, 2, 3).void
-      * res0: List[Unit] = List((), (), ())
-      * }}}
-      */
+    *
+    * Example:
+    * {{{
+    * scala> import kuram.Functor
+    * scala> import kuram.instances.list.given
+    *
+    * scala> List(1, 2, 3).void
+    * res0: List[Unit] = List((), (), ())
+    * }}}
+    */
   def void[A](fa: F[A]): F[Unit] = as(fa)(())
 
   /** Alias of [[map]]. 
-      * Sometimes we can't use [[map]] because the type 
-      * already had a built-in .map combinator.
-      */
+    * Sometimes we can't use [[map]] because the type 
+    * already had a built-in .map combinator.
+    */
   final def fmap[A, B](fa: F[A])(f: A => B): F[B] = map(fa)(f)
 
   /** Lifting given function to function of [[Functor]] of given types.
