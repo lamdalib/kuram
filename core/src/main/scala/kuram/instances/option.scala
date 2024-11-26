@@ -23,10 +23,12 @@ package kuram
 package instances
 
 private[instances] trait OptionInstances {
-  given optionMonad[A]: Monad[Option] with {
+  given optionMonad[A]: Monad[Option] with Alternative[Option] with {
     override def map[A, B](fa: Option[A])(f: A => B): Option[B] = fa.map(f)
     def pure[A](a: => A): Option[A] = Option(a)
     def flatMap[A, B](fa: Option[A])(f: A => Option[B]): Option[B] = fa.flatMap(f)
+    def combineK[A](a: Option[A], b: Option[A]): Option[A] = a.orElse(b)
+    def empty[A]: Option[A] = None
   }
 
   given optionMonoid[A: Monoid]: Monoid[Option[A]] with {
@@ -36,5 +38,9 @@ private[instances] trait OptionInstances {
       case (None, b1)           => b1
       case (Some(a1), Some(b1)) => Some(Monoid[A].combine(a1, b1))
     }
+  }
+
+  given optionEq[A]: Eq[Option[A]] with {
+    def eqv(a: Option[A], b: Option[A]): Boolean = a == b
   }
 }
