@@ -46,7 +46,7 @@ trait Foldable[F[_]] {
       * val res0: String = abc
       * }}}
       */
-  def foldRight[A, B](as: F[A], acc: B)(f: (A, B) => B): B
+  def foldRight[A, B](fa: F[A], acc: B)(f: (A, B) => B): B
 
   /** Folds the elements of the structure using a binary operation from left.
       *
