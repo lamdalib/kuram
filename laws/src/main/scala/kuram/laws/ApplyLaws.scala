@@ -26,12 +26,12 @@ import kuram.syntax.apply.*
 import kuram.syntax.functor.*
 
 trait ApplyLaws[F[_]] extends FunctorLaws[F] with SemigroupalLaws[F] {
-  given F: Apply[F]
+  override given F: Apply[F]
 
   /** Composition
     * g.ap(f.ap(x)) == g.map(compose).ap(f).ap(x)
     */
-  def composition[A, B, C](x: F[A], f: F[A => B], g: F[B => C]): IsEq[F[C]] = {
+  def applyComposition[A, B, C](x: F[A], f: F[A => B], g: F[B => C]): IsEq[F[C]] = {
     val compose: (B => C) => (A => B) => (A => C) = _.compose
     g.ap(f.ap(x)) <-> g.map(compose).ap(f).ap(x)
   }

@@ -25,19 +25,19 @@ import kuram.Monad
 import kuram.syntax.flatmap.*
 
 trait MonadLaws[F[_]] extends ApplicativeLaws[F] with FlatMapLaws[F] {
-  given F: Monad[F]
+  override given F: Monad[F]
 
   /** leftIdentity
     * pure(x).flatMap(f) == f(x)
     */
-  def leftIdentity[A, B](x: A)(f: A => F[B]): IsEq[F[B]] = {
+  def monadLeftIdentity[A, B](x: A)(f: A => F[B]): IsEq[F[B]] = {
     F.pure(x).flatMap(f) <-> f(x)
   }
 
   /** rightIdentity
     * x.flatMap(pure) == x
     */
-  override def rightIdentity[A](x: F[A]): IsEq[F[A]] = {
+  def monadRightIdentity[A](x: F[A]): IsEq[F[A]] = {
     x.flatMap(F.pure) <-> x
   }
 }
