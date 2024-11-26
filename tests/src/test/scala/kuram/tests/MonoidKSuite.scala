@@ -21,16 +21,21 @@
 
 package kuram.tests
 
-import kuram.Alternative
-import kuram.laws.AlternativeLaws
-import kuram.instances.option.given
+import kuram.kinds.MonoidK
+import kuram.laws.MonoidKLaws
 import kuram.syntax.eq.*
+import kuram.instances.option.given
 
-class AlternativeSuite extends munit.FunSuite {
-  def laws[F[_]](using Alternative[F]) = AlternativeLaws[F]
+class MonoidKSuite extends munit.FunSuite {
+  def laws[F[_]](using MonoidK[F]) = MonoidKLaws[F]
 
-  test("right absorption") {
-    val isEq = laws[Option].alternativeRightAbsorption(Alternative[Option].pure(identity))
-    assert(isEq.a === isEq.b)
+  test("left identity") {
+    val optionIsEq = laws[Option].monoidKLeftIdentity(Some(1))
+    assert(optionIsEq.a === optionIsEq.b)
+  }
+
+  test("right identity") {
+    val optionIsEq = laws[Option].monoidKRightIdentity(Some(1))
+    assert(optionIsEq.a === optionIsEq.b)
   }
 }

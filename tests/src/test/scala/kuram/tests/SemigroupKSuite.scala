@@ -21,16 +21,16 @@
 
 package kuram.tests
 
-import kuram.Alternative
-import kuram.laws.AlternativeLaws
-import kuram.instances.option.given
+import kuram.kinds.SemigroupK
+import kuram.laws.SemigroupKLaws
 import kuram.syntax.eq.*
+import kuram.instances.option.given
 
-class AlternativeSuite extends munit.FunSuite {
-  def laws[F[_]](using Alternative[F]) = AlternativeLaws[F]
+class SemigroupKSuite extends munit.FunSuite {
+  def laws[F[_]](using SemigroupK[F]) = SemigroupKLaws[F]
 
-  test("right absorption") {
-    val isEq = laws[Option].alternativeRightAbsorption(Alternative[Option].pure(identity))
-    assert(isEq.a === isEq.b)
+  test("associativity") {
+    val optionIsEq = laws[Option].semigroupkAssociativity(Some(1), Some(2), Some(3))
+    assert(optionIsEq.a === optionIsEq.b)
   }
 }
