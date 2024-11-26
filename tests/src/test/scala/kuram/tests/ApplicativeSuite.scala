@@ -21,38 +21,39 @@
 
 package kuram.tests
 
+import kuram.Applicative
 import kuram.laws.ApplicativeLaws
 import kuram.data.Id
 import kuram.instances.id.given
 import kuram.syntax.eq.*
 
 class ApplicativeSuite extends munit.FunSuite {
-  private val laws = ApplicativeLaws[Id]
+  def laws[F[_]](using Applicative[F]) = ApplicativeLaws[F]
 
   test("identity") {
-    val isEq = laws.identity(Id(1))
+    val isEq = laws.applicativeIdentity(Id(1))
     assert(isEq.a === isEq.b)
   }
 
-  test("leftIdentity") {
-    val isEq = laws.leftIdentity(Id(1))
+  test("left identity") {
+    val isEq = laws.applicativeLeftIdentity(Id(1))
     assert(isEq.a === isEq.b)
   }
 
-  test("rightIdentity") {
-    val isEq = laws.rightIdentity(Id(1))
+  test("right identity") {
+    val isEq = laws.applicativeRightIdentity(Id(1))
     assert(isEq.a === isEq.b)
   }
 
   test("homomorphism") {
     val f: String => Int = _.length
-    val isEq = laws.homomorphism("test")(f)
+    val isEq = laws.applicativeHomomorphism("test")(f)
     assert(isEq.a === isEq.b)
   }
 
   test("interchange") {
     val f: String => Int = _.length
-    val isEq = laws.interchange("test")(Id(f))
+    val isEq = laws.applicativeInterchange("test")(Id(f))
     assert(isEq.a === isEq.b)
   }
 }

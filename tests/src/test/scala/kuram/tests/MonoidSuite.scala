@@ -21,21 +21,21 @@
 
 package kuram.tests
 
+import kuram.Monoid
 import kuram.laws.MonoidLaws
 import kuram.instances.int.given
 import kuram.syntax.eq.*
 
-// TODO use property testing instead
 class MonoidSuite extends munit.FunSuite {
-  private val laws = MonoidLaws[Int]
+  def laws[A](using Monoid[A]) = MonoidLaws[A]
 
   test("left identity") {
-    val isEq = laws.leftIdentity(1)
+    val isEq = laws.monoidLeftIdentity(1)
     assert(isEq.a === isEq.b)
   }
 
   test("right identity") {
-    val isEq = laws.rightIdentity(1)
+    val isEq = laws.monoidRightIdentity(1)
     assert(isEq.a === isEq.b)
   }
 }

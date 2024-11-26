@@ -22,15 +22,16 @@
 package kuram.tests
 
 import kuram.data.Id
+import kuram.Semigroupal
 import kuram.laws.SemigroupalLaws
 import kuram.instances.id.given
 import kuram.syntax.eq.*
 
 class SemigroupalSuite extends munit.FunSuite {
-  private val laws = SemigroupalLaws[Id]
+  def laws[F[_]](using Semigroupal[F]) = SemigroupalLaws[F]
 
   test("associativity") {
-    val (l, r) = laws.associativity(Id(1), Id(2), Id(2))
+    val (l, r) = laws[Id].semigroupalAssociativity(Id(1), Id(2), Id(2))
 
     val assocR = r match {
       case ((a, b), c) => (a, (b, c))

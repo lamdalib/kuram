@@ -21,18 +21,19 @@
 
 package kuram.tests
 
+import kuram.FlatMap
 import kuram.data.Id
 import kuram.instances.id.given
 import kuram.syntax.eq.*
 import kuram.laws.FlatMapLaws
 
 class FlatMapSuite extends munit.FunSuite {
-  private val laws = FlatMapLaws[Id]
+  def laws[F[_]](using FlatMap[F]) = FlatMapLaws[F]
 
   test("associativity") {
     val f: String => Id[Int] = Id(_.length)
     val g: Int => Int = Id(_ * 2)
-    val isEq = laws.associativity(Id("test"))(f, g)
+    val isEq = laws.flatMapAssociativity(Id("test"))(f, g)
     assert(isEq.a === isEq.b)
   }
 }

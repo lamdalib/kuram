@@ -21,19 +21,20 @@
 
 package kuram.tests
 
+import kuram.Apply
 import kuram.data.Id
 import kuram.laws.ApplyLaws
 import kuram.instances.id.given
 import kuram.syntax.eq.*
 
 class ApplySuite extends munit.FunSuite {
-  private val laws = ApplyLaws[Id]
+  def laws[F[_]](using Apply[F]) = ApplyLaws[F]
 
   test("composition") {
     val f: String => Int = _.length
     val g: Int => Int = _ * 2
 
-    val isEq = laws.composition(Id("test"), f, g)
+    val isEq = laws.applyComposition(Id("test"), f, g)
     assert(isEq.a === isEq.b)
   }
 }

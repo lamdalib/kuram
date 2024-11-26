@@ -21,16 +21,17 @@
 
 package kuram.tests
 
+import kuram.Functor
 import kuram.data.Id
 import kuram.laws.FunctorLaws
 import kuram.instances.id.given
 import kuram.syntax.eq.*
 
 class FunctorSuite extends munit.FunSuite {
-  private val laws = FunctorLaws[Id]
+  def laws[F[_]](using Functor[F]) = FunctorLaws[F]
 
   test("identity") {
-    val isEq = laws.identity(Id(1))
+    val isEq = laws.functorIdentity(Id(1))
     assert(isEq.a === isEq.b)
   }
 
@@ -38,7 +39,7 @@ class FunctorSuite extends munit.FunSuite {
     val f: String => Int = _.length
     val g: Int => Int = _ * 2
 
-    val isEq = laws.composition(Id("test"), f, g)
+    val isEq = laws.functorComposition(Id("test"), f, g)
     assert(isEq.a === isEq.b)
   }
 }
