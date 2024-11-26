@@ -140,7 +140,7 @@ flowchart BT
 
         Monad["Monad"]
 
-        Alternative["Alternative (orElse)"]
+        Alternative["Alternative"]
 
         Applicative["Applicative (pure)"]
         FlatMap["FlatMap (flatMap)"]
@@ -196,3 +196,19 @@ flowchart BT
 | State[A]          | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
 | IO[A]             | ?       | ?        | ?           | ✔          | ?          | ?          | ?        | ?       |
 | NonEmptyList[A]   | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
+
+## Laws and Tests
+
+| Type Class        | Laws  | Tests  |
+| ----------------- | ----- | ------ |
+| Functor           | ✔     | ✔      |
+| Semigroupal       | ✔     | ✔      |
+| Apply             | ✔     | ✔      |
+| Applicative       | ✔     | ✔      |
+| FlatMap           | ✔     | ✔      |
+| Monad             | ✔     | ✔      |
+| Semigroup         | ✔     | ✔      |
+| Monoid            | ✔     | ✔      |
+| Alternative       | ✔     | ✔      |
+| SemigroupK        | ✔     | ✔      |
+| MonoidK           | ✔     | ✔      |
