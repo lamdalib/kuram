@@ -23,9 +23,7 @@ package kuram
 
 import kuram.kinds.MonoidK
 
-trait Alternative[F[_]] extends Applicative[F] with MonoidK[F] {
-  def orElse[A](fa: F[A], fb: F[A]): F[A]
-}
+trait Alternative[F[_]] extends Applicative[F] with MonoidK[F]
 
 object Alternative {
   def apply[F[_]](using instance: Alternative[F]): Alternative[F] = instance
