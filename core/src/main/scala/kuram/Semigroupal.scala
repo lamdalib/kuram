@@ -21,6 +21,11 @@
 
 package kuram
 
+/** Conceptually, we can think the Semigroupal as Cartesian Product.
+  *
+  * Use Semigroupal when you want to compose independent effectful values together,
+  * which is F[A] and F[B], into single effect, which is F[(A, B)].
+  */
 trait Semigroupal[F[_]] {
   def product[A, B](fa: F[A], fb: F[B]): F[(A, B)]
 }
