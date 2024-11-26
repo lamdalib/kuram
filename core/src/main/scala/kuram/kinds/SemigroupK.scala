@@ -22,6 +22,14 @@
 package kuram
 package kinds
 
+/** SemigroupK is same as Semigroup that it is not just work with type, but type constructors.
+  *
+  * They have common combine function for some types but different purposes. For example,
+  * for Int type, both results are same. But for Option types,
+  * Semigroup combine inner values of the Option whereas SemigroupK pick valid side (i.e, if left side is `None` then will pick right side's result otherwise will pick left side's result).
+  *
+  * Therefore, you should use Semigroup or SemigroupK based on your problem.
+  */
 trait SemigroupK[F[_]] {
   def combineK[A](a: F[A], b: F[A]): F[A]
 }
