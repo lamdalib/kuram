@@ -36,5 +36,4 @@ package object syntax {
   object flatmap extends FlatMapSyntax
   object monad extends MonadSyntax
   object semigroupk extends SemigroupKSyntax
-  object alternative extends AlternativeSyntax
 }
