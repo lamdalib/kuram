@@ -21,21 +21,29 @@
 
 package kuram.laws
 
-import kuram.Alternative
+import kuram.kinds.MonoidK
 
-trait AlternativeLaws[F[_]] extends ApplicativeLaws[F] with MonoidKLaws[F] {
-  override given F: Alternative[F]
+trait MonoidKLaws[F[_]] extends SemigroupKLaws[F] {
+  override given F: MonoidK[F]
 
-  /** Right Absorption
-    * ff <*> empty == empty
+  /** left identity
+    * empty <+> a = a
     */
-  def alternativeRightAbsorption[A, B](ff: F[A => B]): IsEq[F[B]] = {
-    F.ap(ff)(F.empty[A]) <-> F.empty[B]
+  def monoidKLeftIdentity[A](x: F[A]): IsEq[F[A]] = {
+    F.combineK(F.empty, x) <-> x
   }
+
+  /** right identity
+    * a <+> empty = a
+    */
+  def monoidKRightIdentity[A](x: F[A]): IsEq[F[A]] = {
+    F.combineK(x, F.empty) <-> x
+  }
+
 }
 
-object AlternativeLaws {
-  def apply[F[_]](using alternative: Alternative[F]): AlternativeLaws[F] = new {
-    given F: Alternative[F] = alternative
+object MonoidKLaws {
+  def apply[F[_]](using monoidk: MonoidK[F]): MonoidKLaws[F] = new {
+    given F: MonoidK[F] = monoidk
   }
 }

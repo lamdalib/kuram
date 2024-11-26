@@ -21,21 +21,21 @@
 
 package kuram.laws
 
-import kuram.Alternative
+import kuram.kinds.SemigroupK
 
-trait AlternativeLaws[F[_]] extends ApplicativeLaws[F] with MonoidKLaws[F] {
-  override given F: Alternative[F]
+trait SemigroupKLaws[F[_]] {
+  given F: SemigroupK[F]
 
-  /** Right Absorption
-    * ff <*> empty == empty
+  /** Associativity
+    * a + (b + c) = (a + b) + c
     */
-  def alternativeRightAbsorption[A, B](ff: F[A => B]): IsEq[F[B]] = {
-    F.ap(ff)(F.empty[A]) <-> F.empty[B]
+  def semigroupkAssociativity[A](a: F[A], b: F[A], c: F[A]): IsEq[F[A]] = {
+    F.combineK(a, F.combineK(b, c)) <-> F.combineK(F.combineK(a, b), c)
   }
 }
 
-object AlternativeLaws {
-  def apply[F[_]](using alternative: Alternative[F]): AlternativeLaws[F] = new {
-    given F: Alternative[F] = alternative
+object SemigroupKLaws {
+  def apply[F[_]](using semigroupk: SemigroupK[F]): SemigroupKLaws[F] = new {
+    given F: SemigroupK[F] = semigroupk
   }
 }
