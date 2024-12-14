@@ -22,6 +22,9 @@
 package kuram
 package effects
 
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration.Duration
+
 trait IO[A] { self =>
   def unsafeRunSync: A
 
@@ -35,6 +38,12 @@ trait IO[A] { self =>
 }
 
 object IO {
+  def fromFuture[A](iof: IO[Future[A]]): IO[A] = {
+    iof.map { fut =>
+      Await.result(fut, Duration.Inf)
+    }
+  }
+
   def unit: IO[Unit] = IO(())
 
   def apply[A](a: => A): IO[A] = new {
