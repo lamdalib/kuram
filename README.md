@@ -174,6 +174,7 @@ flowchart BT
 flowchart BT
     State --> StateT
     Eval
+    Ref
     Id
 ```
 
@@ -195,7 +196,7 @@ flowchart BT
 | Eval[A]           | ✔       | ✔        | ✔           | ✔          | ?          | ?          | ?        | ✔       |
 | State[A]          | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
 | IO[A]             | ?       | ?        | ?           | ✔          | ?          | ?          | ?        | ?       |
-| NonEmptyList[A]   | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
+| Ref[M, A]         | ?       | ?        | ?           | ?          | ?          | ?          | ?        | ?       |
 
 ## Laws and Tests
 
