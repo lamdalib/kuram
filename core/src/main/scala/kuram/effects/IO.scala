@@ -35,6 +35,8 @@ trait IO[A] { self =>
 }
 
 object IO {
+  def unit: IO[Unit] = IO(())
+
   def apply[A](a: => A): IO[A] = new {
     override def unsafeRunSync: A = a
   }
