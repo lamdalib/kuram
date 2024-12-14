@@ -20,20 +20,17 @@
  */
 
 package kuram
+package instances
 
-package object instances {
-  object all extends AllInstances
-  object boolean extends BooleanInstances
-  object eval extends EvalInstances
-  object function extends FunctionInstances
-  object int extends IntInstances
-  object io extends IOInstances
-  object list extends ListInstances
-  object map extends MapInstances
-  object option extends OptionInstances
-  object seq extends SeqInstances
-  object set extends SetInstances
-  object string extends StringInstances
-  object id extends IdInstances
-  object ref extends RefInstances
+import kuram.data.{AtomicRef, Ref}
+
+private[instances] trait RefInstances {
+  given refMonad[F[_]: Monad]: Monad[[X] =>> Ref[F, X]] with {
+    def pure[A](a: => A): AtomicRef[F, A] = AtomicRef[F, A](a)
+    def flatMap[A, B](rfa: Ref[F, A])(f: A => Ref[F, B]): Ref[F, B] = new {
+      def get: F[B] = Monad[F].flatMap(rfa.get)(f(_).get)
+      def set(b: B): F[Unit] = Monad[F].flatMap(rfa.get)(f(_).set(b))
+      def update(fbb: B => B): F[Unit] = Monad[F].flatMap(rfa.get)(f(_).update(fbb))
+    }
+  }
 }

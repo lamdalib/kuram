@@ -35,3 +35,4 @@ private[instances] trait AllInstances
     with SetInstances
     with StringInstances
     with IdInstances
+    with RefInstances

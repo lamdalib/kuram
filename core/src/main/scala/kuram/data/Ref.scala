@@ -20,20 +20,27 @@
  */
 
 package kuram
+package data
 
-package object instances {
-  object all extends AllInstances
-  object boolean extends BooleanInstances
-  object eval extends EvalInstances
-  object function extends FunctionInstances
-  object int extends IntInstances
-  object io extends IOInstances
-  object list extends ListInstances
-  object map extends MapInstances
-  object option extends OptionInstances
-  object seq extends SeqInstances
-  object set extends SetInstances
-  object string extends StringInstances
-  object id extends IdInstances
-  object ref extends RefInstances
+import java.util.concurrent.atomic.AtomicReference
+import scala.jdk.FunctionConverters._
+
+trait Ref[F[_], A] {
+  def get: F[A]
+  def set(a: A): F[Unit]
+  def update(f: A => A): F[Unit]
+}
+
+class AtomicRef[F[_]: Monad, A](initial: A) extends Ref[F, A] {
+  private val value: AtomicReference[A] = new AtomicReference(initial)
+
+  override def get: F[A] = Monad[F].pure(value.get())
+  override def set(a: A): F[Unit] = Monad[F].pure(value.set(a))
+  override def update(f: A => A): F[Unit] = Monad[F].pure(value.updateAndGet(f.asJava))
+}
+
+object Ref {
+  def apply[F[_]: Monad, A](a: A): F[Ref[F, A]] = {
+    Monad[F].pure(new AtomicRef[F, A](a))
+  }
 }
