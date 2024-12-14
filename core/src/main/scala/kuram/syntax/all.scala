@@ -36,3 +36,4 @@ private[syntax] trait AllSyntax
     with SemigroupSyntax
     with SemigroupalSyntax
     with SemigroupKSyntax
+    with IOSyntax
