@@ -23,3 +23,4 @@ package kuram
 package syntax
 
 private[syntax] trait MonadSyntax
+

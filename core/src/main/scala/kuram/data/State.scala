@@ -43,6 +43,5 @@ object State {
     def map[B](f: A => B): State[S, B] = {
       flatMap(a => State.lift(f(a)))
     }
-
   }
 }
