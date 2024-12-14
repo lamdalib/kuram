@@ -26,5 +26,6 @@ private[syntax] trait FunctorSyntax {
   extension [F[_], A](fa: F[A])(using Functor[F]) {
     final def map[B](f: A => B): F[B] = Functor[F].map(fa)(f)
     final def as[B](b: => B): F[B] = Functor[F].as(fa)(b)
+    final def void: F[Unit] = Functor[F].void(fa)
   }
 }
