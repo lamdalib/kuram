@@ -29,14 +29,20 @@ trait Ref[F[_], A] {
   def get: F[A]
   def set(a: A): F[Unit]
   def update(f: A => A): F[Unit]
+  def modify[Z](f: A => (A, Z)): F[Z]
 }
 
-class AtomicRef[F[_]: Monad, A](initial: A) extends Ref[F, A] {
+private[kuram] class AtomicRef[F[_]: Monad, A](initial: A) extends Ref[F, A] {
   private val value: AtomicReference[A] = new AtomicReference(initial)
 
   override def get: F[A] = Monad[F].pure(value.get())
   override def set(a: A): F[Unit] = Monad[F].pure(value.set(a))
   override def update(f: A => A): F[Unit] = Monad[F].pure(value.updateAndGet(f.asJava))
+  override def modify[Z](f: A => (A, Z)): F[Z] = Monad[F].pure {
+    val (a, z) = f(value.get)
+    value.set(a)
+    z
+  }
 }
 
 object Ref {
