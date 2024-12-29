@@ -24,6 +24,10 @@ package syntax
 
 private[syntax] trait FlatMapSyntax {
   extension [F[_], A](fa: F[A])(using FlatMap[F]) {
-    def flatMap[B](f: A => F[B]): F[B] = FlatMap[F].flatMap(fa)(f)
+    final def flatMap[B](f: A => F[B]): F[B] = FlatMap[F].flatMap(fa)(f)
+  }
+
+  extension [F[_], A](ffa: F[F[A]])(using FlatMap[F]) {
+    final def flatten: F[A] = FlatMap[F].flatten(ffa)
   }
 }
