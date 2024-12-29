@@ -28,9 +28,10 @@ private[instances] trait RefInstances {
   given refMonad[F[_]: Monad]: Monad[[X] =>> Ref[F, X]] with {
     def pure[A](a: => A): AtomicRef[F, A] = AtomicRef[F, A](a)
     def flatMap[A, B](rfa: Ref[F, A])(f: A => Ref[F, B]): Ref[F, B] = new {
-      def get: F[B] = Monad[F].flatMap(rfa.get)(f(_).get)
-      def set(b: B): F[Unit] = Monad[F].flatMap(rfa.get)(f(_).set(b))
-      def update(fbb: B => B): F[Unit] = Monad[F].flatMap(rfa.get)(f(_).update(fbb))
+      override def get: F[B] = Monad[F].flatMap(rfa.get)(f(_).get)
+      override def set(b: B): F[Unit] = Monad[F].flatMap(rfa.get)(f(_).set(b))
+      override def update(fbb: B => B): F[Unit] = Monad[F].flatMap(rfa.get)(f(_).update(fbb))
+      override def modify[Z](fbbz: B => (B, Z)): F[Z] = Monad[F].flatMap(rfa.get)(f(_).modify(fbbz))
     }
   }
 }
