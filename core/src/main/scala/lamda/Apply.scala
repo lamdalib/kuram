@@ -80,10 +80,7 @@ object Apply {
     implicit class ApplyOps[F[_], A](fa: F[A])(implicit F: Apply[F]) {
       final def ap[B](ff: F[A => B]): F[B] = F.ap(fa)(ff)
 
-      /** @see
-        *   Alias of [[lamda.Apply.ap]]
-        *
-        * Example:
+      /** Example:
         * {{{
         * scala> import lamda.syntax.apply._
         * scala> import lamda.instances.option._
@@ -91,6 +88,9 @@ object Apply {
         * scala> Option(1) <*> Option((x: Int) => x + 1)
         * res0: Option[Int] = Some(2)
         * }}}
+        *
+        * @see
+        *   Alias of [[lamda.Apply.ap]]
         */
       final def <*>[B](ff: F[A => B]): F[B] = F.ap(fa)(ff)
 
@@ -103,23 +103,30 @@ object Apply {
 
       final def productL[B](fb: F[B]): F[A] = F.productL(fa, fb)
 
-      /** @see
-        *   Alias of [[lamda.Apply.productR]]
-        *
-        * Example: {{{ scala> import lamda.syntax.apply._ scala> import
-        * lamda.instances.option._
+      /** Example:
+        * {{{
+        * scala> import lamda.syntax.apply._
+        * scala> import lamda.instances.option._
         *
         * scala> Option(1) *> Option(2) res0: Option[Int] = Option(2)
+        * }}}
+        *
+        * @see
+        *   Alias of [[lamda.Apply.productR]]
         */
       final def *>[B](fb: F[B]): F[B] = F.productR(fa, fb)
 
-      /** @see
-        *   Alias of [[lamda.Apply.productL]]
+      /** Example:
+        * {{{
+        * scala> import lamda.syntax.apply._
+        * scala> import lamda.instances.option._
         *
-        * Example: {{{ scala> import lamda.syntax.apply._ scala> import
-        * lamda.instances.option._
+        * scala> Option(1) <* Option(2)
+        * res0: Option[Int] = Some(1)
+        * }}}
         *
-        * scala> Option(1) <* Option(2) res0: Option[Int] = Some(1)
+        * @see
+        *   Alias of [[lamda.Apply.productL]]*
         */
       final def <*[B](fb: F[B]): F[A] = F.productL(fa, fb)
     }

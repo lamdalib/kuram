@@ -14,10 +14,10 @@ trait Monoid[T] extends Semigroup[T] {
     * res0: Option[Int] = None
     *
     * scala> Monoid[String].empty
-    * res0: Int = ""
+    * res1: Int = ""
     *
     * scala> Monoid[Int].empty
-    * res0: Int = 0
+    * res2: Int = 0
     * }}}
     */
   def empty: T
