@@ -37,6 +37,10 @@ ThisBuild / publishMavenStyle := true
 /* gh-pages settings */
 ThisBuild / git.remoteRepo := "git@github.com:csgn/lamda.git"
 
+ThisBuild / scalacOptions ++= Seq(
+  "-Wunused"
+)
+
 lazy val tests = project
   .in(file("tests"))
   .dependsOn(core)
