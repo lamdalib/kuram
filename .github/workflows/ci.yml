@@ -1,0 +1,26 @@
+name: Continuous integration
+on: push
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 8
+          cache: sbt
+      - name: scalafmt
+        run: sbt scalafmtAll
+
+      - name: scalafix
+        run: sbt scalafixAll
+
+      - name: unit tests
+        run: sbt tests/test
+
+      - name: publishing docs
+        run: sbt ghpagesPushSite
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
