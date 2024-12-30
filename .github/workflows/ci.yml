@@ -19,8 +19,3 @@ jobs:
 
       - name: unit tests
         run: sbt tests/test
-
-      - name: publishing docs
-        run: sbt ghpagesPushSite
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
