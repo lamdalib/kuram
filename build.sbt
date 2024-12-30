@@ -1,21 +1,10 @@
 import Dependencies._
 
-/* project settings */
-ThisBuild / scalaVersion := "3.4.2"
-ThisBuild / name := "kuram"
-ThisBuild / version := "0.1.0-SNAPSHOT"
-ThisBuild / organization := "io.github.lamdalib"
-ThisBuild / organizationName := "lamdalib"
-ThisBuild / description := "Minimal Scala library for functional programming"
+/* Project settings */
+ThisBuild / scalaVersion := "2.13.15"
+ThisBuild / version := "1.0.0-SNAPSHOT"
+ThisBuild / description := "Minimal functional programming library for Scala"
 ThisBuild / licenses := List(("MIT", url("https://opensource.org/license/mit")))
-ThisBuild / startYear := Some(2024)
-ThisBuild / homepage := Some(url("https://github.com/lamdalib/kuram"))
-ThisBuild / scmInfo := Some(
-  ScmInfo(
-    url("https://github.com/lamdalib/kuram"),
-    "git@github.com:lamdalib/kuram.git"
-  )
-)
 ThisBuild / developers ++= List(
   Developer(
     id = "csgn",
@@ -25,79 +14,41 @@ ThisBuild / developers ++= List(
   )
 )
 
-/* test settings */
+/* Test settings */
 ThisBuild / testFrameworks += new TestFramework("munit.Framework")
 
-/* scalafix settings */
+/* Scalafix settings */
 ThisBuild / semanticdbEnabled := true
 ThisBuild / semanticdbVersion := scalafixSemanticdb.revision
 
-/* scaladoc settings */
-ThisBuild / autoAPIMappings := true
-Compile / doc / scalacOptions ++= Seq(
-  "-doc-title",
-  (ThisBuild / name).value,
-  "-project-version",
-  (ThisBuild / version).value,
-  "-project-logo",
-  "docs/icon.png"
-)
-
-/* publish settings */
+/* Publish settings */
 ThisBuild / publishMavenStyle := true
-
-val commonSettings = Seq(
-  scalacOptions ++= Seq(
-    "-Wunused:all",
-    "-rewrite",
-    "-no-indent"
-  )
-)
-
-lazy val example = project
-  .in(file("example"))
-  .dependsOn(core)
-  .settings(commonSettings)
-  .settings(
-    name := "example",
-    publish / skip := true
-  )
-  .enablePlugins(ScalafixPlugin, AutomateHeaderPlugin)
 
 lazy val tests = project
   .in(file("tests"))
-  .dependsOn(core, laws)
-  .settings(commonSettings)
+  .dependsOn(core)
   .settings(
     name := "tests",
     publish / skip := true,
     libraryDependencies ++= {
       Seq(
-        munit.value % Test,
+        munit % Test,
       )
     }
   )
-  .enablePlugins(ScalafixPlugin, AutomateHeaderPlugin)
-
-lazy val laws = project
-  .in(file("laws"))
-  .dependsOn(core)
-  .settings(commonSettings)
-  .settings(
-    name := "laws",
-    publish / skip := true,
-  )
-  .enablePlugins(ScalafixPlugin, AutomateHeaderPlugin)
+  .enablePlugins(ScalafixPlugin)
 
 lazy val core = project
   .in(file("core"))
-  .settings(commonSettings)
   .settings(
     name := "core",
-    moduleName := "kuram-core"
+    moduleName := "lamda-core"
   )
-  .enablePlugins(ScalafixPlugin, AutomateHeaderPlugin)
+  .enablePlugins(ScalafixPlugin)
 
-lazy val kuram = project
+lazy val lamda = project
   .in(file("."))
-  .aggregate(core, laws, tests, example)
+  .settings(
+    name := "lamda",
+  )
+  .aggregate(core, tests)
