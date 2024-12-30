@@ -1,6 +1,7 @@
 import Dependencies._
 
 /* Project settings */
+ThisBuild / name := "lamda"
 ThisBuild / scalaVersion := "2.13.15"
 ThisBuild / version := "1.0.0-SNAPSHOT"
 ThisBuild / description := "Minimal functional programming library for Scala"
@@ -21,8 +22,20 @@ ThisBuild / testFrameworks += new TestFramework("munit.Framework")
 ThisBuild / semanticdbEnabled := true
 ThisBuild / semanticdbVersion := scalafixSemanticdb.revision
 
+/* scaladoc settings */
+ThisBuild / autoAPIMappings := true
+Compile / doc / scalacOptions ++= Seq(
+  "-doc-title",
+  (ThisBuild / name).value,
+  "-project-version",
+  (ThisBuild / version).value,
+)
+
 /* Publish settings */
 ThisBuild / publishMavenStyle := true
+
+/* gh-pages settings */
+ThisBuild / git.remoteRepo := "git@github.com:csgn/lamda.git"
 
 lazy val tests = project
   .in(file("tests"))
@@ -44,7 +57,7 @@ lazy val core = project
     name := "core",
     moduleName := "lamda-core"
   )
-  .enablePlugins(ScalafixPlugin)
+  .enablePlugins(ScalafixPlugin, GhpagesPlugin)
 
 lazy val lamda = project
   .in(file("."))
