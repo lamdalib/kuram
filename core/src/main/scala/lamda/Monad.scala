@@ -1,8 +1,8 @@
 package lamda
 
 trait Monad[F[_]] extends Applicative[F] with FlatMap[F] {
-  /**
-    * Example:
+
+  /** Example:
     * {{{
     * scala> import lamda.Monad
     * scala> import lamda.syntax.monad._

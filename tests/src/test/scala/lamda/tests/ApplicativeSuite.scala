@@ -1,7 +1,6 @@
 package lamda.tests
 
 import lamda.Applicative
-import lamda.syntax.applicative._
 import lamda.instances.all._
 
 class ApplicativeSuite extends munit.FunSuite {
@@ -12,7 +11,9 @@ class ApplicativeSuite extends munit.FunSuite {
     assert(expected == obtained)
   }
 
-  test("map which in terms of ap and pure should apply function to wrapped value") {
+  test(
+    "map which in terms of ap and pure should apply function to wrapped value",
+  ) {
     val o1 = Some(1)
     val f = (a: Int) => a + 1
     val expected = Some(2)

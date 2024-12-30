@@ -1,11 +1,12 @@
 package lamda.tests
 
 import lamda.Apply
-import lamda.syntax.apply._
 import lamda.instances.all._
 
 class ApplySuite extends munit.FunSuite {
-  test("ap should apply function wrapped in context to value wrapped in context") {
+  test(
+    "ap should apply function wrapped in context to value wrapped in context",
+  ) {
     val o1 = Option(1)
     val f = Option((x: Int) => x + 1)
     val expected = Some(2)
@@ -13,7 +14,9 @@ class ApplySuite extends munit.FunSuite {
     assert(obtained == expected)
   }
 
-  test("ap2 should apply function wrapped in context with two arguments wrapped in context") {
+  test(
+    "ap2 should apply function wrapped in context with two arguments wrapped in context",
+  ) {
     val o1 = Option(1)
     val o2 = Option(2)
     val f = Option((x: Int, y: Int) => x + y)
@@ -22,7 +25,9 @@ class ApplySuite extends munit.FunSuite {
     assert(obtained == expected)
   }
 
-  test("product which in terms of ap should combine two wrapped values into a tuple") {
+  test(
+    "product which in terms of ap should combine two wrapped values into a tuple",
+  ) {
     val o1 = Some(1)
     val o2 = Some(2)
     val expected = Some((1, 2))

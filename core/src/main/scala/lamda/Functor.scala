@@ -1,8 +1,8 @@
 package lamda
 
 trait Functor[F[_]] {
-  /**
-    * Example:
+
+  /** Example:
     * {{{
     * scala> import lamda.Functor
     * scala> import lamda.syntax.functor._
@@ -14,8 +14,7 @@ trait Functor[F[_]] {
     */
   def map[A, B](fa: F[A])(f: A => B): F[B]
 
-  /**
-    * Example:
+  /** Example:
     * {{{
     * scala> import lamda.Functor
     * scala> import lamda.syntax.functor._
@@ -27,8 +26,7 @@ trait Functor[F[_]] {
     */
   def as[A, B](fa: F[A])(b: => B): F[B] = map(fa)(_ => b)
 
-  /**
-    * Example:
+  /** Example:
     * {{{
     * scala> import lamda.Functor
     * scala> import lamda.syntax.functor._
@@ -40,8 +38,7 @@ trait Functor[F[_]] {
     */
   def void[A](fa: F[A]): F[Unit] = as(fa)(())
 
-  /**
-    * Example:
+  /** Example:
     * {{{
     * scala> import lamda.Functor
     * scala> import lamda.syntax.functor._
@@ -53,7 +50,8 @@ trait Functor[F[_]] {
     */
   def lift[A, B](f: A => B): F[A] => F[B] = map(_)(f)
 
-  /** @see Alias of [[lamda.Functor.map]]
+  /** @see
+    *   Alias of [[lamda.Functor.map]]
     */
   final def fmap[A, B](fa: F[A])(f: A => B): F[B] = map(fa)(f)
 }
@@ -72,7 +70,9 @@ object Functor {
       final def fmap[B](f: A => B): F[B] = F.fmap(fa)(f)
     }
 
-    implicit class FunctorFunctionOps[F[_], A, B](f: A => B)(implicit F: Functor[F]) {
+    implicit class FunctorFunctionOps[F[_], A, B](f: A => B)(implicit
+        F: Functor[F],
+    ) {
       final def lift: F[A] => F[B] = F.lift(f)
     }
   }

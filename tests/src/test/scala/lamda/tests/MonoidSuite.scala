@@ -1,7 +1,6 @@
 package lamda.tests
 
 import lamda.Monoid
-import lamda.syntax.semigroup._
 import lamda.instances.all._
 
 class MonoidSuite extends munit.FunSuite {

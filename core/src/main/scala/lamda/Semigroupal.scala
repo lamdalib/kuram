@@ -1,8 +1,8 @@
 package lamda
 
 trait Semigroupal[F[_]] {
-  /**
-    * Example:
+
+  /** Example:
     * {{{
     * scala> import lamda.Semigroupal
     * scala> import lamda.syntax.semigroupal._
@@ -19,8 +19,10 @@ object Semigroupal {
   def apply[F[_]](implicit instance: Semigroupal[F]): Semigroupal[F] = instance
 
   private[lamda] trait Ops {
-    implicit class SemigroupalOps[F[_], A](fa: F[A])(implicit F: Semigroupal[F]) {
-        final def product[B](fb: F[B]): F[(A, B)] = F.product(fa, fb)
+    implicit class SemigroupalOps[F[_], A](fa: F[A])(implicit
+        F: Semigroupal[F],
+    ) {
+      final def product[B](fb: F[B]): F[(A, B)] = F.product(fa, fb)
     }
   }
 }

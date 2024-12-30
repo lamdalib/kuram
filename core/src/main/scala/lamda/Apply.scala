@@ -1,8 +1,8 @@
 package lamda
 
 trait Apply[F[_]] extends Functor[F] with Semigroupal[F] {
-  /**
-    * Example:
+
+  /** Example:
     * {{{
     * scala> import lamda.Apply
     * scala> import lamda.syntax.apply._
@@ -17,8 +17,7 @@ trait Apply[F[_]] extends Functor[F] with Semigroupal[F] {
     */
   def ap[A, B](fa: F[A])(ff: F[A => B]): F[B]
 
-  /**
-    * Example:
+  /** Example:
     * {{{
     * scala> import lamda.Apply
     * scala> import lamda.syntax.apply._
@@ -35,8 +34,7 @@ trait Apply[F[_]] extends Functor[F] with Semigroupal[F] {
   def ap2[A, B, Z](fa: F[A], fb: F[B])(ff: F[(A, B) => Z]): F[Z] =
     ap(fb)(ap(fa)(map(ff)(_.curried)))
 
-  /**
-    * Example:
+  /** Example:
     * {{{
     * scala> import lamda.Apply
     * scala> import lamda.syntax.apply._
@@ -49,8 +47,7 @@ trait Apply[F[_]] extends Functor[F] with Semigroupal[F] {
   override def product[A, B](fa: F[A], fb: F[B]): F[(A, B)] =
     ap(fb)(map(fa)(a => (b: B) => (a, b)))
 
-  /**
-    * Example:
+  /** Example:
     * {{{
     * scala> import lamda.Apply
     * scala> import lamda.syntax.apply._
@@ -60,11 +57,9 @@ trait Apply[F[_]] extends Functor[F] with Semigroupal[F] {
     * res0: Option[Int] = Some(2)
     * }}}
     */
-  def productR[A, B](fa: F[A], fb: F[B]): F[B] =
-    ap(fb)(as(fa)((b: B) => b))
+  def productR[A, B](fa: F[A], fb: F[B]): F[B] = ap(fb)(as(fa)((b: B) => b))
 
-  /**
-    * Example:
+  /** Example:
     * {{{
     * scala> import lamda.Apply
     * scala> import lamda.syntax.apply._
@@ -75,7 +70,7 @@ trait Apply[F[_]] extends Functor[F] with Semigroupal[F] {
     * }}}
     */
   def productL[A, B](fa: F[A], fb: F[B]): F[A] =
-    ap(fb)(map(fa)(a => (b: B) => a))
+    ap(fb)(map(fa)(a => (_: B) => a))
 }
 
 object Apply {
@@ -83,52 +78,50 @@ object Apply {
 
   private[lamda] trait Ops {
     implicit class ApplyOps[F[_], A](fa: F[A])(implicit F: Apply[F]) {
-        final def ap[B](ff: F[A => B]): F[B] = F.ap(fa)(ff)
+      final def ap[B](ff: F[A => B]): F[B] = F.ap(fa)(ff)
 
-        /** @see Alias of [[lamda.Apply.ap]]
-          *
-          * Example:
-          * {{{
-          * scala> import lamda.syntax.apply._
-          * scala> import lamda.instances.option._
-          *
-          * scala> Option(1) <*> Option((x: Int) => x + 1)
-          * res0: Option[Int] = Some(2)
-          * }}}
-          */
-        final def <*>[B](ff: F[A => B]): F[B] = F.ap(fa)(ff)
+      /** @see
+        *   Alias of [[lamda.Apply.ap]]
+        *
+        * Example:
+        * {{{
+        * scala> import lamda.syntax.apply._
+        * scala> import lamda.instances.option._
+        *
+        * scala> Option(1) <*> Option((x: Int) => x + 1)
+        * res0: Option[Int] = Some(2)
+        * }}}
+        */
+      final def <*>[B](ff: F[A => B]): F[B] = F.ap(fa)(ff)
 
-        final def ap2[B, Z](fb: F[B])(ff: F[(A, B) => Z]): F[Z] = F.ap2(fa, fb)(ff)
+      final def ap2[B, Z](fb: F[B])(ff: F[(A, B) => Z]): F[Z] = F
+        .ap2(fa, fb)(ff)
 
-        final def product[B](fb: F[B]): F[(A, B)] = F.product(fa, fb)
+      final def product[B](fb: F[B]): F[(A, B)] = F.product(fa, fb)
 
-        final def productR[B](fb: F[B]): F[B] = F.productR(fa, fb)
+      final def productR[B](fb: F[B]): F[B] = F.productR(fa, fb)
 
-        final def productL[B](fb: F[B]): F[A] = F.productL(fa, fb)
+      final def productL[B](fb: F[B]): F[A] = F.productL(fa, fb)
 
-        /** @see Alias of [[lamda.Apply.productR]]
-          *
-          * Example:
-          * {{{
-          * scala> import lamda.syntax.apply._
-          * scala> import lamda.instances.option._
-          *
-          * scala> Option(1) *> Option(2)
-          * res0: Option[Int] = Option(2)
-          */
-        final def *>[B](fb: F[B]): F[B] = F.productR(fa, fb)
+      /** @see
+        *   Alias of [[lamda.Apply.productR]]
+        *
+        * Example: {{{ scala> import lamda.syntax.apply._ scala> import
+        * lamda.instances.option._
+        *
+        * scala> Option(1) *> Option(2) res0: Option[Int] = Option(2)
+        */
+      final def *>[B](fb: F[B]): F[B] = F.productR(fa, fb)
 
-        /** @see Alias of [[lamda.Apply.productL]]
-          *
-          * Example:
-          * {{{
-          * scala> import lamda.syntax.apply._
-          * scala> import lamda.instances.option._
-          *
-          * scala> Option(1) <* Option(2)
-          * res0: Option[Int] = Some(1)
-          */
-        final def <*[B](fb: F[B]): F[A] = F.productL(fa, fb)
+      /** @see
+        *   Alias of [[lamda.Apply.productL]]
+        *
+        * Example: {{{ scala> import lamda.syntax.apply._ scala> import
+        * lamda.instances.option._
+        *
+        * scala> Option(1) <* Option(2) res0: Option[Int] = Some(1)
+        */
+      final def <*[B](fb: F[B]): F[A] = F.productL(fa, fb)
     }
   }
 }

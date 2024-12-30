@@ -1,7 +1,6 @@
 package lamda.tests
 
 import lamda.Functor
-import lamda.syntax.functor._
 import lamda.instances.all._
 
 class FunctorSuite extends munit.FunSuite {
@@ -29,7 +28,7 @@ class FunctorSuite extends munit.FunSuite {
   test("lift should create function operating on wrapped values") {
     val o1: Option[Int] = Some(1)
     val expected = Some(2)
-    val obtained = Functor[Option].lift((a: Int) => a+1)(o1)
+    val obtained = Functor[Option].lift((a: Int) => a + 1)(o1)
     assert(obtained == expected)
   }
 }

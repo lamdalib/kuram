@@ -1,7 +1,6 @@
 package lamda.tests
 
 import lamda.Semigroup
-import lamda.syntax.semigroup._
 import lamda.instances.all._
 
 class SemigroupSuite extends munit.FunSuite {

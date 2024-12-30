@@ -1,8 +1,8 @@
 package lamda
 
 trait FlatMap[F[_]] extends Apply[F] {
-  /**
-    * Example:
+
+  /** Example:
     * {{{
     * scala> import lamda.FlatMap
     * scala> import lamda.syntax.flatmap._
@@ -14,8 +14,7 @@ trait FlatMap[F[_]] extends Apply[F] {
     */
   def flatMap[A, B](fa: F[A])(f: A => F[B]): F[B]
 
-  /**
-    * Example:
+  /** Example:
     * {{{
     * scala> import lamda.FlatMap
     * scala> import lamda.syntax.flatmap._
@@ -27,8 +26,7 @@ trait FlatMap[F[_]] extends Apply[F] {
     */
   def flatten[A](ffa: F[F[A]]): F[A] = flatMap(ffa)(identity)
 
-  /**
-    * Example:
+  /** Example:
     * {{{
     * scala> import lamda.FlatMap
     * scala> import lamda.syntax.flatmap._
@@ -38,10 +36,9 @@ trait FlatMap[F[_]] extends Apply[F] {
     * res0: Option[Int] = Some(2)
     * }}}
     */
-  override def ap[A, B](fa: F[A])(ff: F[A => B]): F[B] =
-    flatMap(fa)(a => {
-      map(ff)(f => f(a))
-    })
+  override def ap[A, B](fa: F[A])(ff: F[A => B]): F[B] = flatMap(fa) { a =>
+    map(ff)(f => f(a))
+  }
 }
 
 object FlatMap {
@@ -53,7 +50,9 @@ object FlatMap {
       final def ap[B](ff: F[A => B]): F[B] = F.ap(fa)(ff)
     }
 
-    implicit class FlatMapFlattenOps[F[_], A](ffa: F[F[A]])(implicit F: FlatMap[F]) {
+    implicit class FlatMapFlattenOps[F[_], A](ffa: F[F[A]])(implicit
+        F: FlatMap[F],
+    ) {
       final def flatten: F[A] = F.flatten(ffa)
     }
   }

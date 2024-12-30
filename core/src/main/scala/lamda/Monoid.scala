@@ -1,14 +1,14 @@
 package lamda
 
 trait Monoid[T] extends Semigroup[T] {
-  /**
-    * Example:
+
+  /** Example:
     * {{{
     * scala> import lamda.Monoid
     * scala> import lamda.syntax.monoid._
     * scala> import lamda.instances.option._
-    * scala> import lamda.instances.int._ 
-    * scala> import lamda.instances.string._ 
+    * scala> import lamda.instances.int._
+    * scala> import lamda.instances.string._
     *
     * scala> Monoid[Option[Int]].empty
     * res0: Option[Int] = None

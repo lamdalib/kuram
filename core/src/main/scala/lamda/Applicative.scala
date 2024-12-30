@@ -1,8 +1,8 @@
 package lamda
 
 trait Applicative[F[_]] extends Apply[F] {
-  /**
-    * Example:
+
+  /** Example:
     * {{{
     * scala> import lamda.Applicative
     * scala> import lamda.syntax.applicative._
@@ -14,8 +14,7 @@ trait Applicative[F[_]] extends Apply[F] {
     */
   def pure[A](a: => A): F[A]
 
-  /**
-    * Example:
+  /** Example:
     * {{{
     * scala> import lamda.Applicative
     * scala> import lamda.syntax.applicative._
@@ -25,11 +24,9 @@ trait Applicative[F[_]] extends Apply[F] {
     * res0: Option[Int] = Some(2)
     * }}}
     */
-  override def map[A, B](fa: F[A])(f: A => B): F[B] =
-    ap(fa)(pure(f))
+  override def map[A, B](fa: F[A])(f: A => B): F[B] = ap(fa)(pure(f))
 
-  /**
-    * Example:
+  /** Example:
     * {{{
     * scala> import lamda.Applicative
     * scala> import lamda.syntax.applicative._
@@ -47,7 +44,9 @@ object Applicative {
   def apply[F[_]](implicit instance: Applicative[F]): Applicative[F] = instance
 
   private[lamda] trait Ops {
-    implicit class ApplicativeOps[F[_], A](fa: F[A])(implicit F: Applicative[F]) {
+    implicit class ApplicativeOps[F[_], A](fa: F[A])(implicit
+        F: Applicative[F],
+    ) {
       final def map[B](f: A => B): F[B] = F.map(fa)(f)
       final def map2[B, Z](fb: F[B])(f: (A, B) => Z): F[Z] = F.map2(fa, fb)(f)
     }

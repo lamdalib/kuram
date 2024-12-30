@@ -3,24 +3,26 @@ package lamda
 private[lamda] trait OptionInstances {
   implicit val optionMonad: Monad[Option] = new Monad[Option] {
     def pure[A](a: => A): Option[A] = Option(a)
-    def flatMap[A, B](fa: Option[A])(f: A => Option[B]): Option[B] = fa.flatMap(f)
+    def flatMap[A, B](fa: Option[A])(f: A => Option[B]): Option[B] = fa
+      .flatMap(f)
   }
 
-  implicit def optionMonoid[T: Monoid]: Monoid[Option[T]] = new Monoid[Option[T]] {
-    def empty: Option[T] = None
-    def combine(a: Option[T], b: Option[T]): Option[T] = (a, b) match {
-      case (Some(x), Some(y)) => Some(Monoid[T].combine(x, y))
-      case (Some(x), None) => Some(x)
-      case (None, Some(y)) => Some(y)
-      case (None, None) => None
+  implicit def optionMonoid[T: Monoid]: Monoid[Option[T]] =
+    new Monoid[Option[T]] {
+      def empty: Option[T] = None
+      def combine(a: Option[T], b: Option[T]): Option[T] = (a, b) match {
+        case (Some(x), Some(y)) => Some(Monoid[T].combine(x, y))
+        case (Some(x), None) => Some(x)
+        case (None, Some(y)) => Some(y)
+        case (None, None) => None
+      }
     }
-  }
 }
 
 private[lamda] trait IntInstances {
   implicit val intMonoid: Monoid[Int] = new Monoid[Int] {
     def empty: Int = 0
-    def combine(a: Int, b: Int): Int = a + b 
+    def combine(a: Int, b: Int): Int = a + b
   }
 }
 
@@ -43,10 +45,11 @@ private[lamda] trait ListInstances {
   }
 }
 
-private[lamda] trait AllInstances extends OptionInstances 
-  with IntInstances
-  with StringInstances
-  with ListInstances
+private[lamda] trait AllInstances
+    extends OptionInstances
+    with IntInstances
+    with StringInstances
+    with ListInstances
 
 package object instances {
   object option extends OptionInstances
