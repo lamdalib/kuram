@@ -57,7 +57,7 @@ lazy val core = project
     name := "core",
     moduleName := "lamda-core"
   )
-  .enablePlugins(ScalafixPlugin, GhpagesPlugin)
+  .enablePlugins(ScalafixPlugin, GhpagesPlugin, SiteScaladocPlugin)
 
 lazy val lamda = project
   .in(file("."))
