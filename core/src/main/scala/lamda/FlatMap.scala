@@ -48,6 +48,7 @@ object FlatMap {
     implicit class FlatMapOps[F[_], A](fa: F[A])(implicit F: FlatMap[F]) {
       final def flatMap[B](f: A => F[B]): F[B] = F.flatMap(fa)(f)
       final def ap[B](ff: F[A => B]): F[B] = F.ap(fa)(ff)
+      final def >>[B](fb: F[B]): F[B] = F.flatMap(fa)(_ => fb)
     }
 
     implicit class FlatMapFlattenOps[F[_], A](ffa: F[F[A]])(implicit
