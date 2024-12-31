@@ -2,6 +2,7 @@ package lamda.tests
 
 import lamda.Apply
 import lamda.instances.all._
+import lamda.syntax.apply._
 
 class ApplySuite extends munit.FunSuite {
   test(
@@ -36,18 +37,22 @@ class ApplySuite extends munit.FunSuite {
   }
 
   test("productR should return second wrapped value") {
-    val o1 = Some(1)
-    val o2 = Some(2)
+    val o1 = Option(1)
+    val o2 = Option(2)
     val expected = o2
     val obtained = Apply[Option].productR(o1, o2)
+    val obtained2 = o1 *> o2
     assert(obtained == expected)
+    assert(obtained2 == expected)
   }
 
   test("productL should return first wrapped value") {
-    val o1 = Some(1)
-    val o2 = Some(2)
+    val o1 = Option(1)
+    val o2 = Option(2)
     val expected = o1
     val obtained = Apply[Option].productL(o1, o2)
+    val obtained2 = o1 <* o2
     assert(obtained == expected)
+    assert(obtained2 == expected)
   }
 }
