@@ -7,6 +7,7 @@ private[lamda] trait ApplicativeOps extends Applicative.Ops
 private[lamda] trait FlatMapOps extends FlatMap.Ops
 private[lamda] trait MonadOps extends Monad.Ops
 private[lamda] trait SemigroupOps extends Semigroup.Ops
+private[lamda] trait SemigroupKOps extends SemigroupK.Ops
 
 private[lamda] trait AllOps
     extends FunctorOps
@@ -16,6 +17,7 @@ private[lamda] trait AllOps
     with FlatMapOps
     with MonadOps
     with SemigroupOps
+    with SemigroupKOps
 
 package object syntax {
   object functor extends FunctorOps
@@ -25,5 +27,6 @@ package object syntax {
   object flatmap extends FlatMapOps
   object monad extends MonadOps
   object semigroup extends SemigroupOps
+  object semigroupk extends SemigroupKOps
   object all extends AllOps
 }
