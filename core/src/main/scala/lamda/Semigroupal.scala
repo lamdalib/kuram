@@ -20,7 +20,7 @@ object Semigroupal {
 
   trait Ops {
     implicit class SemigroupalOps[F[_], A](fa: F[A])(implicit
-        F: Semigroupal[F],
+      F: Semigroupal[F]
     ) {
       final def product[B](fb: F[B]): F[(A, B)] = F.product(fa, fb)
     }

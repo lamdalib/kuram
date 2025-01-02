@@ -71,7 +71,7 @@ object Functor {
     }
 
     implicit class FunctorFunctionOps[F[_], A, B](f: A => B)(implicit
-        F: Functor[F],
+      F: Functor[F]
     ) {
       final def lift: F[A] => F[B] = F.lift(f)
     }

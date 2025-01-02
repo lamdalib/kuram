@@ -36,7 +36,7 @@ object Traverse {
     }
 
     implicit class TraverseSequenceOps[F[_], G[_]: Applicative, A](
-        fga: F[G[A]],
+      fga: F[G[A]]
     )(implicit F: Traverse[F]) {
       final def sequence: G[F[A]] = F.sequence(fga)
     }

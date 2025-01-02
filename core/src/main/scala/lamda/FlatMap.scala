@@ -52,7 +52,7 @@ object FlatMap {
     }
 
     implicit class FlatMapFlattenOps[F[_], A](ffa: F[F[A]])(implicit
-        F: FlatMap[F],
+      F: FlatMap[F]
     ) {
       final def flatten: F[A] = F.flatten(ffa)
     }
