@@ -43,7 +43,7 @@ trait Applicative[F[_]] extends Apply[F] {
 object Applicative {
   def apply[F[_]](implicit instance: Applicative[F]): Applicative[F] = instance
 
-  private[lamda] trait Ops {
+  trait Ops {
     implicit class ApplicativeOps[F[_], A](fa: F[A])(implicit
         F: Applicative[F],
     ) {
